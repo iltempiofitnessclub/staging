@@ -1,13 +1,12 @@
 /** @type {import('next').NextConfig} */
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+const isGitHub = process.env.NEXT_PUBLIC_ENV === "github";
 
 const nextConfig = {
   output: "export",
-  images: {
-    unoptimized: true,
-  },
-  basePath,
-  assetPrefix: basePath ? `${basePath}/` : "",
+  images: { unoptimized: true },
+  basePath: isGitHub ? "/staging" : "",
+  assetPrefix: isGitHub ? "/staging" : "",
 };
 
 export default nextConfig;
