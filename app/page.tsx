@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 type Hovered = "none" | "left" | "right";
 type Selected = "none" | "doghouse" | "tempio";
 
-export default function HomePage() {
+export default function Home() {
   const router = useRouter();
   const [hoveredBox, setHoveredBox] = useState<Hovered>("none");
   const [selected, setSelected] = useState<Selected>("none");
@@ -20,11 +20,8 @@ export default function HomePage() {
     setIsTransitioning(true);
 
     if (typeof document !== "undefined") {
-      if (target === "doghouse") {
-        document.body.style.backgroundColor = "#000000";
-      } else {
-        document.body.style.backgroundColor = "#ffffff";
-      }
+      document.body.style.backgroundColor =
+        target === "doghouse" ? "#000000" : "#ffffff";
     }
 
     setTimeout(() => {
