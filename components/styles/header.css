@@ -1,0 +1,61 @@
+.gym-header {
+  width: 100%;
+}
+
+.gym-header__inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gym-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gym-header__logo-img {
+  display: block;
+  height: 80px;
+  width: auto;
+}
+
+.gym-header__logo-text {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gym-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.gym-header__nav-item {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .gym-header__inner {
+    padding: 12px 16px;
+  }
+
+  .gym-header__nav {
+    gap: 16px;
+  }
+
+  .gym-header__nav-item {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+}

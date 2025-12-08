@@ -1,0 +1,74 @@
+.legal-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.legal-main {
+  flex: 1;
+  padding: 80px 16px 60px;
+}
+
+.legal-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 40px 64px;
+  color: #ffffff;
+}
+
+.tempio-page .legal-inner {
+  color: #222222;
+}
+
+.legal-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.legal-updated {
+  font-size: 0.9rem;
+  margin-bottom: 32px;
+}
+
+.legal-section {
+  margin-bottom: 32px;
+}
+
+.legal-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.legal-section p,
+.legal-section ul {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.legal-section ul {
+  padding-left: 20px;
+}
+
+.legal-section a {
+  text-decoration: underline;
+}
+
+.doghouse-page .legal-section a {
+  color: #ffd52e;
+}
+
+.tempio-page .legal-section a {
+  color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .legal-inner {
+    padding: 32px 20px 40px;
+    border-width: 4px;
+  }
+
+  .legal-title {
+    font-size: 2rem;
+  }
+}

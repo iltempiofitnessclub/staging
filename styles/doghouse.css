@@ -1,0 +1,601 @@
+.doghouse-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.doghouse-main {
+  flex: 1;
+}
+
+.doghouse-page .gym-header {
+  background-color: #050505;
+  border-bottom: 1px solid #111111;
+}
+
+.doghouse-page .gym-header__logo-text {
+  color: #ffffff;
+}
+
+.doghouse-page .gym-header__nav-item {
+  color: #ffffff;
+}
+
+.doghouse-page .gym-header__nav-item:hover {
+  color: #ffd52e;
+}
+
+.doghouse-hero .hero-container,
+.doghouse-section-inner,
+.doghouse-contact-strip-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.doghouse-hero.hero-section {
+  background-image: url("/hero-doghouse.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.doghouse-hero .hero-container {
+  padding-top: 120px;
+  padding-bottom: 100px;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.doghouse-hero .hero-text {
+  max-width: 420px;
+}
+
+.doghouse-hero .hero-line1 {
+  color: #ffffff;
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.doghouse-hero .hero-line2 {
+  color: #ffd52e;
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.doghouse-hero .hero-subtitle {
+  margin-top: 18px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 380px;
+  color: #d0d0d0;
+}
+
+.doghouse-hero .hero-btn {
+  margin-top: 30px;
+  background-color: #ffd52e;
+  color: #000000;
+}
+
+.doghouse-hero .hero-btn:hover {
+  background-color: #e5c221;
+}
+
+.doghouse-section {
+  padding: 60px 0;
+}
+
+.doghouse-section-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: #ffd52e;
+}
+
+.doghouse-section-text {
+  max-width: 650px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.doghouse-about {
+  background-color: #111111;
+}
+
+.doghouse-about-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.doghouse-about-text {
+  max-width: 650px;
+}
+
+.doghouse-about-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.doghouse-about-btn-wrapper .hero-btn {
+  font-size: 1rem;
+  padding: 14px 28px;
+}
+
+.hero-btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  margin-bottom: -2px;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background-color: #ffd52e;
+  color: #000;
+  font-weight: 700;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.doghouse-map-button-wrapper {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.doghouse-map-button {
+  background-color: #ffd52e;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 22px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doghouse-map-button-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.doghouse-courses {
+  background-color: #080808;
+}
+
+.doghouse-courses-wrapper {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.doghouse-courses-card {
+  background-color: #151515;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #222222;
+  max-width: 320px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.doghouse-courses-image img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.doghouse-courses-title {
+  text-align: center;
+  padding: 14px 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: transparent;
+}
+
+.doghouse-courses-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.doghouse-course-card {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.doghouse-course-image img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.doghouse-course-title {
+  text-align: center;
+  padding: 12px 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: transparent;
+}
+
+.doghouse-slider-arrow {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.8rem;
+  padding: 0 6px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.doghouse-slider-arrow:hover {
+  color: #ffd52e;
+}
+
+.doghouse-slider-dots {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.doghouse-slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background-color: #555;
+  border: none;
+  cursor: pointer;
+}
+
+.doghouse-slider-dot--active {
+  background-color: #ffd52e;
+}
+
+.doghouse-contact-strip {
+  background-color: #0e0e0e;
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.doghouse-contact-strip-inner {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.doghouse-contact-strip-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffd52e;
+  margin-bottom: 4px;
+}
+
+.doghouse-contact-strip-text {
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
+.doghouse-contact-strip-button {
+  background-color: #ffd52e;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 26px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  display: inline-flex; 
+  align-items: center;
+  gap: 12px;
+}
+
+.doghouse-contact-strip-button:hover {
+  background-color: #e5c221;
+}
+
+.doghouse-contact-strip-button-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.doghouse-events {
+  background-color: #2a2a2a;
+}
+
+.doghouse-events-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.doghouse-events-list {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.doghouse-events-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.doghouse-event-card {
+  background-color: #151515;
+  border-radius: 6px;
+  border: 1px solid #222222;
+  overflow: hidden;
+}
+
+.doghouse-event-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+.doghouse-event-layout {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: stretch;
+}
+
+.doghouse-event-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.doghouse-event-content {
+  padding: 12px 14px;
+  background: white;
+  color: black;
+}
+
+.doghouse-events-column-map {
+  display: flex;
+  flex-direction: column;
+}
+
+.doghouse-event-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.doghouse-event-date {
+  font-size: 0.8rem;
+  color: #252525;
+}
+
+.doghouse-map-wrapper {
+  margin-top: 16px;
+  flex: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #222222;
+  background-color: #111;
+}
+
+.doghouse-map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  border: 0;
+}
+
+.doghouse-map-button {
+  margin-top: 12px;
+  background-color: #ffd52e;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.doghouse-map-button:hover {
+  background-color: #e5c221;
+}
+
+.doghouse-reviews {
+  background-color: #080808;
+}
+
+.doghouse-reviews-wrapper {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.doghouse-reviews-wrapper.multiple {
+  margin-top: 24px;
+}
+
+.doghouse-review-card {
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #222222;
+  padding: 18px 20px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.doghouse-review-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  color: #000;
+  font-weight: 650;
+}
+
+.doghouse-review-name {
+  font-size: 0.85rem;
+  color: #ffd52e;
+  font-weight: 650;
+}
+
+.doghouse-page .main-footer {
+  background-color: #050505;
+  color: #ffffff;
+}
+
+.doghouse-page .main-footer a {
+  color: #ffffff;
+}
+
+.doghouse-page .main-footer a:hover {
+  color: #ffd52e;
+}
+
+.doghouse-card-animated {
+  animation: doghouse-slide-fade 0.35s ease-out;
+}
+
+@keyframes doghouse-slide-fade {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.doghouse-review-multi-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.doghouse-review-card.multi {
+  max-width: 230px;
+  width: 100%;
+  padding: 20px 18px;
+}
+
+@media (max-width: 900px) {
+  .doghouse-events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doghouse-contact-strip-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .doghouse-reviews-wrapper {
+    justify-content: center;
+  }
+
+  .doghouse-review-multi-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .doghouse-courses-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .doghouse-about-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .doghouse-about-btn-wrapper {
+    justify-content: flex-start;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .doghouse-section {
+    padding: 40px 0;
+  }
+
+  .doghouse-review-card.multi {
+    max-width: 260px;
+  }
+
+  .doghouse-hero .hero-container {
+    padding-top: 96px;
+    padding-bottom: 72px;
+  }
+
+  .doghouse-hero .hero-line1,
+  .doghouse-hero .hero-line2 {
+    font-size: 2.2rem;
+  }
+
+  .doghouse-courses-wrapper {
+    gap: 16px;
+  }
+
+  .doghouse-courses-image img {
+    height: 200px;
+  }
+
+  .doghouse-courses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doghouse-review-multi-container {
+    grid-template-columns: 1fr;
+  }
+}

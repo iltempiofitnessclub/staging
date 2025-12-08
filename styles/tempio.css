@@ -1,0 +1,569 @@
+.tempio-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f1f1;
+  color: #222222;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.tempio-main {
+  flex: 1;
+}
+
+.tempio-page .gym-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.tempio-page .gym-header__logo-text {
+  color: #c7322b;
+}
+
+.tempio-page .gym-header__nav-item {
+  color: #c7322b;
+}
+
+.tempio-page .gym-header__nav-item:hover {
+  color: #a7201a;
+}
+
+.tempio-hero .hero-container,
+.tempio-section-inner,
+.tempio-contact-strip-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.tempio-hero.hero-section {
+  background-image: url("/hero-tempio.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.tempio-hero .hero-container {
+  padding-top: 110px;
+  padding-bottom: 90px;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.tempio-hero .hero-text {
+  max-width: 420px;
+}
+
+.tempio-hero .hero-line1 {
+  color: #ffffff;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.tempio-hero .hero-line2 {
+  color: #ff4b3a;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.tempio-hero .hero-subtitle {
+  margin-top: 18px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 380px;
+  color: #f3f3f3;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.tempio-hero .hero-btn {
+  margin-top: 30px;
+  background-color: #c7322b;
+  color: #ffffff;
+}
+
+.tempio-contact-strip-button-icon,
+.tempio-map-button-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  filter: invert(1) brightness(200%);
+}
+
+.tempio-hero .hero-btn:hover {
+  background-color: #a7201a;
+}
+
+.tempio-section {
+  padding: 60px 0;
+}
+
+.tempio-section-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: #c7322b;
+}
+
+.tempio-section-text {
+  max-width: 650px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555555;
+}
+
+.tempio-about {
+  background-color: #f5f5f5;
+}
+
+.tempio-about-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.tempio-about-text {
+  max-width: 650px;
+}
+
+.tempio-classes {
+  background-color: #eeeeee;
+}
+
+.tempio-classes-wrapper {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.tempio-classes-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.tempio-class-card {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tempio-class-image img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.tempio-class-title {
+  text-align: center;
+  padding: 12px 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.tempio-slider-arrow {
+  background: transparent;
+  border: none;
+  color: #c7322b;
+  font-size: 1.8rem;
+  padding: 0 6px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.tempio-slider-arrow:hover {
+  color: #a7201a;
+}
+
+.tempio-contact-strip {
+  background-color: #ffffff;
+  border-top: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.tempio-contact-strip-inner {
+  padding: 32px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.tempio-contact-strip-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #c7322b;
+  margin-bottom: 4px;
+}
+
+.tempio-contact-strip-text {
+  font-size: 0.95rem;
+  color: #555555;
+}
+
+.tempio-contact-strip-button {
+  background-color: #c7322b;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 26px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tempio-contact-strip-button:hover {
+  background-color: #a7201a;
+}
+
+.tempio-contact-strip-button-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.tempio-events {
+  background-color: #f4f4f4;
+}
+
+.tempio-events-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.1fr;
+  gap: 32px;
+}
+
+.tempio-events-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.tempio-events-list {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tempio-event-card {
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+}
+
+.tempio-event-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: #c7322b;
+  color: #ffffff;
+  font-weight: 650;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+.tempio-event-layout {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: stretch;
+}
+
+.tempio-event-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tempio-event-content {
+  padding: 12px 14px;
+  background-color: #ffffff;
+  color: #222222;
+}
+
+.tempio-event-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.tempio-event-date {
+  font-size: 0.8rem;
+  color: #777777;
+}
+
+.tempio-events-column-map {
+  display: flex;
+  flex-direction: column;
+}
+
+.tempio-map-wrapper {
+  margin-top: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  flex: 1;
+}
+
+.tempio-map-wrapper iframe {
+  width: 100%;
+  height: 260px;
+  border: 0;
+}
+
+.tempio-map-button-wrapper {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tempio-map-button {
+  background-color: #c7322b;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tempio-map-button:hover {
+  background-color: #a7201a;
+}
+
+.tempio-map-button-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.tempio-reviews {
+  background-color: #ffffff;
+}
+
+.tempio-reviews-wrapper {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.tempio-reviews-wrapper.multiple {
+  margin-top: 24px;
+}
+
+.tempio-review-card {
+  background-color: #f4f4f4;
+  border-radius: 6px;
+  border: 1px solid #000000;
+  padding: 18px 20px;
+  max-width: 360px;
+  margin: 0 auto;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tempio-review-text {
+  font-size: 1.2rem;
+  font-weight: 650;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  color: #444444;
+}
+
+.tempio-review-name {
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: #c7322b;
+}
+
+.tempio-review-multi-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.tempio-review-card.multi {
+  max-width: 230px;
+  width: 100%;
+  padding: 20px 18px;
+}
+
+.tempio-slider-dots {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tempio-slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background-color: #bbbbbb;
+  border: none;
+  cursor: pointer;
+}
+
+.tempio-slider-dot--active {
+  background-color: #c7322b;
+}
+
+.tempio-card-animated {
+  animation: tempio-slide-fade 0.35s ease-out;
+}
+
+@keyframes tempio-slide-fade {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.tempio-page .main-footer {
+  background-color: #ffffff;
+  color: #444444;
+  border-top: 1px solid #e3e3e3;
+}
+
+.tempio-page .main-footer a {
+  color: #444444;
+}
+
+.tempio-page .main-footer a:hover {
+  color: #a7201a;
+}
+
+.tempio-about-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tempio-page .hero-btn.hero-btn--tempio {
+  background-color: #e02424;
+  color: #ffffff;
+}
+
+.tempio-page .hero-btn.hero-btn--tempio:hover {
+  background-color: #b41a1a;
+}
+
+.hero-btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+
+@media (max-width: 900px) {
+  .tempio-events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tempio-contact-strip-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tempio-reviews-wrapper {
+    justify-content: center;
+  }
+
+  .tempio-classes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tempio-about-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .tempio-about-btn-wrapper {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 1.5rem;
+  }
+
+  .tempio-review-multi-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .tempio-section {
+    padding: 40px 0;
+  }
+
+  .tempio-hero .hero-container {
+    padding-top: 90px;
+    padding-bottom: 70px;
+  }
+
+  .tempio-hero .hero-line1,
+  .tempio-hero .hero-line2 {
+    font-size: 2.2rem;
+  }
+
+  .tempio-classes-wrapper {
+    gap: 16px;
+  }
+
+  .tempio-classes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tempio-review-multi-container {
+    grid-template-columns: 1fr;
+  }
+}

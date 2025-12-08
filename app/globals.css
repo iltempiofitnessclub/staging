@@ -1,0 +1,117 @@
+.landing-home {
+  min-height: 100vh;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  overflow: hidden;
+  transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.4s ease;
+}
+
+.landing-home--transition-dog {
+  opacity: 0;
+  transform: scale(1.03);
+  background-color: #000000;
+}
+
+.landing-home--transition-tempio {
+  opacity: 0;
+  transform: scale(1.03);
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.landing-split-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  transition: all 0.5s ease;
+}
+
+.landing-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: flex 0.5s ease, opacity 0.4s ease, transform 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.landing-box h2 {
+  font-size: 2em;
+  margin: 0;
+  z-index: 2;
+}
+
+.landing-description {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 2;
+  padding: 20px;
+  max-width: 80%;
+}
+
+.landing-box.expanded .landing-description {
+  opacity: 1;
+}
+
+.landing-box.shrunk .landing-description {
+  opacity: 0;
+}
+
+.landing-box.expanded {
+  flex: 4;
+}
+
+.landing-box.shrunk {
+  flex: 1;
+}
+
+.landing-box--selected {
+  flex: 4 !important;
+  transform: scale(1.02);
+}
+
+.landing-box--hidden {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.landing-box-left {
+  background-image: url("https://images.unsplash.com/photo-1495555687398-3f50d6e79e1e?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+}
+
+.landing-box-right {
+  background-image: url("https://images.unsplash.com/photo-1623874514711-0f321325f318?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+}
+
+.landing-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .landing-box h2 {
+    font-size: 1.6em;
+  }
+
+  .landing-description {
+    font-size: 0.95em;
+  }
+}
