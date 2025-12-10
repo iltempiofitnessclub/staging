@@ -44,7 +44,7 @@ export default function TempioPage() {
           titleLine2="TRAIN HARD"
           subtitle="Allenamenti funzionali, sala pesi e corsi di gruppo pensati per aumentare forza, resistenza e benessere a 360°."
           buttonLabel="RICHIEDI UNA PROVA GRATUITA"
-          buttonHref="tel:+390805301234"
+          buttonHref="/tempio/contatti"
         />
 
         <section id="chi-siamo" className="tempio-section tempio-about">
@@ -258,14 +258,17 @@ function ContactStrip() {
             Il Tempio Fitness Club è in via V. Maiorano, 27 – 70128 Bari (BA)
           </p>
         </div>
-        <button className="tempio-contact-strip-button">
-          <img
-            src="/mark-email.svg"
-            alt=""
-            className="tempio-contact-strip-button-icon"
-          />
-          <span>CONTATTACI VIA EMAIL</span>
-        </button>
+
+        <Link href="/tempio/contatti">
+          <button className="tempio-contact-strip-button">
+            <img
+              src="/mark-email.svg"
+              alt=""
+              className="tempio-contact-strip-button-icon"
+            />
+            <span>CONTATTACI VIA EMAIL</span>
+          </button>
+        </Link>
       </div>
     </section>
   );
@@ -331,16 +334,21 @@ export function EventsAndMapSection() {
               loading="lazy"
             ></iframe>
           </div>
-          <div className="tempio-map-button-wrapper">
-            <button className="tempio-map-button">
-              <img
-                src="/pin-map.svg"
-                alt=""
-                className="tempio-map-button-icon"
-              />
-              <span>APRI SU MAPS</span>
-            </button>
-          </div>
+            <div className="tempio-map-button-wrapper">
+              <a
+                href="https://www.google.com/maps?q=41.1486,16.7602"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tempio-map-button"
+              >
+                <img
+                  src="/pin-map.svg"
+                  alt=""
+                  className="tempio-map-button-icon"
+                />
+                <span>APRI SU MAPS</span>
+              </a>
+            </div>
         </div>
       </div>
     </section>

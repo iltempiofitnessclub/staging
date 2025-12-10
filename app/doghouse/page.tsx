@@ -44,7 +44,7 @@ export default function DoghousePage() {
           titleLine2="TRAIN HARD"
           subtitle="DogHouse è una palestra di boxe a Bari dove formiamo atleti, giovani e adulti attraverso tecnica, disciplina e divertimento."
           buttonLabel="RICHIEDI UNA PROVA GRATUITA"
-          buttonHref="tel:+390805301234"
+          buttonHref="/doghouse/contatti"
         />
 
         <section id="chi-siamo" className="doghouse-section doghouse-about">
@@ -244,14 +244,16 @@ function ContactStrip() {
             DogHouse è in via V. Maiorano, 24 – 70128 Bari (BA)
           </p>
         </div>
-        <button className="doghouse-contact-strip-button">
-          <img
-            src="/mark-email.svg"
-            alt=""
-            className="doghouse-contact-strip-button-icon"
-          />
-          <span>CONTATTACI VIA EMAIL</span>
-        </button>
+          <Link href="/doghouse/contatti">
+            <button className="doghouse-contact-strip-button">
+              <img
+                src="/mark-email.svg"
+                alt=""
+                className="doghouse-contact-strip-button-icon"
+              />
+              <span>CONTATTACI VIA EMAIL</span>
+            </button>
+          </Link>
       </div>
     </section>
   );
@@ -319,14 +321,19 @@ export function EventsAndMapSection() {
           </div>
 
           <div className="doghouse-map-button-wrapper">
-            <button className="doghouse-map-button">
+            <a
+              href="https://www.google.com/maps?q=41.1486,16.7602"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="doghouse-map-button"
+            >
               <img
                 src="/pin-map.svg"
                 alt=""
                 className="doghouse-map-button-icon"
               />
               <span>APRI SU MAPS</span>
-            </button>
+            </a>
           </div>
         </div>
       </div>
