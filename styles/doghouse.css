@@ -599,3 +599,207 @@
     grid-template-columns: 1fr;
   }
 }
+
+.doghouse-contact-main {
+  background-color: #262626;
+}
+
+.doghouse-contact-section {
+  padding: 40px 24px 60px;
+}
+
+.doghouse-contact-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #000000;
+  border: 1px solid #ffffff;
+}
+
+.doghouse-contact-hero {
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid #ffffff;
+  height: 100%;
+  min-height: 500px;
+  display: flex;
+}
+
+
+.doghouse-contact-hero-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.doghouse-contact-hero-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.doghouse-contact-hero-line1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.doghouse-contact-hero-line2 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffd52e;
+  letter-spacing: 0.05em;
+  margin-top: 0;
+}
+
+.doghouse-contact-form-wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+.doghouse-contact-form-card {
+  flex: 1;
+  background-color: #000000;
+  padding: 32px 50px 50px;
+}
+
+.doghouse-contact-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffd52e;
+  margin-bottom: 8px;
+}
+
+.doghouse-contact-subtitle {
+  font-size: 0.9rem;
+  color: #d0d0d0;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.doghouse-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.doghouse-form-field label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+  color: #f0f0f0;
+}
+
+.doghouse-form-required {
+  color: #ff4b3a;
+  margin-left: 2px;
+}
+
+.doghouse-form-field input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 2px;
+  border: 1px solid #444444;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 0.9rem;
+}
+
+.doghouse-form-field input:focus {
+  outline: none;
+  border-color: #ffd52e;
+}
+
+.doghouse-form-privacy {
+  margin-top: 6px;
+}
+
+.doghouse-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: #d0d0d0;
+}
+
+.doghouse-checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.doghouse-checkbox-custom {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  border: 1px solid #ffd52e;
+  margin-top: 3px;
+  flex-shrink: 0;
+  background-color: transparent;
+}
+
+.doghouse-checkbox-label input:checked + .doghouse-checkbox-custom {
+  background-color: #ffd52e;
+}
+
+.doghouse-checkbox-text {
+  line-height: 1.4;
+}
+
+.doghouse-form-footer {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.doghouse-form-link {
+  font-size: 0.78rem;
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.doghouse-form-submit {
+  background-color: #ffd52e;
+  color: #000;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 26px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.doghouse-form-submit:hover {
+  background-color: #e5c221;
+}
+
+@media (max-width: 900px) {
+  .doghouse-contact-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .doghouse-contact-hero {
+    border-right: none;
+    border-bottom: 1px solid #ffffff;
+  }
+
+  .doghouse-contact-hero-text {
+    left: 8%;
+    top: auto;
+    bottom: 12%;
+    transform: none;
+  }
+}
