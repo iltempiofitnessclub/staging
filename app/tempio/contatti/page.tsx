@@ -24,7 +24,6 @@ export default function TempioContactPage() {
 
       <main className="tempio-contact-main">
         <div className="tempio-contact-inner">
-          {/* Colonna immagine */}
           <div className="tempio-contact-hero">
             <div className="tempio-contact-hero-image">
               <img src="/hero-tempio.jpg" alt="Tempio Fitness Club" />
@@ -35,7 +34,6 @@ export default function TempioContactPage() {
             </div>
           </div>
 
-          {/* Colonna form */}
           <div className="tempio-contact-form-wrapper">
             <div className="tempio-contact-form-card">
               <h1 className="tempio-contact-title">
