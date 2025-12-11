@@ -1,49 +1,37 @@
 const fs = require("fs");
 const path = require("path");
 
-const OUT_DIR = path.join(__dirname, "..", "out");
+const OUTPUT_DIR = path.join(__dirname, "..", "out");
 const PREFIX = "/staging";
 
-function walk(dir, cb) {
+function processFile(filePath) {
+  let content = fs.readFileSync(filePath, "utf8");
+
+  content = content.replace(
+    /(src|href)="\/(?!staging\/)/g,
+    `$1="${PREFIX}/`
+  );
+
+  fs.writeFileSync(filePath, content, "utf8");
+  console.log("✔ patched", filePath);
+}
+
+function walk(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
+    const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      walk(fullPath, cb);
-    } else {
-      cb(fullPath);
+      walk(full);
+    } else if (entry.isFile() && full.endsWith(".html")) {
+      processFile(full);
     }
   }
 }
 
-walk(OUT_DIR, (filePath) => {
-  if (
-    !filePath.endsWith(".html") &&
-    !filePath.endsWith(".css") &&
-    !filePath.endsWith(".js")
-  ) {
-    return;
-  }
+if (!fs.existsSync(OUTPUT_DIR)) {
+  console.error("Cartella 'out' non trovata");
+  process.exit(1);
+}
 
-  let content = fs.readFileSync(filePath, "utf8");
-
-  content = content.replace(
-    /(href=")\/(?!staging\/)/g,
-    `$1${PREFIX.replace("/", "")}/`
-  );
-
-  content = content.replace(
-    /(src=")\/(?!staging\/)/g,
-    `$1${PREFIX.replace("/", "")}/`
-  );
-
-  content = content.replace(
-    /(url\(")\/(?!staging\/)/g,
-    `$1${PREFIX.replace("/", "")}/`
-  );
-
-  fs.writeFileSync(filePath, content, "utf8");
-  console.log(`Rewritten paths in ${filePath}`);
-});
-
-console.log("ok /staging a href/src/url()");
+walk(OUTPUT_DIR);
+console.log("Prefisso /staging aggiunto a tutti gli src/href assoluti.");
