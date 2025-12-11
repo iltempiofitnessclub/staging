@@ -37,12 +37,6 @@
   padding: 0 24px;
 }
 
-.tempio-hero.hero-section {
-  background-image: url("/hero-tempio.jpg");
-  background-size: cover;
-  background-position: center;
-}
-
 .tempio-hero .hero-container {
   padding-top: 110px;
   padding-bottom: 90px;

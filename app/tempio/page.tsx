@@ -40,6 +40,7 @@ export default function TempioPage() {
       <main className="tempio-main">
         <Hero
           className="tempio-hero"
+          backgroundImage="/hero-tempio.jpg"
           titleLine1="BUILD STRENGTH"
           titleLine2="TRAIN HARD"
           subtitle="Allenamenti funzionali, sala pesi e corsi di gruppo pensati per aumentare forza, resistenza e benessere a 360°."
