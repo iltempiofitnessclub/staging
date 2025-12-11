@@ -1,6 +1,7 @@
 type HeroProps = {
   titleLine1: string;
   titleLine2: string;
+  backgroundImage?: string;
   subtitle?: string;
   buttonLabel?: string;
   buttonHref?: string;
@@ -8,24 +9,28 @@ type HeroProps = {
 };
 
 export function Hero({
+  className = "",
+  backgroundImage,
   titleLine1,
   titleLine2,
   subtitle,
-  buttonLabel = "GET STARTED",
-  buttonHref = "#",
-  className,
+  buttonLabel,
+  buttonHref,
 }: HeroProps) {
   return (
-    <section className={`hero-section ${className ?? ""}`}>
+    <section
+      className={`hero-section ${className}`}
+      style={{
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : undefined,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="hero-container">
         <div className="hero-text">
-          <h1 className="hero-heading">
-            <span className="hero-line1">{titleLine1}</span>
-            <br />
-            <span className="hero-line2">{titleLine2}</span>
-          </h1>
-
-          {subtitle && <p className="hero-subtitle">{subtitle}</p>}
+          <h1 className="hero-line1">{titleLine1}</h1>
+          <h1 className="hero-line2">{titleLine2}</h1>
+          <p className="hero-subtitle">{subtitle}</p>
 
           <a href={buttonHref} className="hero-btn">
             {buttonLabel}

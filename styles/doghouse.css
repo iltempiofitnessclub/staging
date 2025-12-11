@@ -36,12 +36,6 @@
   padding: 0 24px;
 }
 
-.doghouse-hero.hero-section {
-  background-image: url("/hero-doghouse.jpg");
-  background-size: cover;
-  background-position: center;
-}
-
 .doghouse-hero .hero-container {
   padding-top: 120px;
   padding-bottom: 100px;
