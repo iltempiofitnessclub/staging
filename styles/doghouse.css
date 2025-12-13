@@ -73,6 +73,12 @@
   color: #d0d0d0;
 }
 
+.doghouse-hero.hero-section {
+  background-image: url("/hero-doghouse.jpg");
+  background-size:contain;
+  background-position: center;
+} 
+
 .doghouse-hero .hero-btn {
   margin-top: 30px;
   background-color: #ffd52e;
