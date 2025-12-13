@@ -2,12 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 
-export type NavItem = {
-  label: string;
-  href: string;
-};
+export type NavItem = { label: string; href: string };
 
 type MainHeaderProps = {
   logoSrc?: string;
@@ -24,15 +20,10 @@ export function MainHeader({
   navItems,
   className,
 }: MainHeaderProps) {
-  const pathname = usePathname();
+  const isDoghouse = (className ?? "").includes("doghouse");
+  const isTempio = (className ?? "").includes("tempio");
 
-  // 🔥 determina automaticamente la "home" corretta
-  const homeHref =
-    pathname?.startsWith("/doghouse")
-      ? "/doghouse"
-      : pathname?.startsWith("/tempio")
-      ? "/tempio"
-      : "/";
+  const homeHref = isDoghouse ? "/doghouse" : isTempio ? "/tempio" : "/";
 
   return (
     <header className={`gym-header ${className ?? ""}`}>
@@ -55,11 +46,7 @@ export function MainHeader({
 
         <nav className="gym-header__nav">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="gym-header__nav-item"
-            >
+            <Link key={item.href} href={item.href} className="gym-header__nav-item">
               {item.label}
             </Link>
           ))}
