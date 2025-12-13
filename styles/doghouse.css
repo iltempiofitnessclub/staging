@@ -47,6 +47,7 @@
 
 .doghouse-hero .hero-text {
   max-width: 420px;
+  margin-bottom: 345px;
 }
 
 .doghouse-hero .hero-line1 {
@@ -497,7 +498,23 @@
 }
 
 .doghouse-card-animated {
-  animation: doghouse-slide-fade 0.35s ease-out;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.doghouse-card-animated--visible {
+  animation: doghouse-fade-up 0.4s ease-out forwards;
+}
+
+@keyframes doghouse-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes doghouse-slide-fade {
@@ -723,12 +740,17 @@
   gap: 10px;
   font-size: 0.8rem;
   color: #d0d0d0;
+  cursor: pointer;
+  position: relative;
 }
 
 .doghouse-checkbox-label input {
   position: absolute;
   opacity: 0;
   pointer-events: none;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 .doghouse-checkbox-custom {
@@ -767,7 +789,7 @@
   background-color: #ffd52e;
   color: #000;
   border: none;
-  border-radius: 2px;
+  border-radius: 6px;
   padding: 10px 26px;
   font-size: 0.8rem;
   font-weight: 800;

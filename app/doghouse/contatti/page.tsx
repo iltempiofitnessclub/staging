@@ -90,7 +90,8 @@ export default function DoghouseContactPage() {
                       <span className="doghouse-checkbox-custom" />
                       <span className="doghouse-checkbox-text">
                         Ho preso visione dell&apos;informativa privacy e presto
-                        il consenso al trattamento dei miei dati personali.
+                        il consenso al trattamento dei miei dati personali
+                        <span className="doghouse-form-required">*</span>
                       </span>
                     </label>
                   </div>

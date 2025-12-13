@@ -54,6 +54,7 @@
 
 .tempio-hero .hero-text {
   max-width: 420px;
+  margin-bottom: 345px;
 }
 
 .tempio-hero .hero-line1 {
@@ -741,7 +742,7 @@
   background-color: #e02424;
   color: #ffffff;
   border: none;
-  border-radius: 2px;
+  border-radius: 6px;
   padding: 10px 26px;
   font-size: 0.8rem;
   font-weight: 800;

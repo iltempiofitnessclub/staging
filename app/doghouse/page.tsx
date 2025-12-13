@@ -127,6 +127,51 @@ const COURSES: Course[] = [
   { id: 5, title: "PREPARAZIONE ATLETICA", imageSrc: "/course-athletic.jpg" },
 ];
 
+function AnimatedCard({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <article
+      ref={ref as React.RefObject<HTMLElement>}
+      className={
+        "doghouse-card-animated" +
+        (isVisible ? " doghouse-card-animated--visible" : "") +
+        (className ? ` ${className}` : "")
+      }
+    >
+      {children}
+    </article>
+  );
+}
+
 function CoursesSection() {
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
@@ -208,15 +253,15 @@ function CoursesSection() {
             onTouchEnd={handleTouchEnd}
           >
             {visibleCourses.map((course) => (
-              <article
+              <AnimatedCard
                 key={course.id}
-                className="doghouse-course-card doghouse-card-animated"
+                className="doghouse-course-card"
               >
                 <div className="doghouse-course-image">
                   <img src={course.imageSrc} alt={course.title} />
                 </div>
                 <h3 className="doghouse-course-title">{course.title}</h3>
-              </article>
+              </AnimatedCard>
             ))}
           </div>
 
@@ -291,9 +336,9 @@ export function EventsAndMapSection() {
           <h2 className="doghouse-section-title">I NOSTRI EVENTI</h2>
           <div className="doghouse-events-list">
             {events.map((ev) => (
-              <article
+              <AnimatedCard
                 key={ev.id}
-                className="doghouse-event-card doghouse-card-animated"
+                className="doghouse-event-card"
               >
                 <div className="doghouse-event-layout">
                   <div className="doghouse-event-image">
@@ -305,7 +350,7 @@ export function EventsAndMapSection() {
                     <p className="doghouse-event-date">{ev.date}</p>
                   </div>
                 </div>
-              </article>
+              </AnimatedCard>
             ))}
           </div>
         </div>
@@ -373,6 +418,21 @@ const REVIEWS: Review[] = [
     text: "Struttura perfetta, allenatori molto preparati.",
     name: "Sara Nitti",
   },
+  {
+    id: 6,
+    text: "Nunc aliquam phasellus molestie blandit. Nisi, amet, id maecenas diam.",
+    name: "Mario Rossi",
+  },
+  {
+    id: 7,
+    text: "Allenatori fantastici, ambiente motivante e inclusivo.",
+    name: "Giulia Bianchi",
+  },
+  {
+    id: 8,
+    text: "La migliore palestra di boxe di Bari, senza dubbio.",
+    name: "Luca Verdi",
+  }
 ];
 
 function ReviewsSection() {
