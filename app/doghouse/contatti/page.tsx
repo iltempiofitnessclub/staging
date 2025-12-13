@@ -35,7 +35,7 @@ export default function DoghouseContactPage() {
           <div className="doghouse-contact-inner">
             <div className="doghouse-contact-hero">
               <div className="doghouse-contact-hero-image">
-                <img src="/hero-doghouse.jpg" alt="DogHouse Boxing" />
+                <img src="/IMG_0204.jpg" alt="DogHouse Boxing" />
               </div>
               <div className="doghouse-contact-hero-text">
                 <p className="doghouse-contact-hero-line1">BUILD STRONG</p>

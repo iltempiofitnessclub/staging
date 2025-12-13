@@ -914,3 +914,78 @@
     height: 18px;
   }
 }
+
+@media (max-width: 600px) {
+
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .tempio-page {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  img, svg, iframe {
+    max-width: 100%;
+  }
+
+  .tempio-page .gym-header {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .tempio-page .gym-header__inner {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+  }
+
+  .tempio-page .gym-header__brand {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  .tempio-page .gym-header__logo-img {
+    height: 56px;
+    width: auto;
+  }
+
+  .tempio-page .gym-header__nav {
+    flex: 0 0 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tempio-page .gym-header__nav-item {
+    display: none;
+  }
+
+  .tempio-page .gym-header__nav-item:first-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    white-space: nowrap;
+    max-width: 100%;
+    line-height: 1;
+
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    padding: 10px 10px;
+  }
+}
