@@ -455,6 +455,23 @@
 
 .tempio-card-animated {
   animation: tempio-slide-fade 0.35s ease-out;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.tempio-card-animated--visible {
+  animation: tempio-fade-up 0.4s ease-out forwards;
+}
+
+@keyframes tempio-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes tempio-slide-fade {

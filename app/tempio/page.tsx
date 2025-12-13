@@ -141,6 +141,52 @@ const CLASSES: ClassItem[] = [
   },
 ];
 
+function AnimatedCard({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <article
+      ref={ref as React.RefObject<HTMLElement>}
+      className={
+        "tempio-card-animated" +
+        (isVisible ? " tempio-card-animated--visible" : "") +
+        (className ? ` ${className}` : "")
+      }
+    >
+      {children}
+    </article>
+  );
+}
+
+
 function ClassesSection() {
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
@@ -222,15 +268,15 @@ function ClassesSection() {
             onTouchEnd={handleTouchEnd}
           >
             {visibleClasses.map((cls) => (
-              <article
+              <AnimatedCard
                 key={cls.id}
-                className="tempio-class-card tempio-card-animated"
+                className="tempio-class-card"
               >
                 <div className="tempio-class-image">
                   <img src={cls.imageSrc} alt={cls.title} />
                 </div>
                 <h3 className="tempio-class-title">{cls.title}</h3>
-              </article>
+              </AnimatedCard>
             ))}
           </div>
 
@@ -306,9 +352,9 @@ export function EventsAndMapSection() {
           <h2 className="tempio-section-title">I NOSTRI EVENTI</h2>
           <div className="tempio-events-list">
             {events.map((ev) => (
-              <article
+              <AnimatedCard
                 key={ev.id}
-                className="tempio-event-card tempio-card-animated"
+                className="tempio-event-card"
               >
                 <div className="tempio-event-layout">
                   <div className="tempio-event-image">
@@ -320,7 +366,7 @@ export function EventsAndMapSection() {
                     <p className="tempio-event-date">{ev.date}</p>
                   </div>
                 </div>
-              </article>
+              </AnimatedCard>
             ))}
           </div>
         </div>
@@ -444,15 +490,15 @@ function ReviewsSection() {
 
           <div className="tempio-review-multi-container">
             {getVisibleReviews().map((review) => (
-              <article
+              <AnimatedCard
                 key={review.id}
-                className="tempio-review-card multi tempio-card-animated"
+                className="tempio-review-card multi"
               >
                 <p className="tempio-review-text">{review.text}</p>
                 <p className="tempio-review-name">
                   ★ ★ ★ ★ ★ – {review.name}
                 </p>
-              </article>
+              </AnimatedCard>
             ))}
           </div>
 

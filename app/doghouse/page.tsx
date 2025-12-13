@@ -490,12 +490,15 @@ function ReviewsSection() {
 
           <div className="doghouse-review-multi-container">
             {getVisibleReviews().map((review) => (
-              <article key={review.id} className="doghouse-review-card multi">
+              <AnimatedCard
+                key={review.id}
+                className="doghouse-review-card multi"
+              >
                 <p className="doghouse-review-text">{review.text}</p>
                 <p className="doghouse-review-name">
                   ★ ★ ★ ★ ★ – {review.name}
                 </p>
-              </article>
+              </AnimatedCard>
             ))}
           </div>
 
