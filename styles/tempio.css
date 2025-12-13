@@ -867,42 +867,30 @@
 @media (max-width: 600px) {
 
   html,
-  body {
-    overflow-x: hidden;
-  }
-
+  body,
   .tempio-page {
     overflow-x: hidden;
   }
 
   .tempio-page .gym-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: #050505;
-    border-bottom: 1px solid #111;
-  }
-
-  .tempio-page .gym-header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 16px;
+    position: relative;
   }
 
   .tempio-page .gym-header__nav {
-    display: none !important;
+    display: flex;
+    gap: 16px;
   }
 
-  .tempio-page .gym-header__logo-img {
-    width: 56px;
-    height: auto;
+  .tempio-page .gym-header__nav-item {
+    display: none;
   }
 
-  .tempio-main {
-    padding-top: 80px;
+  .tempio-page .gym-header__nav-item:first-child {
+    display: inline-flex;
+  }
+
+  .tempio-page .gym-header__nav-item {
+    font-size: 0.85rem;
   }
 }
 

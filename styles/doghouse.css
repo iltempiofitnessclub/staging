@@ -1020,42 +1020,30 @@ html.doghouse-modal-open body {
 @media (max-width: 600px) {
 
   html,
-  body {
-    overflow-x: hidden;
-  }
-
+  body,
   .doghouse-page {
     overflow-x: hidden;
   }
 
   .doghouse-page .gym-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: #050505;
-    border-bottom: 1px solid #111;
-  }
-
-  .doghouse-page .gym-header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 16px;
+    position: relative;
   }
 
   .doghouse-page .gym-header__nav {
-    display: none !important;
+    display: flex;
+    gap: 16px;
   }
 
-  .doghouse-page .gym-header__logo-img {
-    width: 56px;
-    height: auto;
+  .doghouse-page .gym-header__nav-item {
+    display: none;
   }
 
-  .doghouse-main {
-    padding-top: 80px;
+  .doghouse-page .gym-header__nav-item:first-child {
+    display: inline-flex;
+  }
+
+  .doghouse-page .gym-header__nav-item {
+    font-size: 0.85rem;
   }
 }
 
