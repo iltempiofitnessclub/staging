@@ -920,3 +920,104 @@
     flex-shrink: 0;
   }
 }
+
+/* rende cliccabile la card senza modificarla */
+.doghouse-card-clickable { cursor: pointer; }
+.doghouse-card-clickable:active { transform: translateY(1px); }
+
+/* blocco scroll quando modal aperto */
+html.doghouse-modal-open,
+html.doghouse-modal-open body {
+  overflow: hidden;
+}
+
+/* overlay */
+.doghouse-modal-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 99999;
+}
+
+/* modal box */
+.doghouse-modal{
+  width: min(720px, 100%);
+  background: #0b0b0b;
+  color: #fff;
+  border: 1px solid #1f1f1f;
+  border-radius: 12px;
+  padding: 18px 18px 16px;
+  position: relative;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+/* close */
+.doghouse-modal-close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #2a2a2a;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+.doghouse-modal-close:hover{
+  border-color: #ffd52e;
+  color: #ffd52e;
+}
+
+.doghouse-modal-title{
+  margin: 0 40px 10px 0;
+  color: #ffd52e;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.doghouse-modal-desc{
+  margin: 0 0 14px;
+  color: #d0d0d0;
+  line-height: 1.6;
+}
+
+.doghouse-modal-section{
+  border-top: 1px solid #1d1d1d;
+  padding-top: 12px;
+}
+
+.doghouse-modal-subtitle{
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.doghouse-modal-schedule{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.doghouse-modal-schedule-row{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid #222;
+  border-radius: 10px;
+  background: #111;
+}
+.doghouse-modal-schedule-row span:last-child{
+  color: #ffd52e;
+  font-weight: 800;
+}

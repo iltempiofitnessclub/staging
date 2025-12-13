@@ -130,9 +130,11 @@ const COURSES: Course[] = [
 function AnimatedCard({
   className = "",
   children,
+  onClick,
 }: {
   className?: string;
   children: React.ReactNode;
+  onClick?: () => void;
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = React.useRef<HTMLElement | null>(null);
@@ -154,17 +156,18 @@ function AnimatedCard({
     );
 
     observer.observe(node);
-
     return () => observer.disconnect();
   }, []);
 
   return (
     <article
       ref={ref as React.RefObject<HTMLElement>}
+      onClick={onClick}
       className={
         "doghouse-card-animated" +
         (isVisible ? " doghouse-card-animated--visible" : "") +
-        (className ? ` ${className}` : "")
+        (className ? ` ${className}` : "") +
+        (onClick ? " doghouse-card-clickable" : "")
       }
     >
       {children}
@@ -176,6 +179,7 @@ function CoursesSection() {
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   useEffect(() => {
     const updateVisibleCount = () => {
@@ -188,6 +192,23 @@ function CoursesSection() {
     window.addEventListener("resize", updateVisibleCount);
     return () => window.removeEventListener("resize", updateVisibleCount);
   }, []);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedCourse(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (selectedCourse) root.classList.add("doghouse-modal-open");
+    else root.classList.remove("doghouse-modal-open");
+
+    return () => root.classList.remove("doghouse-modal-open");
+  }, [selectedCourse]);
 
   const prev = () => {
     setStartIndex((prevIndex) => (prevIndex - 1 + COURSES.length) % COURSES.length);
@@ -214,6 +235,7 @@ function CoursesSection() {
 
   const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     if (touchStartX === null) return;
+
     const diff = e.changedTouches[0].clientX - touchStartX;
     const threshold = 40;
 
@@ -232,7 +254,10 @@ function CoursesSection() {
           <button
             type="button"
             className="doghouse-slider-arrow doghouse-slider-arrow--left"
-            onClick={prev}
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
             aria-label="Corsi precedenti"
           >
             ‹
@@ -244,7 +269,11 @@ function CoursesSection() {
             onTouchEnd={handleTouchEnd}
           >
             {visibleCourses.map((course) => (
-              <AnimatedCard key={course.id} className="doghouse-course-card">
+              <AnimatedCard
+                key={course.id}
+                className="doghouse-course-card"
+                onClick={() => setSelectedCourse(course)}
+              >
                 <div className="doghouse-course-image">
                   <img src={course.imageSrc} alt={course.title} />
                 </div>
@@ -256,12 +285,16 @@ function CoursesSection() {
           <button
             type="button"
             className="doghouse-slider-arrow doghouse-slider-arrow--right"
-            onClick={next}
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
             aria-label="Corsi successivi"
           >
             ›
           </button>
         </div>
+
         <div className="doghouse-slider-dots doghouse-slider-dots--courses">
           {COURSES.map((_, i) => (
             <button
@@ -277,6 +310,61 @@ function CoursesSection() {
           ))}
         </div>
       </div>
+
+      {selectedCourse && (
+        <div
+          className="doghouse-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) setSelectedCourse(null);
+          }}
+        >
+          <div className="doghouse-modal">
+            <button
+              type="button"
+              className="doghouse-modal-close"
+              onClick={() => setSelectedCourse(null)}
+              aria-label="Chiudi"
+            >
+              ✕
+            </button>
+
+            <h3 className="doghouse-modal-title">{selectedCourse.title}</h3>
+
+            <div className="doghouse-modal-body">
+              <p className="doghouse-modal-desc">
+                Descrizione del corso (da compilare): livello, obiettivi, durata,
+                target (bimbi/adulti/femminile), ecc.
+              </p>
+
+              <div className="doghouse-modal-section">
+                <h4 className="doghouse-modal-subtitle">Orari</h4>
+                <ul className="doghouse-modal-schedule">
+                  <li className="doghouse-modal-schedule-row">
+                    <span>Lun / Mer / Ven</span>
+                    <span>18:30 – 20:00</span>
+                  </li>
+                  <li className="doghouse-modal-schedule-row">
+                    <span>Mar / Gio</span>
+                    <span>19:00 – 20:00</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="doghouse-modal-section">
+                <h4 className="doghouse-modal-subtitle">Info</h4>
+                <ul className="doghouse-modal-list">
+                  <li>Allenatore: …</li>
+                  <li>Durata lezione: …</li>
+                  <li>Attrezzatura: …</li>
+                  <li>Prezzo: …</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
