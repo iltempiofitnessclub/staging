@@ -179,13 +179,9 @@ function CoursesSection() {
 
   useEffect(() => {
     const updateVisibleCount = () => {
-      if (window.innerWidth <= 640) {
-        setVisibleCount(1);
-      } else if (window.innerWidth <= 900) {
-        setVisibleCount(2);
-      } else {
-        setVisibleCount(3);
-      }
+      if (window.innerWidth <= 640) setVisibleCount(1);
+      else if (window.innerWidth <= 900) setVisibleCount(2);
+      else setVisibleCount(3);
     };
 
     updateVisibleCount();
@@ -194,9 +190,7 @@ function CoursesSection() {
   }, []);
 
   const prev = () => {
-    setStartIndex(
-      (prevIndex) => (prevIndex - 1 + COURSES.length) % COURSES.length
-    );
+    setStartIndex((prevIndex) => (prevIndex - 1 + COURSES.length) % COURSES.length);
   };
 
   const next = () => {
@@ -223,11 +217,8 @@ function CoursesSection() {
     const diff = e.changedTouches[0].clientX - touchStartX;
     const threshold = 40;
 
-    if (diff > threshold) {
-      prev();
-    } else if (diff < -threshold) {
-      next();
-    }
+    if (diff > threshold) prev();
+    else if (diff < -threshold) next();
 
     setTouchStartX(null);
   };
@@ -253,10 +244,7 @@ function CoursesSection() {
             onTouchEnd={handleTouchEnd}
           >
             {visibleCourses.map((course) => (
-              <AnimatedCard
-                key={course.id}
-                className="doghouse-course-card"
-              >
+              <AnimatedCard key={course.id} className="doghouse-course-card">
                 <div className="doghouse-course-image">
                   <img src={course.imageSrc} alt={course.title} />
                 </div>
@@ -273,6 +261,20 @@ function CoursesSection() {
           >
             ›
           </button>
+        </div>
+        <div className="doghouse-slider-dots doghouse-slider-dots--courses">
+          {COURSES.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              className={
+                "doghouse-slider-dot" +
+                (startIndex === i ? " doghouse-slider-dot--active" : "")
+              }
+              onClick={() => setStartIndex(i)}
+              aria-label={`Vai al corso ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -186,7 +186,6 @@ function AnimatedCard({
   );
 }
 
-
 function ClassesSection() {
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
@@ -194,13 +193,9 @@ function ClassesSection() {
 
   useEffect(() => {
     const updateVisibleCount = () => {
-      if (window.innerWidth <= 640) {
-        setVisibleCount(1);
-      } else if (window.innerWidth <= 900) {
-        setVisibleCount(2);
-      } else {
-        setVisibleCount(3);
-      }
+      if (window.innerWidth <= 640) setVisibleCount(1);
+      else if (window.innerWidth <= 900) setVisibleCount(2);
+      else setVisibleCount(3);
     };
 
     updateVisibleCount();
@@ -209,13 +204,11 @@ function ClassesSection() {
   }, []);
 
   const prev = () => {
-    setStartIndex(
-      (prevIndex) => (prevIndex - 1 + CLASSES.length) % CLASSES.length
-    );
+    setStartIndex((prev) => (prev - 1 + CLASSES.length) % CLASSES.length);
   };
 
   const next = () => {
-    setStartIndex((prevIndex) => (prevIndex + 1) % CLASSES.length);
+    setStartIndex((prev) => (prev + 1) % CLASSES.length);
   };
 
   const getVisibleClasses = () => {
@@ -227,8 +220,6 @@ function ClassesSection() {
     return result;
   };
 
-  const visibleClasses = getVisibleClasses();
-
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     setTouchStartX(e.touches[0].clientX);
   };
@@ -238,11 +229,8 @@ function ClassesSection() {
     const diff = e.changedTouches[0].clientX - touchStartX;
     const threshold = 40;
 
-    if (diff > threshold) {
-      prev();
-    } else if (diff < -threshold) {
-      next();
-    }
+    if (diff > threshold) prev();
+    else if (diff < -threshold) next();
 
     setTouchStartX(null);
   };
@@ -257,7 +245,6 @@ function ClassesSection() {
             type="button"
             className="tempio-slider-arrow tempio-slider-arrow--left"
             onClick={prev}
-            aria-label="Classi precedenti"
           >
             ‹
           </button>
@@ -267,7 +254,7 @@ function ClassesSection() {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            {visibleClasses.map((cls) => (
+            {getVisibleClasses().map((cls) => (
               <AnimatedCard
                 key={cls.id}
                 className="tempio-class-card"
@@ -284,10 +271,24 @@ function ClassesSection() {
             type="button"
             className="tempio-slider-arrow tempio-slider-arrow--right"
             onClick={next}
-            aria-label="Classi successive"
           >
             ›
           </button>
+        </div>
+
+        <div className="tempio-slider-dots tempio-slider-dots--classes">
+          {CLASSES.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              className={
+                "tempio-slider-dot" +
+                (startIndex === i ? " tempio-slider-dot--active" : "")
+              }
+              onClick={() => setStartIndex(i)}
+              aria-label={`Vai al corso ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
