@@ -921,17 +921,14 @@
   }
 }
 
-/* rende cliccabile la card senza modificarla */
 .doghouse-card-clickable { cursor: pointer; }
 .doghouse-card-clickable:active { transform: translateY(1px); }
 
-/* blocco scroll quando modal aperto */
 html.doghouse-modal-open,
 html.doghouse-modal-open body {
   overflow: hidden;
 }
 
-/* overlay */
 .doghouse-modal-overlay{
   position: fixed;
   inset: 0;
@@ -942,7 +939,6 @@ html.doghouse-modal-open body {
   z-index: 99999;
 }
 
-/* modal box */
 .doghouse-modal{
   width: min(720px, 100%);
   background: #0b0b0b;
@@ -955,7 +951,6 @@ html.doghouse-modal-open body {
   overflow: auto;
 }
 
-/* close */
 .doghouse-modal-close{
   position: absolute;
   top: 10px;
@@ -1020,4 +1015,67 @@ html.doghouse-modal-open body {
 .doghouse-modal-schedule-row span:last-child{
   color: #ffd52e;
   font-weight: 800;
+}
+
+@media (max-width: 600px) {
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .doghouse-page {
+    overflow-x: hidden;
+  }
+
+  .doghouse-page .gym-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #050505;
+    border-bottom: 1px solid #111;
+  }
+
+  .doghouse-page .gym-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+  }
+
+  .doghouse-page .gym-header__nav {
+    display: none !important;
+  }
+
+  .doghouse-page .gym-header__logo-img {
+    width: 56px;
+    height: auto;
+  }
+
+  .doghouse-main {
+    padding-top: 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .doghouse-about-btn-wrapper .hero-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 14px;
+    font-size: 0;
+  }
+
+  .doghouse-about-btn-wrapper .hero-btn::after {
+    content: "TORNA ALLA SELEZIONE";
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+  }
+
+  .doghouse-about-btn-wrapper .hero-btn svg {
+    width: 18px;
+    height: 18px;
+  }
 }
