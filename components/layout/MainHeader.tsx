@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export type NavItem = {
   label: string;
@@ -21,21 +24,33 @@ export function MainHeader({
   navItems,
   className,
 }: MainHeaderProps) {
+  const pathname = usePathname();
+
+  // 🔥 determina automaticamente la "home" corretta
+  const homeHref =
+    pathname?.startsWith("/doghouse")
+      ? "/doghouse"
+      : pathname?.startsWith("/tempio")
+      ? "/tempio"
+      : "/";
+
   return (
     <header className={`gym-header ${className ?? ""}`}>
       <div className="gym-header__inner">
         <div className="gym-header__brand">
-          {logoSrc ? (
-            <Image
-              src={logoSrc}
-              alt={logoAlt}
-              width={80}
-              height={80}
-              className="gym-header__logo-img"
-            />
-          ) : (
-            <span className="gym-header__logo-text">{logoText}</span>
-          )}
+          <Link href={homeHref} aria-label="Torna alla home">
+            {logoSrc ? (
+              <Image
+                src={logoSrc}
+                alt={logoAlt}
+                width={80}
+                height={80}
+                className="gym-header__logo-img"
+              />
+            ) : (
+              <span className="gym-header__logo-text">{logoText}</span>
+            )}
+          </Link>
         </div>
 
         <nav className="gym-header__nav">

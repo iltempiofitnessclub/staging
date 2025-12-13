@@ -26,16 +26,17 @@ export default function DoghousePage() {
   return (
     <div className="doghouse-page">
       <MainHeader
-        className="doghouse-header"
-        logoSrc="/doghouse-logo.png"
-        logoAlt="DogHouse Boxing"
-        navItems={[
-          { label: "Home", href: "/doghouse" },
-          { label: "Chi siamo", href: "#chi-siamo" },
-          { label: "Corsi", href: "#corsi" },
-          { label: "Contatti", href: "#contatti" },
-        ]}
-      />
+          className="doghouse-header"
+          logoSrc="/doghouse-logo.png"
+          logoAlt="DogHouse Boxing"
+          navItems={[
+            { label: "Home", href: "/doghouse" },
+            { label: "Chi siamo", href: "#chi-siamo" },
+            { label: "Corsi", href: "#corsi" },
+            { label: "Contatti", href: "#contatti" },
+          ]}
+        />
+
 
       <main className="doghouse-main">
         <Hero

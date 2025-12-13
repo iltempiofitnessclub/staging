@@ -59,3 +59,7 @@
     letter-spacing: 0.12em;
   }
 }
+
+.gym-header__logo-link {
+  cursor: pointer;
+}
