@@ -29,7 +29,7 @@ export default function TempioPage() {
         className="tempio-header"
         logoSrc="/tempio-logo.png"
         logoAlt="Il Tempio Fitness Club"
-        homeHref="/tempio"
+
         navItems={[
           { label: "Home", href: "/tempio" },
           { label: "Chi siamo", href: "#chi-siamo" },
