@@ -198,6 +198,7 @@
   align-items: center;
   justify-content: center;
   gap: 24px;
+  flex-wrap: nowrap;
 }
 
 .doghouse-courses-card {
@@ -243,7 +244,9 @@
 .doghouse-course-image img {
   display: block;
   width: 100%;
+  height: 354px;
   object-fit: cover;
+  border-radius: 4px
 }
 
 .doghouse-course-title {
@@ -288,6 +291,95 @@
 
 .doghouse-slider-dot--active {
   background-color: #ffd52e;
+}
+
+.doghouse-modal-actions{
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.doghouse-modal-cta{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 18px;
+  border-radius: 4px;
+  background: #ffd52e;
+  color: #000;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border: 1px solid #e5c221;
+}
+
+.doghouse-modal-cta:hover{
+  background: #e5c221;
+}
+
+.doghouse-form-select{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 2px;
+  border: 1px solid #444444;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 0.9rem;
+}
+
+.doghouse-form-select:focus{
+  outline: none;
+  border-color: #ffd52e;
+}
+
+.doghouse-form-field input,
+.doghouse-form-field select {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 2px;
+  border: 1px solid #444444;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 0.9rem;
+  line-height: 42px;
+  box-sizing: border-box;
+}
+
+.doghouse-form-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("/chevron-down.png");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  cursor: pointer;
+}
+
+.doghouse-form-field input:focus,
+.doghouse-form-field select:focus {
+  outline: none;
+  border-color: #ffd52e;
+}
+
+.doghouse-event-content{
+  flex-direction: column;
+  gap: 6px;
+}
+
+.doghouse-event-desc{
+  margin: 0;
+  line-height: 1.4;
+  color: #1c1c1c;
+  font-size: 0.9rem;
+  opacity: 0.9;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .doghouse-contact-strip {
@@ -697,8 +789,8 @@
   top: 1px;
   width: 6px;
   height: 10px;
-  border-right: 2px solid #ff2d2d;
-  border-bottom: 2px solid #ff2d2d;
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
   transform: rotate(45deg);
 }
 
@@ -1161,3 +1253,4 @@ html.doghouse-modal-open body {
     padding: 10px 10px;
   }
 }
+

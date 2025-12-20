@@ -95,7 +95,7 @@ export default function DoghousePage() {
         phone="080.530.1234"
         addressLines={[
           "Bari – Palese – 70128",
-          "via V. Maiorano Capitano 27",
+          "Via V. Maiorano Capitano, 27",
         ]}
         socialItems={[
           { href: "#", icon: <FaYoutube />, label: "YouTube" },
@@ -106,7 +106,7 @@ export default function DoghousePage() {
         ]}
       />
         <FloatingWhatsAppButton
-        phone="+39 333 1112222"
+        phone="+39 353 4503806"
         message="Ciao! Vorrei informazioni sui corsi DogHouse."
         className="floating-whatsapp-btn-doghouse"
         />
@@ -118,14 +118,155 @@ type Course = {
   id: number;
   title: string;
   imageSrc: string;
+  description: string;
+  schedule: { days: string; time: string }[];
+  info: string[];
 };
 
 const COURSES: Course[] = [
-  { id: 1, title: "BOXE BIMBI", imageSrc: "/course-bimbi.jpg" },
-  { id: 2, title: "BOXE ADULTI", imageSrc: "/course-adulti.jpg" },
-  { id: 3, title: "BOXE FEMMINILE", imageSrc: "/course-femminile.jpg" },
-  { id: 4, title: "LEZIONI PRIVATE", imageSrc: "/course-private.jpg" },
-  { id: 5, title: "PREPARAZIONE ATLETICA", imageSrc: "/course-athletic.jpg" },
+  {
+    id: 1,
+    title: "BOXE MATUTTINO",
+    imageSrc: "/mattutino.jpg",
+    description:
+      "Allenati al mattino con un corso completo di boxe per migliorare forma fisica, tecnica ed energia. Adatto a tutti i livelli, seguito da istruttori qualificati.",
+    schedule: [
+      {
+        days: "Lunedì, mercoledì e venerdì",
+        time: "10:00 – 11:00",
+      },
+    ],
+    info: [
+      "Livello: base / intermedio",
+      "Durata lezione: 60 minuti",
+      "Allenamento tecnico e atletico",
+      "Ideale per iniziare la giornata con energia",
+    ],
+  },
+
+  {
+    id: 2,
+    title: "BOXE BABY",
+    imageSrc: "/baby.jpg",
+    description:
+      "Un corso divertente e sicuro per avvicinare i bambini alla boxe. Migliora coordinazione, disciplina e fiducia in sé stessi attraverso lo sport.",
+    schedule: [
+      {
+        days: "Lunedì e mercoledì",
+        time: "18:00 – 19:00",
+      },
+    ],
+    info: [
+      "Corso dedicato ai più piccoli",
+      "Allenamento ludico e coordinativo",
+      "Durata lezione: 60 minuti",
+      "Obiettivo: disciplina e divertimento",
+    ],
+  },
+
+  {
+    id: 3,
+    title: "BOXE FEMMINILE",
+    imageSrc: "/femminile.jpg",
+    description:
+      "Corso di boxe femminile dedicato a forza, tecnica e sicurezza di sè. Allenamenti energici in un ambiente motivante e inclusivo.",
+    schedule: [
+      {
+        days: "Martedì e giovedì",
+        time: "18:00 – 19:00",
+      },
+    ],
+    info: [
+      "Corso riservato alle donne",
+      "Allenamento tecnico e funzionale",
+      "Adatto a tutti i livelli",
+      "Ambiente inclusivo e motivante",
+    ],
+  },
+
+  {
+    id: 4,
+    title: "BOXE ADULTI I",
+    imageSrc: "/adultiI.jpg",
+    description:
+      "Il corso serale ideale dopo il lavoro. Allenamenti dinamici per migliorare forza, resistenza e tecnica pugilistica.",
+    schedule: [
+      {
+        days: "Lunedì, mercoledì e venerdì",
+        time: "19:00 – 20:00",
+      },
+    ],
+    info: [
+      "Livello: principiante",
+      "Durata lezione: 60 minuti",
+      "Tecnica di base e condizionamento",
+      "Nessuna esperienza richiesta",
+    ],
+  },
+
+  {
+    id: 5,
+    title: "BOXE ADULTI II",
+    imageSrc: "/adultiII.jpg",
+    description:
+      "Orari flessibili e allenamenti completi. Perfetto per chi vuole risultati concreti senza vincoli di orario.",
+    schedule: [
+      {
+        days: "Martedì e giovedì",
+        time: "19:00 – 20:00",
+      },
+      {
+        days: "Venerdì",
+        time: "18:00 – 19:00",
+      },
+    ],
+    info: [
+      "Livello: intermedio",
+      "Allenamento tecnico avanzato",
+      "Durata lezione: 60 minuti",
+      "Richiesta esperienza base",
+    ],
+  },
+
+  {
+    id: 6,
+    title: "BOXE ADULTI III",
+    imageSrc: "/adultiIII.jpg",
+    description:
+      "Allenamenti intensi in fascia serale per migliorare tecnica, potenza e forma fisica, scaricando lo stress della giornata.",
+    schedule: [
+      {
+        days: "Lunedì, mercoledì e venerdì",
+        time: "20:00 – 21:00",
+      },
+    ],
+    info: [
+      "Livello: avanzato",
+      "Allenamento ad alta intensità",
+      "Durata lezione: 60 minuti",
+      "Preparazione agonistica",
+    ],
+  },
+
+  {
+    id: 7,
+    title: "LEZIONI PRIVATE",
+    imageSrc: "/private.jpg",
+    description:
+      "Le lezioni private offrono un allenamento personalizzato e su misura, ideale per lavorare su obiettivi specifici, tecnica individuale e preparazione atletica.",
+    schedule: [
+      {
+        days: "Su appuntamento",
+        time: "Orari flessibili",
+      },
+    ],
+    info: [
+      "Allenamento personalizzato",
+      "Adatto a tutti i livelli",
+      "Programma su misura",
+      "Contattaci per informazioni",
+    ],
+  },
 ];
 
 function AnimatedCard({
@@ -334,33 +475,39 @@ function CoursesSection() {
             <h3 className="doghouse-modal-title">{selectedCourse.title}</h3>
 
             <div className="doghouse-modal-body">
-              <p className="doghouse-modal-desc">
-                Descrizione del corso (da compilare): livello, obiettivi, durata,
-                target (bimbi/adulti/femminile), ecc.
-              </p>
+              <p className="doghouse-modal-desc">{selectedCourse.description}</p>
 
               <div className="doghouse-modal-section">
                 <h4 className="doghouse-modal-subtitle">Orari</h4>
+
                 <ul className="doghouse-modal-schedule">
-                  <li className="doghouse-modal-schedule-row">
-                    <span>Lun / Mer / Ven</span>
-                    <span>18:30 – 20:00</span>
-                  </li>
-                  <li className="doghouse-modal-schedule-row">
-                    <span>Mar / Gio</span>
-                    <span>19:00 – 20:00</span>
-                  </li>
+                  {selectedCourse.schedule.map((row, idx) => (
+                    <li key={idx} className="doghouse-modal-schedule-row">
+                      <span>{row.days}</span>
+                      <span>{row.time}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
               <div className="doghouse-modal-section">
                 <h4 className="doghouse-modal-subtitle">Info</h4>
+
                 <ul className="doghouse-modal-list">
-                  <li>Allenatore: …</li>
-                  <li>Durata lezione: …</li>
-                  <li>Attrezzatura: …</li>
-                  <li>Prezzo: …</li>
+                  {selectedCourse.info.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
                 </ul>
+              </div>
+
+              <div className="doghouse-modal-actions">
+                <Link
+                  href={`/doghouse/contatti?course=${selectedCourse.id}`}
+                  className="doghouse-modal-cta"
+                  onClick={() => setSelectedCourse(null)}
+                >
+                  CHIEDI INFORMAZIONI
+                </Link>
               </div>
             </div>
           </div>
@@ -377,7 +524,7 @@ function ContactStrip() {
         <div className="doghouse-contact-strip-info">
           <h2 className="doghouse-contact-strip-title">CONTATTI</h2>
           <p className="doghouse-contact-strip-text">
-            DogHouse è in via V. Maiorano, 24 – 70128 Bari (BA)
+            DogHouse è in Via V. Maiorano Capitano, 27 - 70128 Bari - Palese (BA)
           </p>
         </div>
           <Link href="/doghouse/contatti">
@@ -399,24 +546,19 @@ export function EventsAndMapSection() {
   const events = [
     {
       id: 1,
-      title: "DogHouse alla manifestazione del IV municipio",
-      date: "15 Dicembre 2025",
+      title: "Primo posto campionati regionali esordienti 🏅",
+      description: "Grande successo ai Campionati Regionali Esordienti di Brindisi: Gioele Galiano, 14 anni, categoria 60 kg, conquista il 1° posto, confermandosi uno dei giovani talenti più promettenti della nostra squadra. Un risultato che premia impegno, sacrificio e il lavoro costante svolto in palestra.",
+      date: "14-16 Aprile 2025",
       label: "Evento",
-      imageSrc: "/event-1.jpg",
+      imageSrc: "/evento1.jpg",
     },
     {
       id: 2,
-      title: "DogHouse e il Pink Boxing",
-      date: "Dal 01 Gennaio 2026",
+      title: "Festa dello sport V Municipio",
+      description: "In occasione della Festa dello Sport nel V Municipio di Bari, i nostri ragazzi sono stati protagonisti di un’esibizione di pugilato all’aperto. Un allenamento dimostrativo che ha unito sport, passione e coinvolgimento del pubblico, portando la boxe tra la gente e promuovendo i valori di disciplina, rispetto e crescita personale.",
+      date: "29 Settembre 2024",
       label: "Evento",
-      imageSrc: "/event-2.jpg",
-    },
-    {
-      id: 3,
-      title: "DogHouse al torneo di boxe interregionale a Mesagne",
-      date: "20–21 Marzo 2026",
-      label: "Evento",
-      imageSrc: "/event-3.jpg",
+      imageSrc: "/evento2.jpg",
     },
   ];
 
@@ -437,8 +579,12 @@ export function EventsAndMapSection() {
                   </div>
                   <div className="doghouse-event-content">
                     <div className="doghouse-event-badge">{ev.label}</div>
+
                     <h3 className="doghouse-event-title">{ev.title}</h3>
-                    <p className="doghouse-event-date">{ev.date}</p>
+
+                    <p className="doghouse-event-desc">{ev.description}</p>
+
+                    {ev.date ? <p className="doghouse-event-date">{ev.date}</p> : null}
                   </div>
                 </div>
               </AnimatedCard>
@@ -458,7 +604,7 @@ export function EventsAndMapSection() {
 
           <div className="doghouse-map-button-wrapper">
             <a
-              href="https://www.google.com/maps?q=41.1486,16.7602"
+              href="https://www.google.com/maps/place/41.1549521,16.7669332"
               target="_blank"
               rel="noopener noreferrer"
               className="doghouse-map-button"
@@ -486,44 +632,44 @@ type Review = {
 const REVIEWS: Review[] = [
   {
     id: 1,
-    text: "Nunc aliquam phasellus molestie blandit. Nisi, amet, id maecenas diam.",
-    name: "Mario Rossi",
+    text: "Ambiente super motivante e allenatori molto preparati. Mi sento seguito in ogni allenamento.",
+    name: "Marco De Santis",
   },
   {
     id: 2,
-    text: "Allenatori fantastici, ambiente motivante e inclusivo.",
-    name: "Giulia Bianchi",
+    text: "Palestra curata e clima davvero positivo. Allenamenti intensi ma adatti anche a chi inizia.",
+    name: "Giulia Romano",
   },
   {
     id: 3,
-    text: "La migliore palestra di boxe di Bari, senza dubbio.",
-    name: "Luca Verdi",
+    text: "Struttura ottima e istruttori seri. Ho migliorato tecnica e forma fisica in poco tempo.",
+    name: "Alessandro Lorusso",
   },
   {
     id: 4,
-    text: "Una palestra incredibile, atmosfera super positiva.",
-    name: "Francesco Moretti",
+    text: "Consigliatissima. Allenamenti completi, ambiente pulito e tanta professionalità.",
+    name: "Francesca Milella",
   },
   {
     id: 5,
-    text: "Struttura perfetta, allenatori molto preparati.",
-    name: "Sara Nitti",
+    text: "La migliore palestra di boxe della zona. Passione vera e grande attenzione agli atleti.",
+    name: "Davide Pugliese",
   },
   {
     id: 6,
-    text: "Nunc aliquam phasellus molestie blandit. Nisi, amet, id maecenas diam.",
-    name: "Mario Rossi",
+    text: "Perfetta sia per principianti che per chi ha già esperienza. Ti fanno sentire parte del gruppo.",
+    name: "Chiara Vitale",
   },
   {
     id: 7,
-    text: "Allenatori fantastici, ambiente motivante e inclusivo.",
-    name: "Giulia Bianchi",
+    text: "Allenatori competenti e sempre disponibili. Allenarsi qui è uno stimolo continuo.",
+    name: "Michele Rizzi",
   },
   {
     id: 8,
-    text: "La migliore palestra di boxe di Bari, senza dubbio.",
-    name: "Luca Verdi",
-  }
+    text: "Ottima esperienza. Allenamenti seri, divertenti e mai improvvisati.",
+    name: "Laura Mancini",
+  },
 ];
 
 function ReviewsSection() {

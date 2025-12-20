@@ -1,9 +1,13 @@
 "use client";
 
+import React, { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
 import "@/components/styles/header.css";
 import "@/components/styles/footer.css";
 import "@/styles/doghouse.css";
 
+import { COURSES } from "@/data/doghouseCourses";
 import { MainHeader } from "@/components/layout/MainHeader";
 import { MainFooter } from "@/components/layout/MainFooter";
 
@@ -16,6 +20,25 @@ import {
 } from "react-icons/fa";
 
 export default function DoghouseContactPage() {
+  const searchParams = useSearchParams();
+
+  const courseIdFromUrl = useMemo(() => {
+    const v = searchParams.get("course");
+    const n = v ? Number(v) : NaN;
+    return Number.isFinite(n) ? n : null;
+  }, [searchParams]);
+
+  const [selectedCourseId, setSelectedCourseId] = useState<string>("");
+
+  useEffect(() => {
+    if (!courseIdFromUrl) return;
+    const exists = COURSES.some((c) => c.id === courseIdFromUrl);
+    if (exists) setSelectedCourseId(String(courseIdFromUrl));
+  }, [courseIdFromUrl]);
+
+  const selectedCourseTitle =
+    COURSES.find((c) => String(c.id) === selectedCourseId)?.title ?? "";
+
   return (
     <div className="doghouse-page">
       <MainHeader
@@ -58,14 +81,14 @@ export default function DoghouseContactPage() {
                     <label>
                       Nome<span className="doghouse-form-required">*</span>
                     </label>
-                    <input type="text" name="nome" />
+                    <input type="text" name="nome" required />
                   </div>
 
                   <div className="doghouse-form-field">
                     <label>
                       Cognome<span className="doghouse-form-required">*</span>
                     </label>
-                    <input type="text" name="cognome" />
+                    <input type="text" name="cognome" required />
                   </div>
 
                   <div className="doghouse-form-field">
@@ -73,7 +96,7 @@ export default function DoghouseContactPage() {
                       Indirizzo email
                       <span className="doghouse-form-required">*</span>
                     </label>
-                    <input type="email" name="email" />
+                    <input type="email" name="email" required />
                   </div>
 
                   <div className="doghouse-form-field">
@@ -81,12 +104,44 @@ export default function DoghouseContactPage() {
                       Numero di telefono
                       <span className="doghouse-form-required">*</span>
                     </label>
-                    <input type="tel" name="telefono" />
+                    <input type="tel" name="telefono" required />
+                  </div>
+
+                  {/* SELECT CORSO */}
+                  <div className="doghouse-form-field">
+                    <label>
+                      Corso di interesse
+                      <span className="doghouse-form-required">*</span>
+                    </label>
+
+                    <select
+                      name="corso"
+                      value={selectedCourseId}
+                      onChange={(e) => setSelectedCourseId(e.target.value)}
+                      required
+                      className="doghouse-form-select"
+                    >
+                      <option value="" disabled>
+                        Seleziona un corso
+                      </option>
+                      {COURSES.map((c) => (
+                        <option key={c.id} value={c.id}>
+                          {c.title}
+                        </option>
+                      ))}
+                    </select>
+
+                    {/* utile se poi invii il form e vuoi salvarti anche il testo */}
+                    <input
+                      type="hidden"
+                      name="corso_label"
+                      value={selectedCourseTitle}
+                    />
                   </div>
 
                   <div className="doghouse-form-privacy">
                     <label className="doghouse-checkbox-label">
-                      <input type="checkbox" name="privacy" />
+                      <input type="checkbox" name="privacy" required />
                       <span className="doghouse-checkbox-custom" />
                       <span className="doghouse-checkbox-text">
                         Ho preso visione dell&apos;informativa privacy e presto
