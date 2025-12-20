@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import "@/components/styles/header.css";
@@ -19,7 +19,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-export default function DoghouseContactPage() {
+function DoghouseContactPageInner() {
   const searchParams = useSearchParams();
 
   const courseIdFromUrl = useMemo(() => {
@@ -107,7 +107,6 @@ export default function DoghouseContactPage() {
                     <input type="tel" name="telefono" required />
                   </div>
 
-                  {/* SELECT CORSO */}
                   <div className="doghouse-form-field">
                     <label>
                       Corso di interesse
@@ -131,7 +130,6 @@ export default function DoghouseContactPage() {
                       ))}
                     </select>
 
-                    {/* utile se poi invii il form e vuoi salvarti anche il testo */}
                     <input
                       type="hidden"
                       name="corso_label"
@@ -169,10 +167,7 @@ export default function DoghouseContactPage() {
         logoSrc="/doghouse-logo-monogram.png"
         email="tempiofitness@gmail.com"
         phone="080.530.1234"
-        addressLines={[
-          "Bari – Palese – 70128",
-          "via V. Maiorano Capitano 27",
-        ]}
+        addressLines={["Bari – Palese – 70128", "via V. Maiorano Capitano 27"]}
         socialItems={[
           { href: "#", icon: <FaYoutube />, label: "YouTube" },
           { href: "#", icon: <FaWhatsapp />, label: "WhatsApp" },
@@ -182,5 +177,13 @@ export default function DoghouseContactPage() {
         ]}
       />
     </div>
+  );
+}
+
+export default function DoghouseContactPage() {
+  return (
+    <Suspense fallback={null}>
+      <DoghouseContactPageInner />
+    </Suspense>
   );
 }
