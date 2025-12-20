@@ -58,7 +58,7 @@
 }
 
 .tempio-hero .hero-line1 {
-  color: #ffffff;
+  color: #000000;
   font-size: 3rem;
   font-weight: 800;
   letter-spacing: 0.03em;
@@ -173,7 +173,6 @@
 .tempio-class-image img {
   display: block;
   width: 100%;
-  height: 210px;
   object-fit: cover;
 }
 

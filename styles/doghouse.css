@@ -675,7 +675,7 @@
   width: 0;
 }
 
-.doghouse-checkbox-custom {
+.doghouse-checkbox-custom{
   width: 16px;
   height: 16px;
   border-radius: 2px;
@@ -683,10 +683,23 @@
   margin-top: 3px;
   flex-shrink: 0;
   background-color: transparent;
+  position: relative;
 }
 
-.doghouse-checkbox-label input:checked + .doghouse-checkbox-custom {
-  background-color: #ffd52e;
+.doghouse-checkbox-label input:checked + .doghouse-checkbox-custom{
+  background-color: transparent;
+}
+
+.doghouse-checkbox-label input:checked + .doghouse-checkbox-custom::after{
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border-right: 2px solid #ff2d2d;
+  border-bottom: 2px solid #ff2d2d;
+  transform: rotate(45deg);
 }
 
 .doghouse-checkbox-text {
