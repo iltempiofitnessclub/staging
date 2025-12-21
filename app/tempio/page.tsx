@@ -156,21 +156,29 @@ function AnimatedCard({
     const node = ref.current;
     if (!node) return;
 
+    const fallback = window.setTimeout(() => setIsVisible(true), 800);
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+          window.clearTimeout(fallback);
+        }
       },
-      { threshold: 0.5 }
+      {
+        threshold: 0.15,
+        rootMargin: "200px 0px",
+      }
     );
 
     observer.observe(node);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   return (
