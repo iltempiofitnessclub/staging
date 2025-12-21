@@ -22,14 +22,23 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
+function asset(path: string) {
+  if (typeof window === "undefined") return path;
+
+  const isGitHubStaging =
+    window.location.hostname === "iltempiofitnessclub.github.io" &&
+    window.location.pathname.startsWith("/staging");
+
+  return isGitHubStaging ? `/staging${path}` : path;
+}
+
 export default function TempioPage() {
   return (
     <div className="tempio-page">
       <MainHeader
         className="tempio-header"
-        logoSrc="/tempio-logo.png"
+        logoSrc={asset("/tempio-logo.png")}
         logoAlt="Il Tempio Fitness Club"
-
         navItems={[
           { label: "Home", href: "/tempio" },
           { label: "Chi siamo", href: "#chi-siamo" },
@@ -91,13 +100,10 @@ export default function TempioPage() {
 
       <MainFooter
         legalBasePath="/tempio"
-        logoSrc="/tempio-logo-monogram.png"
+        logoSrc={asset("/tempio-logo-monogram.png")}
         email="info@iltempio.it"
         phone="080.530.1234"
-        addressLines={[
-          "Bari – Palese – 70128",
-          "via V. Maiorano Capitano 27",
-        ]}
+        addressLines={["Bari – Palese – 70128", "via V. Maiorano Capitano 27"]}
         socialItems={[
           { href: "#", icon: <FaYoutube />, label: "YouTube" },
           { href: "#", icon: <FaWhatsapp />, label: "WhatsApp" },
@@ -125,21 +131,9 @@ type ClassItem = {
 const CLASSES: ClassItem[] = [
   { id: 1, title: "STRENGTH TRAINING", imageSrc: "/tempio-pt.jpg" },
   { id: 2, title: "CARDIO", imageSrc: "/tempio-cardio.jpg" },
-  {
-    id: 3,
-    title: "FUNCTIONAL TRAINING",
-    imageSrc: "/tempio-functional.jpg",
-  },
-  {
-    id: 4,
-    title: "HIIT",
-    imageSrc: "/tempio-hiit.jpg",
-  },
-  {
-    id: 5,
-    title: "PERSONAL TRAINING",
-    imageSrc: "/tempio-pt.jpg",
-  },
+  { id: 3, title: "FUNCTIONAL TRAINING", imageSrc: "/tempio-functional.jpg" },
+  { id: 4, title: "HIIT", imageSrc: "/tempio-hiit.jpg" },
+  { id: 5, title: "PERSONAL TRAINING", imageSrc: "/tempio-pt.jpg" },
 ];
 
 function AnimatedCard({
@@ -264,12 +258,14 @@ function ClassesSection() {
             onTouchEnd={handleTouchEnd}
           >
             {getVisibleClasses().map((cls) => (
-              <AnimatedCard
-                key={cls.id}
-                className="tempio-class-card"
-              >
+              <AnimatedCard key={cls.id} className="tempio-class-card">
                 <div className="tempio-class-image">
-                  <img src={cls.imageSrc} alt={cls.title} />
+                  <img
+                    src={asset(cls.imageSrc)}
+                    alt={cls.title}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <h3 className="tempio-class-title">{cls.title}</h3>
               </AnimatedCard>
@@ -318,9 +314,11 @@ function ContactStrip() {
         <Link href="/tempio/contatti">
           <button className="tempio-contact-strip-button">
             <img
-              src="/mark-email.svg"
+              src={asset("/mark-email.svg")}
               alt=""
               className="tempio-contact-strip-button-icon"
+              loading="lazy"
+              decoding="async"
             />
             <span>CONTATTACI VIA EMAIL</span>
           </button>
@@ -362,13 +360,15 @@ export function EventsAndMapSection() {
           <h2 className="tempio-section-title">I NOSTRI EVENTI</h2>
           <div className="tempio-events-list">
             {events.map((ev) => (
-              <AnimatedCard
-                key={ev.id}
-                className="tempio-event-card"
-              >
+              <AnimatedCard key={ev.id} className="tempio-event-card">
                 <div className="tempio-event-layout">
                   <div className="tempio-event-image">
-                    <img src={ev.imageSrc} alt={ev.title} />
+                    <img
+                      src={asset(ev.imageSrc)}
+                      alt={ev.title}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
                   <div className="tempio-event-content">
                     <div className="tempio-event-badge">{ev.label}</div>
@@ -390,21 +390,23 @@ export function EventsAndMapSection() {
               loading="lazy"
             ></iframe>
           </div>
-            <div className="tempio-map-button-wrapper">
-              <a
-                href="https://www.google.com/maps?q=41.1486,16.7602"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="tempio-map-button"
-              >
-                <img
-                  src="/pin-map.svg"
-                  alt=""
-                  className="tempio-map-button-icon"
-                />
-                <span>APRI SU MAPS</span>
-              </a>
-            </div>
+          <div className="tempio-map-button-wrapper">
+            <a
+              href="https://www.google.com/maps?q=41.1486,16.7602"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tempio-map-button"
+            >
+              <img
+                src={asset("/pin-map.svg")}
+                alt=""
+                className="tempio-map-button-icon"
+                loading="lazy"
+                decoding="async"
+              />
+              <span>APRI SU MAPS</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -506,10 +508,7 @@ function ReviewsSection() {
 
           <div className="tempio-review-multi-container">
             {getVisibleReviews().map((review) => (
-              <AnimatedCard
-                key={review.id}
-                className="tempio-review-card multi"
-              >
+              <AnimatedCard key={review.id} className="tempio-review-card multi">
                 <p className="tempio-review-text">{review.text}</p>
                 <p className="tempio-review-name">
                   ★ ★ ★ ★ ★ – {review.name}
