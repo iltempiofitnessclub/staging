@@ -22,21 +22,30 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
+function asset(path: string) {
+  if (typeof window === "undefined") return path;
+
+  const isGitHubStaging =
+    window.location.hostname === "iltempiofitnessclub.github.io" &&
+    window.location.pathname.startsWith("/staging");
+
+  return isGitHubStaging ? `/staging${path}` : path;
+}
+
 export default function DoghousePage() {
   return (
     <div className="doghouse-page">
       <MainHeader
-          className="doghouse-header"
-          logoSrc="/doghouse-logo.png"
-          logoAlt="DogHouse Boxing"
-          navItems={[
-            { label: "Home", href: "/doghouse" },
-            { label: "Chi siamo", href: "#chi-siamo" },
-            { label: "Corsi", href: "#corsi" },
-            { label: "Contatti", href: "#contatti" },
-          ]}
-        />
-
+        className="doghouse-header"
+        logoSrc={asset("/doghouse-logo.png")}
+        logoAlt="DogHouse Boxing"
+        navItems={[
+          { label: "Home", href: "/doghouse" },
+          { label: "Chi siamo", href: "#chi-siamo" },
+          { label: "Corsi", href: "#corsi" },
+          { label: "Contatti", href: "#contatti" },
+        ]}
+      />
 
       <main className="doghouse-main">
         <Hero
@@ -55,29 +64,29 @@ export default function DoghousePage() {
               <p className="doghouse-section-text">
                 DogHouse è una palestra di boxe a Bari dove formiamo atleti,
                 giovani e adulti attraverso tecnica, disciplina e divertimento.
-                Seguiti da istruttori certificati, offriamo corsi per tutte le età
-                e livelli.
+                Seguiti da istruttori certificati, offriamo corsi per tutte le
+                età e livelli.
               </p>
             </div>
             <div className="doghouse-about-btn-wrapper">
-            <Link href="/" className="hero-btn">
-              <span className="hero-btn-icon">
-                <svg
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="black"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="11" cy="11" r="7"></circle>
-                  <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
-                </svg>
-              </span>
-              TORNA ALLA SELEZIONE DEL SITO
-            </Link>
+              <Link href="/" className="hero-btn">
+                <span className="hero-btn-icon">
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="black"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
+                  </svg>
+                </span>
+                TORNA ALLA SELEZIONE DEL SITO
+              </Link>
             </div>
           </div>
         </section>
@@ -90,7 +99,7 @@ export default function DoghousePage() {
 
       <MainFooter
         legalBasePath="/doghouse"
-        logoSrc="/doghouse-logo-monogram.png"
+        logoSrc={asset("/doghouse-logo-monogram.png")}
         email="tempiofitness@gmail.com"
         phone="080.530.1234"
         addressLines={[
@@ -105,11 +114,11 @@ export default function DoghousePage() {
           { href: "#", icon: <FaLinkedinIn />, label: "LinkedIn" },
         ]}
       />
-        <FloatingWhatsAppButton
+      <FloatingWhatsAppButton
         phone="+39 353 4503806"
         message="Ciao! Vorrei informazioni sui corsi DogHouse."
         className="floating-whatsapp-btn-doghouse"
-        />
+      />
     </div>
   );
 }
@@ -362,7 +371,9 @@ function CoursesSection() {
   }, [selectedCourse]);
 
   const prev = () => {
-    setStartIndex((prevIndex) => (prevIndex - 1 + COURSES.length) % COURSES.length);
+    setStartIndex(
+      (prevIndex) => (prevIndex - 1 + COURSES.length) % COURSES.length
+    );
   };
 
   const next = () => {
@@ -426,7 +437,12 @@ function CoursesSection() {
                 onClick={() => setSelectedCourse(course)}
               >
                 <div className="doghouse-course-image">
-                  <img src={course.imageSrc} alt={course.title} />
+                  <img
+                    src={asset(course.imageSrc)}
+                    alt={course.title}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <h3 className="doghouse-course-title">{course.title}</h3>
               </AnimatedCard>
@@ -536,16 +552,18 @@ function ContactStrip() {
             DogHouse è in Via V. Maiorano Capitano, 27 - 70128 Bari - Palese (BA)
           </p>
         </div>
-          <Link href="/doghouse/contatti">
-            <button className="doghouse-contact-strip-button">
-              <img
-                src="/mark-email.svg"
-                alt=""
-                className="doghouse-contact-strip-button-icon"
-              />
-              <span>CONTATTACI VIA EMAIL</span>
-            </button>
-          </Link>
+        <Link href="/doghouse/contatti">
+          <button className="doghouse-contact-strip-button">
+            <img
+              src={asset("/mark-email.svg")}
+              alt=""
+              className="doghouse-contact-strip-button-icon"
+              loading="lazy"
+              decoding="async"
+            />
+            <span>CONTATTACI VIA EMAIL</span>
+          </button>
+        </Link>
       </div>
     </section>
   );
@@ -556,7 +574,8 @@ export function EventsAndMapSection() {
     {
       id: 1,
       title: "Primo posto campionati regionali esordienti 🏅",
-      description: "Grande successo ai Campionati Regionali Esordienti di Brindisi: Gioele Galiano, 14 anni, categoria 60 kg, conquista il 1° posto, confermandosi uno dei giovani talenti più promettenti della nostra squadra. Un risultato che premia impegno, sacrificio e il lavoro costante svolto in palestra.",
+      description:
+        "Grande successo ai Campionati Regionali Esordienti di Brindisi: Gioele Galiano, 14 anni, categoria 60 kg, conquista il 1° posto, confermandosi uno dei giovani talenti più promettenti della nostra squadra. Un risultato che premia impegno, sacrificio e il lavoro costante svolto in palestra.",
       date: "14-16 Aprile 2025",
       label: "Evento",
       imageSrc: "/evento1.jpg",
@@ -564,7 +583,8 @@ export function EventsAndMapSection() {
     {
       id: 2,
       title: "Festa dello sport V Municipio",
-      description: "In occasione della Festa dello Sport nel V Municipio di Bari, i nostri ragazzi sono stati protagonisti di un’esibizione di pugilato all’aperto. Un allenamento dimostrativo che ha unito sport, passione e coinvolgimento del pubblico, portando la boxe tra la gente e promuovendo i valori di disciplina, rispetto e crescita personale.",
+      description:
+        "In occasione della Festa dello Sport nel V Municipio di Bari, i nostri ragazzi sono stati protagonisti di un’esibizione di pugilato all’aperto. Un allenamento dimostrativo che ha unito sport, passione e coinvolgimento del pubblico, portando la boxe tra la gente e promuovendo i valori di disciplina, rispetto e crescita personale.",
       date: "29 Settembre 2024",
       label: "Evento",
       imageSrc: "/evento2.jpg",
@@ -578,13 +598,15 @@ export function EventsAndMapSection() {
           <h2 className="doghouse-section-title">I NOSTRI EVENTI</h2>
           <div className="doghouse-events-list">
             {events.map((ev) => (
-              <AnimatedCard
-                key={ev.id}
-                className="doghouse-event-card"
-              >
+              <AnimatedCard key={ev.id} className="doghouse-event-card">
                 <div className="doghouse-event-layout">
                   <div className="doghouse-event-image">
-                    <img src={ev.imageSrc} alt={ev.title} />
+                    <img
+                      src={asset(ev.imageSrc)}
+                      alt={ev.title}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
                   <div className="doghouse-event-content">
                     <div className="doghouse-event-badge">{ev.label}</div>
@@ -593,7 +615,9 @@ export function EventsAndMapSection() {
 
                     <p className="doghouse-event-desc">{ev.description}</p>
 
-                    {ev.date ? <p className="doghouse-event-date">{ev.date}</p> : null}
+                    {ev.date ? (
+                      <p className="doghouse-event-date">{ev.date}</p>
+                    ) : null}
                   </div>
                 </div>
               </AnimatedCard>
@@ -619,9 +643,11 @@ export function EventsAndMapSection() {
               className="doghouse-map-button"
             >
               <img
-                src="/pin-map.svg"
+                src={asset("/pin-map.svg")}
                 alt=""
                 className="doghouse-map-button-icon"
+                loading="lazy"
+                decoding="async"
               />
               <span>APRI SU MAPS</span>
             </a>
@@ -742,10 +768,7 @@ function ReviewsSection() {
 
           <div className="doghouse-review-multi-container">
             {getVisibleReviews().map((review) => (
-              <AnimatedCard
-                key={review.id}
-                className="doghouse-review-card multi"
-              >
+              <AnimatedCard key={review.id} className="doghouse-review-card multi">
                 <p className="doghouse-review-text">{review.text}</p>
                 <p className="doghouse-review-name">
                   ★ ★ ★ ★ ★ – {review.name}
