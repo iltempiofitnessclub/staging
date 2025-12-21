@@ -285,20 +285,29 @@ function AnimatedCard({
     const node = ref.current;
     if (!node) return;
 
+    const fallback = window.setTimeout(() => setIsVisible(true), 800);
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+          window.clearTimeout(fallback);
+        }
       },
-      { threshold: 0.5 }
+      {
+        threshold: 0.15,
+        rootMargin: "200px 0px",
+      }
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   return (
@@ -638,7 +647,7 @@ const REVIEWS: Review[] = [
   {
     id: 2,
     text: "Palestra curata e clima davvero positivo. Allenamenti intensi ma adatti anche a chi inizia.",
-    name: "Giulia Romano",
+    name: "Roberto Ancona",
   },
   {
     id: 3,
@@ -653,7 +662,7 @@ const REVIEWS: Review[] = [
   {
     id: 5,
     text: "La migliore palestra di boxe della zona. Passione vera e grande attenzione agli atleti.",
-    name: "Davide Pugliese",
+    name: "Davide Ladisa",
   },
   {
     id: 6,
@@ -700,13 +709,19 @@ function ReviewsSection() {
   };
 
   const prev = () => {
-    setStartIndex((prev) =>
-      (prev - visibleCount + REVIEWS.length) % REVIEWS.length
-    );
+    setStartIndex((prev) => {
+      const lastStart = (totalSlides - 1) * visibleCount;
+      const nextVal = prev - visibleCount;
+      return nextVal < 0 ? lastStart : nextVal;
+    });
   };
 
   const next = () => {
-    setStartIndex((prev) => (prev + visibleCount) % REVIEWS.length);
+    setStartIndex((prev) => {
+      const nextVal = prev + visibleCount;
+      const wrapLimit = totalSlides * visibleCount;
+      return nextVal >= wrapLimit ? 0 : nextVal;
+    });
   };
 
   return (

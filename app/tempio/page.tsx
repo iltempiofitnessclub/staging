@@ -465,13 +465,19 @@ function ReviewsSection() {
   };
 
   const prev = () => {
-    setStartIndex((prev) =>
-      (prev - visibleCount + REVIEWS.length) % REVIEWS.length
-    );
+    setStartIndex((prev) => {
+      const lastStart = (totalSlides - 1) * visibleCount;
+      const nextVal = prev - visibleCount;
+      return nextVal < 0 ? lastStart : nextVal;
+    });
   };
 
   const next = () => {
-    setStartIndex((prev) => (prev + visibleCount) % REVIEWS.length);
+    setStartIndex((prev) => {
+      const nextVal = prev + visibleCount;
+      const wrapLimit = totalSlides * visibleCount;
+      return nextVal >= wrapLimit ? 0 : nextVal;
+    });
   };
 
   return (
