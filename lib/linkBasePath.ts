@@ -6,10 +6,8 @@ export function withBasePath(path: string): string {
 
   if (!isGitHubStaging) return path;
 
-  // normalizza
   if (!path.startsWith("/")) path = `/${path}`;
 
-  // se è già /staging o /staging/qualcosa → NON riaggiungere
   if (path === "/staging" || path.startsWith("/staging/")) {
     return path;
   }
