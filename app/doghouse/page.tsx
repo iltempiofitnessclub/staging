@@ -7,7 +7,7 @@ import "@/components/styles/floating-whatsapp.css";
 import "@/components/styles/header.css";
 import "@/components/styles/footer.css";
 import "@/components/styles/hero.css";
-import Link from "next/link";
+import Link from "@/components/routing/Link";
 import "@/styles/doghouse.css";
 
 import { MainHeader } from "@/components/layout/MainHeader";

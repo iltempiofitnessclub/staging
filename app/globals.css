@@ -116,11 +116,42 @@ body {
 }
 
 @media (max-width: 768px) {
+  .landing-split-container {
+    flex-direction: column;
+    height: 100vh;
+  }
+
   .landing-box h2 {
     font-size: 1.6em;
   }
 
+  .landing-box {
+    flex: 1;
+    transition: flex 0.45s ease, opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .landing-box.expanded {
+    flex: 1.4;
+  }
+
+  .landing-box.shrunk {
+    flex: 0.6;
+  }
+
   .landing-description {
+    opacity: 0;
+    max-width: 92%;
     font-size: 0.95em;
+  }
+
+  .landing-box.expanded .landing-description {
+    opacity: 1;
+  }
+
+  .landing-tap-hint {
+    z-index: 2;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    opacity: 0.9;
   }
 }

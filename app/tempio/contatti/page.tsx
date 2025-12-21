@@ -7,12 +7,22 @@ import "@/styles/tempio.css";
 import { MainHeader } from "@/components/layout/MainHeader";
 import { MainFooter } from "@/components/layout/MainFooter";
 
+function asset(path: string) {
+  if (typeof window === "undefined") return path;
+
+  const isGitHubStaging =
+    window.location.hostname === "iltempiofitnessclub.github.io" &&
+    window.location.pathname.startsWith("/staging");
+
+  return isGitHubStaging ? `/staging${path}` : path;
+}
+
 export default function TempioContactPage() {
   return (
     <div className="tempio-page tempio-contact-page">
       <MainHeader
         className="tempio-header"
-        logoSrc="/tempio-logo.png"
+        logoSrc={asset("/tempio-logo.png")}
         logoAlt="Il Tempio Fitness Club"
         navItems={[
           { label: "Home", href: "/tempio" },
@@ -26,7 +36,12 @@ export default function TempioContactPage() {
         <div className="tempio-contact-inner">
           <div className="tempio-contact-hero">
             <div className="tempio-contact-hero-image">
-              <img src="/hero-tempio.jpg" alt="Tempio Fitness Club" />
+              <img
+                src={asset("/hero-tempio.jpg")}
+                alt="Tempio Fitness Club"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div className="tempio-contact-hero-text">
               <p className="tempio-contact-hero-line1">BUILD STRONG</p>
@@ -100,7 +115,7 @@ export default function TempioContactPage() {
 
       <MainFooter
         legalBasePath="/tempio"
-        logoSrc="/tempio-logo-monogram.png"
+        logoSrc={asset("/tempio-logo-monogram.png")}
         email="tempiofitness@gmail.com"
         phone="080.530.1234"
         addressLines={[

@@ -16,6 +16,16 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
+function asset(path: string) {
+  if (typeof window === "undefined") return path;
+
+  const isGitHubStaging =
+    window.location.hostname === "iltempiofitnessclub.github.io" &&
+    window.location.pathname.startsWith("/staging");
+
+  return isGitHubStaging ? `/staging${path}` : path;
+}
+
 const BRAND_NAME = "DogHouse Boxing";
 const BRAND_EMAIL = "tempiofitness@gmail.com";
 
