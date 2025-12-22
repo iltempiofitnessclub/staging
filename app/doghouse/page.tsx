@@ -42,6 +42,7 @@ export default function DoghousePage() {
       <main className="doghouse-main">
         <Hero
           className="doghouse-hero"
+          backgroundImage={asset("/hero-doghouse.jpg")}
           titleLine1="BUILD STRONG"
           titleLine2="TRAIN HARD"
           subtitle="DogHouse è una palestra di boxe a Bari dove formiamo atleti, giovani e adulti attraverso tecnica, disciplina e divertimento."
