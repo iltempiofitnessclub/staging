@@ -56,7 +56,7 @@ export default function Home() {
     }
 
     setTimeout(() => {
-      pushWithBase(target === "doghouse" ? "/doghouse" : "/tempio");
+      router.push(target === "doghouse" ? "/doghouse" : "/tempio");
     }, 400);
   };
 

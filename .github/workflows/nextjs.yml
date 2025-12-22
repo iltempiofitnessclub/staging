@@ -52,6 +52,7 @@ jobs:
       - name: Build with Next.js for GitHub Pages
         env:
           NEXT_PUBLIC_ENV: github
+          NEXT_PUBLIC_BASE_PATH: /staging
         run: ${{ steps.detect-package-manager.outputs.manager }} run build:github
 
       - name: Upload artifact
