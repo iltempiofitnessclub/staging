@@ -1,17 +1,14 @@
 "use client";
 
-import NextLink, { LinkProps as NextLinkProps } from "next/link";
-import React, { ReactNode } from "react";
+import NextLink from "next/link";
+import type { LinkProps } from "next/link";
+import { ReactNode } from "react";
 
-type Props = NextLinkProps &
-  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
-    children: ReactNode;
-  };
+type Props = LinkProps & {
+  children: ReactNode;
+  className?: string;
+};
 
-export default function Link({ href, children, ...props }: Props) {
-  return (
-    <NextLink href={href} {...props}>
-      {children}
-    </NextLink>
-  );
+export default function Link({ href, ...props }: Props) {
+  return <NextLink href={href} {...props} />;
 }

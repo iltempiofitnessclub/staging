@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "@/components/routing/Link";
+import NextLink from "next/link";
 import { ReactNode } from "react";
 
 type SocialItem = {
@@ -68,7 +68,7 @@ export function MainFooter({
               <ul className="main-footer-legal-list">
                 {legalLinks.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
+                    <NextLink href={link.href}>{link.label}</NextLink>
                   </li>
                 ))}
               </ul>
@@ -78,9 +78,10 @@ export function MainFooter({
 
         <div className="main-footer-col main-footer-col-social">
           <h3 className="main-footer-col-title">Segui sui nostri social</h3>
+
           <div className="main-footer-social-icons">
             {socialItems.map((s, i) => (
-              <Link
+              <a
                 key={i}
                 href={s.href}
                 aria-label={s.label ?? "Social link"}
@@ -88,7 +89,7 @@ export function MainFooter({
                 rel="noopener noreferrer"
               >
                 {s.icon}
-              </Link>
+              </a>
             ))}
           </div>
         </div>

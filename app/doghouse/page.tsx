@@ -1,18 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import NextLink from "next/link";
 
 import { FloatingWhatsAppButton } from "@/components/ui/FloatingWhatsAppButton";
 import "@/components/styles/floating-whatsapp.css";
 import "@/components/styles/header.css";
 import "@/components/styles/footer.css";
 import "@/components/styles/hero.css";
-import Link from "@/components/routing/Link";
 import "@/styles/doghouse.css";
 
 import { MainHeader } from "@/components/layout/MainHeader";
 import { MainFooter } from "@/components/layout/MainFooter";
 import { Hero } from "@/components/layout/Hero";
+
+import { publicAsset } from "@/lib/publicAsset";
 
 import {
   FaYoutube,
@@ -22,28 +24,18 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-function asset(path: string) {
-  if (typeof window === "undefined") return path;
-
-  const isGitHubStaging =
-    window.location.hostname === "iltempiofitnessclub.github.io" &&
-    window.location.pathname.startsWith("/staging");
-
-  return isGitHubStaging ? `/staging${path}` : path;
-}
-
 export default function DoghousePage() {
   return (
     <div className="doghouse-page">
       <MainHeader
         className="doghouse-header"
-        logoSrc={asset("/doghouse-logo.png")}
+        logoSrc={publicAsset("/doghouse-logo.png")}
         logoAlt="DogHouse Boxing"
         navItems={[
           { label: "Home", href: "/doghouse" },
-          { label: "Chi siamo", href: "#chi-siamo" },
-          { label: "Corsi", href: "#corsi" },
-          { label: "Contatti", href: "#contatti" },
+          { label: "Chi siamo", href: "/doghouse#chi-siamo" },
+          { label: "Corsi", href: "/doghouse#corsi" },
+          { label: "Contatti", href: "/doghouse#contatti" },
         ]}
       />
 
@@ -68,8 +60,9 @@ export default function DoghousePage() {
                 età e livelli.
               </p>
             </div>
+
             <div className="doghouse-about-btn-wrapper">
-              <Link href="/" className="hero-btn">
+              <NextLink href="/" className="hero-btn">
                 <span className="hero-btn-icon">
                   <svg
                     width="22"
@@ -86,7 +79,7 @@ export default function DoghousePage() {
                   </svg>
                 </span>
                 TORNA ALLA SELEZIONE DEL SITO
-              </Link>
+              </NextLink>
             </div>
           </div>
         </section>
@@ -99,7 +92,7 @@ export default function DoghousePage() {
 
       <MainFooter
         legalBasePath="/doghouse"
-        logoSrc={asset("/doghouse-logo-monogram.png")}
+        logoSrc={publicAsset("/doghouse-logo-monogram.png")}
         email="tempiofitness@gmail.com"
         phone="080.530.1234"
         addressLines={[
@@ -114,6 +107,7 @@ export default function DoghousePage() {
           { href: "#", icon: <FaLinkedinIn />, label: "LinkedIn" },
         ]}
       />
+
       <FloatingWhatsAppButton
         phone="+39 353 4503806"
         message="Ciao! Vorrei informazioni sui corsi DogHouse."
@@ -139,12 +133,7 @@ const COURSES: Course[] = [
     imageSrc: "/mattutino.jpg",
     description:
       "Allenati al mattino con un corso completo di boxe per migliorare forma fisica, tecnica ed energia. Adatto a tutti i livelli, seguito da istruttori qualificati.",
-    schedule: [
-      {
-        days: "Lunedì, mercoledì e venerdì",
-        time: "10:00 – 11:00",
-      },
-    ],
+    schedule: [{ days: "Lunedì, mercoledì e venerdì", time: "10:00 – 11:00" }],
     info: [
       "Livello: base / intermedio",
       "Durata lezione: 60 minuti",
@@ -152,19 +141,13 @@ const COURSES: Course[] = [
       "Ideale per iniziare la giornata con energia",
     ],
   },
-
   {
     id: 2,
     title: "BOXE BABY",
     imageSrc: "/baby.jpg",
     description:
       "Un corso divertente e sicuro per avvicinare i bambini alla boxe. Migliora coordinazione, disciplina e fiducia in sé stessi attraverso lo sport.",
-    schedule: [
-      {
-        days: "Lunedì e mercoledì",
-        time: "18:00 – 19:00",
-      },
-    ],
+    schedule: [{ days: "Lunedì e mercoledì", time: "18:00 – 19:00" }],
     info: [
       "Corso dedicato ai più piccoli",
       "Allenamento ludico e coordinativo",
@@ -172,19 +155,13 @@ const COURSES: Course[] = [
       "Obiettivo: disciplina e divertimento",
     ],
   },
-
   {
     id: 3,
     title: "BOXE FEMMINILE",
     imageSrc: "/femminile.jpg",
     description:
       "Corso di boxe femminile dedicato a forza, tecnica e sicurezza di sè. Allenamenti energici in un ambiente motivante e inclusivo.",
-    schedule: [
-      {
-        days: "Martedì e giovedì",
-        time: "18:00 – 19:00",
-      },
-    ],
+    schedule: [{ days: "Martedì e giovedì", time: "18:00 – 19:00" }],
     info: [
       "Corso riservato alle donne",
       "Allenamento tecnico e funzionale",
@@ -192,19 +169,13 @@ const COURSES: Course[] = [
       "Ambiente inclusivo e motivante",
     ],
   },
-
   {
     id: 4,
     title: "BOXE ADULTI I",
     imageSrc: "/adultiI.jpg",
     description:
       "Il corso serale ideale dopo il lavoro. Allenamenti dinamici per migliorare forza, resistenza e tecnica pugilistica.",
-    schedule: [
-      {
-        days: "Lunedì, mercoledì e venerdì",
-        time: "19:00 – 20:00",
-      },
-    ],
+    schedule: [{ days: "Lunedì, mercoledì e venerdì", time: "19:00 – 20:00" }],
     info: [
       "Livello: principiante",
       "Durata lezione: 60 minuti",
@@ -212,7 +183,6 @@ const COURSES: Course[] = [
       "Nessuna esperienza richiesta",
     ],
   },
-
   {
     id: 5,
     title: "BOXE ADULTI II",
@@ -220,14 +190,8 @@ const COURSES: Course[] = [
     description:
       "Orari flessibili e allenamenti completi. Perfetto per chi vuole risultati concreti senza vincoli di orario.",
     schedule: [
-      {
-        days: "Martedì e giovedì",
-        time: "19:00 – 20:00",
-      },
-      {
-        days: "Venerdì",
-        time: "18:00 – 19:00",
-      },
+      { days: "Martedì e giovedì", time: "19:00 – 20:00" },
+      { days: "Venerdì", time: "18:00 – 19:00" },
     ],
     info: [
       "Livello: intermedio",
@@ -236,19 +200,13 @@ const COURSES: Course[] = [
       "Richiesta esperienza base",
     ],
   },
-
   {
     id: 6,
     title: "BOXE ADULTI III",
     imageSrc: "/adultiIII.jpg",
     description:
       "Allenamenti intensi in fascia serale per migliorare tecnica, potenza e forma fisica, scaricando lo stress della giornata.",
-    schedule: [
-      {
-        days: "Lunedì, mercoledì e venerdì",
-        time: "20:00 – 21:00",
-      },
-    ],
+    schedule: [{ days: "Lunedì, mercoledì e venerdì", time: "20:00 – 21:00" }],
     info: [
       "Livello: avanzato",
       "Allenamento ad alta intensità",
@@ -256,19 +214,13 @@ const COURSES: Course[] = [
       "Preparazione agonistica",
     ],
   },
-
   {
     id: 7,
     title: "LEZIONI PRIVATE",
     imageSrc: "/private.jpg",
     description:
       "Le lezioni private offrono un allenamento personalizzato e su misura, ideale per lavorare su obiettivi specifici, tecnica individuale e preparazione atletica.",
-    schedule: [
-      {
-        days: "Su appuntamento",
-        time: "Orari flessibili",
-      },
-    ],
+    schedule: [{ days: "Su appuntamento", time: "Orari flessibili" }],
     info: [
       "Allenamento personalizzato",
       "Adatto a tutti i livelli",
@@ -305,10 +257,7 @@ function AnimatedCard({
           window.clearTimeout(fallback);
         }
       },
-      {
-        threshold: 0.15,
-        rootMargin: "200px 0px",
-      }
+      { threshold: 0.15, rootMargin: "200px 0px" }
     );
 
     observer.observe(node);
@@ -363,17 +312,13 @@ function CoursesSection() {
 
   useEffect(() => {
     const root = document.documentElement;
-
     if (selectedCourse) root.classList.add("doghouse-modal-open");
     else root.classList.remove("doghouse-modal-open");
-
     return () => root.classList.remove("doghouse-modal-open");
   }, [selectedCourse]);
 
   const prev = () => {
-    setStartIndex(
-      (prevIndex) => (prevIndex - 1 + COURSES.length) % COURSES.length
-    );
+    setStartIndex((prevIndex) => (prevIndex - 1 + COURSES.length) % COURSES.length);
   };
 
   const next = () => {
@@ -438,7 +383,7 @@ function CoursesSection() {
               >
                 <div className="doghouse-course-image">
                   <img
-                    src={asset(course.imageSrc)}
+                    src={publicAsset(course.imageSrc)}
                     alt={course.title}
                     loading="lazy"
                     decoding="async"
@@ -526,13 +471,13 @@ function CoursesSection() {
               </div>
 
               <div className="doghouse-modal-actions">
-                <Link
+                <NextLink
                   href={`/doghouse/contatti?course=${selectedCourse.id}`}
                   className="doghouse-modal-cta"
                   onClick={() => setSelectedCourse(null)}
                 >
                   CHIEDI INFORMAZIONI
-                </Link>
+                </NextLink>
               </div>
             </div>
           </div>
@@ -552,10 +497,11 @@ function ContactStrip() {
             DogHouse è in Via V. Maiorano Capitano, 27 - 70128 Bari - Palese (BA)
           </p>
         </div>
-        <Link href="/doghouse/contatti">
+
+        <NextLink href="/doghouse/contatti">
           <button className="doghouse-contact-strip-button">
             <img
-              src={asset("/mark-email.svg")}
+              src={publicAsset("/mark-email.svg")}
               alt=""
               className="doghouse-contact-strip-button-icon"
               loading="lazy"
@@ -563,7 +509,7 @@ function ContactStrip() {
             />
             <span>CONTATTACI VIA EMAIL</span>
           </button>
-        </Link>
+        </NextLink>
       </div>
     </section>
   );
@@ -596,18 +542,20 @@ export function EventsAndMapSection() {
       <div className="doghouse-section-inner doghouse-events-grid">
         <div className="doghouse-events-column">
           <h2 className="doghouse-section-title">I NOSTRI EVENTI</h2>
+
           <div className="doghouse-events-list">
             {events.map((ev) => (
               <AnimatedCard key={ev.id} className="doghouse-event-card">
                 <div className="doghouse-event-layout">
                   <div className="doghouse-event-image">
                     <img
-                      src={asset(ev.imageSrc)}
+                      src={publicAsset(ev.imageSrc)}
                       alt={ev.title}
                       loading="lazy"
                       decoding="async"
                     />
                   </div>
+
                   <div className="doghouse-event-content">
                     <div className="doghouse-event-badge">{ev.label}</div>
 
@@ -615,9 +563,7 @@ export function EventsAndMapSection() {
 
                     <p className="doghouse-event-desc">{ev.description}</p>
 
-                    {ev.date ? (
-                      <p className="doghouse-event-date">{ev.date}</p>
-                    ) : null}
+                    {ev.date ? <p className="doghouse-event-date">{ev.date}</p> : null}
                   </div>
                 </div>
               </AnimatedCard>
@@ -627,6 +573,7 @@ export function EventsAndMapSection() {
 
         <div className="doghouse-events-column doghouse-events-column-map">
           <h2 className="doghouse-section-title">COME RAGGIUNGERCI</h2>
+
           <div className="doghouse-map-wrapper">
             <iframe
               title="DogHouse Boxing - Palese Bari"
@@ -643,7 +590,7 @@ export function EventsAndMapSection() {
               className="doghouse-map-button"
             >
               <img
-                src={asset("/pin-map.svg")}
+                src={publicAsset("/pin-map.svg")}
                 alt=""
                 className="doghouse-map-button-icon"
                 loading="lazy"
@@ -665,46 +612,14 @@ type Review = {
 };
 
 const REVIEWS: Review[] = [
-  {
-    id: 1,
-    text: "Ambiente super motivante e allenatori molto preparati. Mi sento seguito in ogni allenamento.",
-    name: "Marco De Santis",
-  },
-  {
-    id: 2,
-    text: "Palestra curata e clima davvero positivo. Allenamenti intensi ma adatti anche a chi inizia.",
-    name: "Roberto Ancona",
-  },
-  {
-    id: 3,
-    text: "Struttura ottima e istruttori seri. Ho migliorato tecnica e forma fisica in poco tempo.",
-    name: "Alessandro Lorusso",
-  },
-  {
-    id: 4,
-    text: "Consigliatissima. Allenamenti completi, ambiente pulito e tanta professionalità.",
-    name: "Francesca Milella",
-  },
-  {
-    id: 5,
-    text: "La migliore palestra di boxe della zona. Passione vera e grande attenzione agli atleti.",
-    name: "Davide Ladisa",
-  },
-  {
-    id: 6,
-    text: "Perfetta sia per principianti che per chi ha già esperienza. Ti fanno sentire parte del gruppo.",
-    name: "Chiara Vitale",
-  },
-  {
-    id: 7,
-    text: "Allenatori competenti e sempre disponibili. Allenarsi qui è uno stimolo continuo.",
-    name: "Michele Rizzi",
-  },
-  {
-    id: 8,
-    text: "Ottima esperienza. Allenamenti seri, divertenti e mai improvvisati.",
-    name: "Laura Mancini",
-  },
+  { id: 1, text: "Ambiente super motivante e allenatori molto preparati. Mi sento seguito in ogni allenamento.", name: "Marco De Santis" },
+  { id: 2, text: "Palestra curata e clima davvero positivo. Allenamenti intensi ma adatti anche a chi inizia.", name: "Roberto Ancona" },
+  { id: 3, text: "Struttura ottima e istruttori seri. Ho migliorato tecnica e forma fisica in poco tempo.", name: "Alessandro Lorusso" },
+  { id: 4, text: "Consigliatissima. Allenamenti completi, ambiente pulito e tanta professionalità.", name: "Francesca Milella" },
+  { id: 5, text: "La migliore palestra di boxe della zona. Passione vera e grande attenzione agli atleti.", name: "Davide Ladisa" },
+  { id: 6, text: "Perfetta sia per principianti che per chi ha già esperienza. Ti fanno sentire parte del gruppo.", name: "Chiara Vitale" },
+  { id: 7, text: "Allenatori competenti e sempre disponibili. Allenarsi qui è uno stimolo continuo.", name: "Michele Rizzi" },
+  { id: 8, text: "Ottima esperienza. Allenamenti seri, divertenti e mai improvvisati.", name: "Laura Mancini" },
 ];
 
 function ReviewsSection() {
@@ -770,9 +685,7 @@ function ReviewsSection() {
             {getVisibleReviews().map((review) => (
               <AnimatedCard key={review.id} className="doghouse-review-card multi">
                 <p className="doghouse-review-text">{review.text}</p>
-                <p className="doghouse-review-name">
-                  ★ ★ ★ ★ ★ – {review.name}
-                </p>
+                <p className="doghouse-review-name">★ ★ ★ ★ ★ – {review.name}</p>
               </AnimatedCard>
             ))}
           </div>
@@ -793,9 +706,7 @@ function ReviewsSection() {
               type="button"
               className={
                 "doghouse-slider-dot" +
-                (startIndex === i * visibleCount
-                  ? " doghouse-slider-dot--active"
-                  : "")
+                (startIndex === i * visibleCount ? " doghouse-slider-dot--active" : "")
               }
               onClick={() => setStartIndex(i * visibleCount)}
             />

@@ -10,6 +10,7 @@ import "@/styles/doghouse.css";
 import { COURSES } from "@/data/doghouseCourses";
 import { MainHeader } from "@/components/layout/MainHeader";
 import { MainFooter } from "@/components/layout/MainFooter";
+import { publicAsset } from "@/lib/publicAsset";
 
 import {
   FaYoutube,
@@ -18,16 +19,6 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
-
-function asset(path: string) {
-  if (typeof window === "undefined") return path;
-
-  const isGitHubStaging =
-    window.location.hostname === "iltempiofitnessclub.github.io" &&
-    window.location.pathname.startsWith("/staging");
-
-  return isGitHubStaging ? `/staging${path}` : path;
-}
 
 function DoghouseContactPageInner() {
   const searchParams = useSearchParams();
@@ -53,7 +44,7 @@ function DoghouseContactPageInner() {
     <div className="doghouse-page">
       <MainHeader
         className="doghouse-header"
-        logoSrc={asset("/doghouse-logo.png")}
+        logoSrc={publicAsset("/doghouse-logo.png")}
         logoAlt="DogHouse Boxing"
         navItems={[
           { label: "Home", href: "/doghouse" },
@@ -69,12 +60,13 @@ function DoghouseContactPageInner() {
             <div className="doghouse-contact-hero">
               <div className="doghouse-contact-hero-image">
                 <img
-                  src={asset("/IMG_0204.jpg")}
+                  src={publicAsset("/IMG_0204.jpg")}
                   alt="DogHouse Boxing"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
+
               <div className="doghouse-contact-hero-text">
                 <p className="doghouse-contact-hero-line1">BUILD STRONG</p>
                 <p className="doghouse-contact-hero-line2">TRAIN HARD</p>
@@ -86,6 +78,7 @@ function DoghouseContactPageInner() {
                 <h1 className="doghouse-contact-title">
                   Grazie per aver scelto di contattarci
                 </h1>
+
                 <p className="doghouse-contact-subtitle">
                   Compila il seguente modulo al fine di inviarci le informazioni
                   necessarie affinché possiamo contattarti il prima possibile.
@@ -179,7 +172,7 @@ function DoghouseContactPageInner() {
 
       <MainFooter
         legalBasePath="/doghouse"
-        logoSrc={asset("/doghouse-logo-monogram.png")}
+        logoSrc={publicAsset("/doghouse-logo-monogram.png")}
         email="tempiofitness@gmail.com"
         phone="080.530.1234"
         addressLines={["Bari – Palese – 70128", "via V. Maiorano Capitano 27"]}

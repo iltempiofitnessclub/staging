@@ -16,15 +16,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-function asset(path: string) {
-  if (typeof window === "undefined") return path;
-
-  const isGitHubStaging =
-    window.location.hostname === "iltempiofitnessclub.github.io" &&
-    window.location.pathname.startsWith("/staging");
-
-  return isGitHubStaging ? `/staging${path}` : path;
-}
+import { publicAsset } from "@/lib/publicAsset";
 
 const BRAND_NAME = "DogHouse Boxing";
 const BRAND_EMAIL = "tempiofitness@gmail.com";
@@ -34,7 +26,7 @@ export default function DoghouseGymRulesPage() {
     <div className="doghouse-page legal-page">
       <MainHeader
         className="doghouse-header"
-        logoSrc="/doghouse-logo.png"
+        logoSrc={publicAsset("/doghouse-logo.png")}
         logoAlt={BRAND_NAME}
         navItems={[
           { label: "Home", href: "/doghouse" },
@@ -52,8 +44,8 @@ export default function DoghouseGymRulesPage() {
           <section className="legal-section">
             <h2>1. Accesso alla struttura</h2>
             <p>
-              L&apos;accesso alla palestra è consentito solo agli iscritti in regola
-              con il pagamento della quota e, ove richiesto, con la
+              L&apos;accesso alla palestra è consentito solo agli iscritti in
+              regola con il pagamento della quota e, ove richiesto, con la
               presentazione del certificato medico in corso di validità.
             </p>
           </section>
@@ -127,7 +119,7 @@ export default function DoghouseGymRulesPage() {
 
       <MainFooter
         legalBasePath="/doghouse"
-        logoSrc="/doghouse-logo-monogram.png"
+        logoSrc={publicAsset("/doghouse-logo-monogram.png")}
         logoAlt={BRAND_NAME}
         email={BRAND_EMAIL}
         phone="080.530.1234"

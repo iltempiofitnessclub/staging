@@ -16,15 +16,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-function asset(path: string) {
-  if (typeof window === "undefined") return path;
-
-  const isGitHubStaging =
-    window.location.hostname === "iltempiofitnessclub.github.io" &&
-    window.location.pathname.startsWith("/staging");
-
-  return isGitHubStaging ? `/staging${path}` : path;
-}
+import { publicAsset } from "@/lib/publicAsset";
 
 const BRAND_NAME = "DogHouse Boxing";
 const BRAND_EMAIL = "tempiofitness@gmail.com";
@@ -34,7 +26,7 @@ export default function DoghouseCookiePolicyPage() {
     <div className="doghouse-page legal-page">
       <MainHeader
         className="doghouse-header"
-        logoSrc="/doghouse-logo.png"
+        logoSrc={publicAsset("/doghouse-logo.png")}
         logoAlt={BRAND_NAME}
         navItems={[
           { label: "Home", href: "/doghouse" },
@@ -132,7 +124,7 @@ export default function DoghouseCookiePolicyPage() {
 
       <MainFooter
         legalBasePath="/doghouse"
-        logoSrc="/doghouse-logo-monogram.png"
+        logoSrc={publicAsset("/doghouse-logo-monogram.png")}
         logoAlt={BRAND_NAME}
         email={BRAND_EMAIL}
         phone="080.530.1234"

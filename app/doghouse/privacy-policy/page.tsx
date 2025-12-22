@@ -16,15 +16,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-function asset(path: string) {
-  if (typeof window === "undefined") return path;
-
-  const isGitHubStaging =
-    window.location.hostname === "iltempiofitnessclub.github.io" &&
-    window.location.pathname.startsWith("/staging");
-
-  return isGitHubStaging ? `/staging${path}` : path;
-}
+import { publicAsset } from "@/lib/publicAsset";
 
 const BRAND_NAME = "DogHouse Boxing";
 const BRAND_EMAIL = "tempiofitness@gmail.com";
@@ -34,7 +26,7 @@ export default function DoghousePrivacyPolicyPage() {
     <div className="doghouse-page legal-page">
       <MainHeader
         className="doghouse-header"
-        logoSrc="/doghouse-logo.png"
+        logoSrc={publicAsset("/doghouse-logo.png")}
         logoAlt={BRAND_NAME}
         navItems={[
           { label: "Home", href: "/doghouse" },
@@ -65,8 +57,8 @@ export default function DoghousePrivacyPolicyPage() {
               recapiti (email, telefono), informazioni relative alle richieste
               di contatto, iscrizioni ai corsi, preferenze riguardo alle
               attività sportive e, ove necessario, dati relativi allo stato di
-              salute limitatamente ai certificati medici richiesti per l&apos;accesso
-              ai servizi offerti.
+              salute limitatamente ai certificati medici richiesti per
+              l&apos;accesso ai servizi offerti.
             </p>
           </section>
 
@@ -98,8 +90,9 @@ export default function DoghousePrivacyPolicyPage() {
                 delle libertà fondamentali dell&apos;interessato
               </li>
               <li>
-                consenso esplicito dell&apos;interessato per l&apos;invio di comunicazioni
-                commerciali o per il trattamento di dati particolari
+                consenso esplicito dell&apos;interessato per l&apos;invio di
+                comunicazioni commerciali o per il trattamento di dati
+                particolari
               </li>
             </ul>
           </section>
@@ -142,9 +135,9 @@ export default function DoghousePrivacyPolicyPage() {
             <p>
               Ove necessario, alcuni fornitori di servizi potrebbero avere sede
               extra UE. In tali casi il trasferimento dei dati avverrà nel
-              rispetto degli articoli 44 e seguenti del GDPR, mediante
-              decisioni di adeguatezza della Commissione Europea o clausole
-              contrattuali standard.
+              rispetto degli articoli 44 e seguenti del GDPR, mediante decisioni
+              di adeguatezza della Commissione Europea o clausole contrattuali
+              standard.
             </p>
           </section>
 
@@ -176,7 +169,11 @@ export default function DoghousePrivacyPolicyPage() {
               personali avvenga in violazione del GDPR, ha il diritto di
               proporre reclamo all&apos;Autorità Garante per la Protezione dei Dati
               Personali, secondo le modalità indicate sul sito{" "}
-              <a href="https://www.garanteprivacy.it" target="_blank">
+              <a
+                href="https://www.garanteprivacy.it"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 garanteprivacy.it
               </a>
               .
@@ -197,7 +194,7 @@ export default function DoghousePrivacyPolicyPage() {
 
       <MainFooter
         legalBasePath="/doghouse"
-        logoSrc="/doghouse-logo-monogram.png"
+        logoSrc={publicAsset("/doghouse-logo-monogram.png")}
         logoAlt={BRAND_NAME}
         email={BRAND_EMAIL}
         phone="080.530.1234"
