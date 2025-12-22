@@ -1,18 +1,20 @@
 "use client";
 
-import NextLink from "next/link";
+import Link from "next/link";
 
 type HeroProps = {
-  className?: string;
   titleLine1: string;
   titleLine2: string;
-  subtitle: string;
-  buttonLabel: string;
-  buttonHref: string;
+  backgroundImage?: string;
+  subtitle?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+  className?: string;
 };
 
 export function Hero({
   className = "",
+  backgroundImage,
   titleLine1,
   titleLine2,
   subtitle,
@@ -20,17 +22,28 @@ export function Hero({
   buttonHref,
 }: HeroProps) {
   return (
-    <section className={`hero ${className}`}>
-      <div className="hero__inner">
-        <h1 className="hero__title">
-          <span className="hero__title-line">{titleLine1}</span>
-          <span className="hero__title-line">{titleLine2}</span>
-        </h1>
+    <section
+      className={`hero-section ${className}`}
+      style={{
+        backgroundImage: backgroundImage
+          ? `url(${backgroundImage})`
+          : undefined,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="hero-container">
+        <div className="hero-text">
+          <h1 className="hero-line1">{titleLine1}</h1>
+          <h1 className="hero-line2">{titleLine2}</h1>
 
-        <p className="hero__subtitle">{subtitle}</p>
-        <NextLink href={buttonHref} className="hero-btn">
-          {buttonLabel}
-        </NextLink>
+          {subtitle && <p className="hero-subtitle">{subtitle}</p>}
+          {buttonLabel && buttonHref && (
+            <Link href={buttonHref} className="hero-btn">
+              {buttonLabel}
+            </Link>
+          )}
+        </div>
       </div>
     </section>
   );
