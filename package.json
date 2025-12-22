@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "build:github": "next build && node scripts/add-staging-prefix.js"
+    "build:github": "next build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.86.2",

@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-
 const isGitHub = process.env.NEXT_PUBLIC_ENV === "github";
 
 const nextConfig = {

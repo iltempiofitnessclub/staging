@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/routing/Link";
 import { ReactNode } from "react";
 
 type SocialItem = {
@@ -37,14 +37,8 @@ export function MainFooter({
       : [
           { label: "Privacy Policy", href: `${basePath}/privacy-policy` },
           { label: "Cookie Policy", href: `${basePath}/cookie-policy` },
-          {
-            label: "Termini e Condizioni",
-            href: `${basePath}/termini-condizioni`,
-          },
-          {
-            label: "Regolamento Palestra",
-            href: `${basePath}/regolamento-palestra`,
-          },
+          { label: "Termini e Condizioni", href: `${basePath}/termini-condizioni` },
+          { label: "Regolamento Palestra", href: `${basePath}/regolamento-palestra` },
         ];
 
   return (
@@ -91,6 +85,7 @@ export function MainFooter({
                 href={s.href}
                 aria-label={s.label ?? "Social link"}
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {s.icon}
               </Link>

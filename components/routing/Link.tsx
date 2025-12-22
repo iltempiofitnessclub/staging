@@ -2,7 +2,6 @@
 
 import NextLink, { LinkProps } from "next/link";
 import { ReactNode } from "react";
-import { withBasePath } from "@/lib/linkBasePath";
 
 type Props = LinkProps & {
   children: ReactNode;
@@ -10,8 +9,5 @@ type Props = LinkProps & {
 };
 
 export default function Link({ href, ...props }: Props) {
-  const resolvedHref =
-    typeof href === "string" ? withBasePath(href) : href;
-
-  return <NextLink href={resolvedHref} {...props} />;
+  return <NextLink href={href} {...props} />;
 }

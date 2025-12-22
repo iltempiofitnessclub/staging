@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/routing/Link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -55,7 +55,7 @@ export function MainHeader({
         <nav className="gym-header__nav">
           {navItems.map((item) => (
             <Link
-              key={item.href}
+              key={`${item.label}-${item.href}`}
               href={item.href}
               className="gym-header__nav-item"
             >
