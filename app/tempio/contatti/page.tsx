@@ -161,8 +161,7 @@ function TempioContactPageInner() {
                     <input type="checkbox" name="privacy" required />
                     <span className="tempio-checkbox-custom" />
                     <span className="tempio-checkbox-text">
-                      Ho preso visione dell&apos;informativa privacy e presto il
-                      consenso al trattamento dei miei dati personali
+                      Ho preso visione dell'informativa privacy e presto il consenso al trattamento dei miei dati personali
                       <span className="tempio-form-required">*</span>
                     </span>
                   </label>
