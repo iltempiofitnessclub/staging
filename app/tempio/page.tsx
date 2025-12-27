@@ -17,11 +17,9 @@ import { Hero } from "@/components/layout/Hero";
 import { publicAsset } from "@/lib/publicAsset";
 
 import {
-  FaYoutube,
-  FaWhatsapp,
   FaFacebookF,
   FaInstagram,
-  FaLinkedinIn,
+  FaTiktok,
 } from "react-icons/fa";
 
 export default function TempioPage() {
@@ -92,20 +90,18 @@ export default function TempioPage() {
       <MainFooter
         legalBasePath="/tempio"
         logoSrc={publicAsset("/tempio-logo-monogram.png")}
-        email="info@iltempio.it"
-        phone="080.530.1234"
-        addressLines={["Bari – Palese – 70128", "via V. Maiorano Capitano 27"]}
+        email="iltempiofitnessclub@gmail.com"
+        phone="392.097.8713"
+        addressLines={["Bari – Palese – 70128", "via Vico VI Duca D'Aosta, 7A "]}
         socialItems={[
-          { href: "#", icon: <FaYoutube />, label: "YouTube" },
-          { href: "#", icon: <FaWhatsapp />, label: "WhatsApp" },
-          { href: "#", icon: <FaFacebookF />, label: "Facebook" },
-          { href: "#", icon: <FaInstagram />, label: "Instagram" },
-          { href: "#", icon: <FaLinkedinIn />, label: "LinkedIn" },
+          { href: "https://www.facebook.com/tempiofitnessclub/?locale=it_IT", icon: <FaFacebookF />, label: "Facebook" },
+          { href: "https://www.instagram.com/tempiofitnessclub/?hl=it", icon: <FaInstagram />, label: "Instagram" },
+          { href: "https://www.tiktok.com/@iltempio", icon: <FaTiktok />, label: "TikTok" },
         ]}
       />
 
       <FloatingWhatsAppButton
-        phone="+39 333 1112222"
+        phone="+39 392 0978713"
         message="Ciao! Vorrei informazioni sui corsi Il Tempio."
         className="floating-whatsapp-btn-tempio"
       />
@@ -117,8 +113,6 @@ type ClassItem = {
   id: number;
   title: string;
   imageSrc: string;
-
-  // nuovi campi (stile DogHouse, ma con nomi Tempio)
   description: string;
   schedule: { days: string; time: string }[];
   info: string[];
@@ -132,7 +126,8 @@ const CLASSES: ClassItem[] = [
     description:
       "Allenati con il Krav Maga: la disciplina di difesa personale pratica ed efficace, adatta a tutti. Migliora sicurezza , forza e prontezza in ogni situazione.",
     schedule: [
-      { days: "Lunedì e Mercoledì", time: "20:00 – 21:00" },
+      { days: "Lunedì e Mercoledì", time: "20:00" },
+      { days: "Martedì e Giovedì", time: "20:30" },
     ],
     info: [
       "Livello: Principiante – Intermedio – Avanzato",
@@ -148,7 +143,7 @@ const CLASSES: ClassItem[] = [
     description:
       "Il Fit Postural è un corso che unisce esercizi di tonificazione, allungamento e respirazione con l'obbiettivo di migliorare la postura, aumentare la mobilità articolare e ridurre tensioni muscolari . Ideale per chi vuole ritrovare equilibrio , benessere e una corretta consapevolezza del proprio corpo ,",
     schedule: [
-      { days: "Martedì e Giovedì", time: "18:30 – 19:30" },
+      { days: "Martedì e Giovedì", time: "10:30 – 19:30" },
     ],
     info: [
       "Livello: Tutti",
@@ -518,20 +513,6 @@ export function EventsAndMapSection() {
       date: "15 Marzo 2026",
       label: "Evento",
       imageSrc: "/event-1.jpg",
-    },
-    {
-      id: 2,
-      title: "Weekend Functional Training",
-      date: "Dal 10 Aprile 2026",
-      label: "Evento",
-      imageSrc: "/event-2.jpg",
-    },
-    {
-      id: 3,
-      title: "Challenge Cardio & Strength",
-      date: "20–21 Maggio 2026",
-      label: "Evento",
-      imageSrc: "/event-3.jpg",
     },
   ];
 
