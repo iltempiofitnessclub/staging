@@ -1253,3 +1253,20 @@ html.doghouse-modal-open body {
   }
 }
 
+.doghouse-contact-strip-button span {
+  text-decoration: underline;
+  text-underline-offset: 1px;
+  text-decoration-thickness: 1px;
+}
+
+.doghouse-page .main-footer a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.hero-btn {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}

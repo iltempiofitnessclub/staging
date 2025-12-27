@@ -115,7 +115,9 @@ export default function Home() {
           <h2>DOG HOUSE</h2>
 
           <p className="landing-description">
-            Allenamenti, corsi e disciplina: entra nel mondo DogHouse.
+            Con la giusta disciplina, la boxe diventa per tutti. 
+              <br />
+            Allenamenti guidati e professionali, metodo chiaro e cresciata costante.
           </p>
 
           {isMobile && selected === "doghouse" && (

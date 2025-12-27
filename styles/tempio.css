@@ -1044,3 +1044,21 @@ html.tempio-modal-open body {
 .tempio-modal-cta {
   text-decoration: none;
 }
+
+.hero-btn--tempio {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.tempio-contact-strip-button span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.tempio-page .main-footer a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}

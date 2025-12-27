@@ -18,10 +18,8 @@ import { publicAsset } from "@/lib/publicAsset";
 
 import {
   FaYoutube,
-  FaWhatsapp,
-  FaFacebookF,
   FaInstagram,
-  FaLinkedinIn,
+  FaTiktok,
 } from "react-icons/fa";
 
 export default function DoghousePage() {
@@ -45,7 +43,6 @@ export default function DoghousePage() {
           backgroundImage={("/hero-doghouse.jpg")}
           titleLine1="BUILD STRONG"
           titleLine2="TRAIN HARD"
-          subtitle="DogHouse è una palestra di boxe a Bari dove formiamo atleti, giovani e adulti attraverso tecnica, disciplina e divertimento."
           buttonLabel="RICHIEDI UNA PROVA GRATUITA"
           buttonHref="/doghouse/contatti"
         />
@@ -55,7 +52,7 @@ export default function DoghousePage() {
             <div className="doghouse-about-text">
               <h2 className="doghouse-section-title">CHI SIAMO</h2>
               <p className="doghouse-section-text">
-                DogHouse è una palestra di boxe a Bari dove formiamo atleti,
+                DogHouse è una palestra di boxe a Bari - Palese dove formiamo atleti,
                 giovani e adulti attraverso tecnica, disciplina e divertimento.
                 Seguiti da istruttori certificati, offriamo corsi per tutte le
                 età e livelli.
@@ -94,18 +91,16 @@ export default function DoghousePage() {
       <MainFooter
         legalBasePath="/doghouse"
         logoSrc={publicAsset("/doghouse-logo-monogram.png")}
-        email="tempiofitness@gmail.com"
-        phone="080.530.1234"
+        email="boxingdoghouse@gmail.com"
+        phone="353.450.3806"
         addressLines={[
           "Bari – Palese – 70128",
-          "Via V. Maiorano Capitano, 27",
+          "Via V. Maiorano Capitano, 24",
         ]}
         socialItems={[
           { href: "#", icon: <FaYoutube />, label: "YouTube" },
-          { href: "#", icon: <FaWhatsapp />, label: "WhatsApp" },
-          { href: "#", icon: <FaFacebookF />, label: "Facebook" },
-          { href: "#", icon: <FaInstagram />, label: "Instagram" },
-          { href: "#", icon: <FaLinkedinIn />, label: "LinkedIn" },
+          { href: "https://www.instagram.com/_doghouse__boxing/", icon: <FaInstagram />, label: "Instagram" },
+          { href: "#", icon: <FaTiktok />, label: "LinkedIn" },
         ]}
       />
 
@@ -136,7 +131,8 @@ const COURSES: Course[] = [
       "Allenati al mattino con un corso completo di boxe per migliorare forma fisica, tecnica ed energia. Adatto a tutti i livelli, seguito da istruttori qualificati.",
     schedule: [{ days: "Lunedì, mercoledì e venerdì", time: "10:00 – 11:00" }],
     info: [
-      "Livello: base / intermedio",
+      "Livello: Principiante - Intermedio - Avanzato",
+      "Tecnica pugilistica, strenght and conditioning (Forza e Condizionamento)",
       "Durata lezione: 60 minuti",
       "Allenamento tecnico e atletico",
       "Ideale per iniziare la giornata con energia",
@@ -150,6 +146,8 @@ const COURSES: Course[] = [
       "Un corso divertente e sicuro per avvicinare i bambini alla boxe. Migliora coordinazione, disciplina e fiducia in sé stessi attraverso lo sport.",
     schedule: [{ days: "Lunedì e mercoledì", time: "18:00 – 19:00" }],
     info: [
+      "Livello: Principiante - Intermedio - Avanzato",
+      "Tecnica pugilistica, strenght and conditioning (Forza e Condizionamento)",
       "Corso dedicato ai più piccoli",
       "Allenamento ludico e coordinativo",
       "Durata lezione: 60 minuti",
@@ -164,6 +162,8 @@ const COURSES: Course[] = [
       "Corso di boxe femminile dedicato a forza, tecnica e sicurezza di sè. Allenamenti energici in un ambiente motivante e inclusivo.",
     schedule: [{ days: "Martedì e giovedì", time: "18:00 – 19:00" }],
     info: [
+      "Livello: Principiante - Intermedio - Avanzato",
+      "Tecnica pugilistica, strenght and conditioning (Forza e Condizionamento)",
       "Corso riservato alle donne",
       "Allenamento tecnico e funzionale",
       "Adatto a tutti i livelli",
@@ -178,7 +178,8 @@ const COURSES: Course[] = [
       "Il corso serale ideale dopo il lavoro. Allenamenti dinamici per migliorare forza, resistenza e tecnica pugilistica.",
     schedule: [{ days: "Lunedì, mercoledì e venerdì", time: "19:00 – 20:00" }],
     info: [
-      "Livello: principiante",
+      "Livello: Principiante - Intermedio - Avanzato",
+      "Tecnica pugilistica, strenght and conditioning (Forza e Condizionamento)",
       "Durata lezione: 60 minuti",
       "Tecnica di base e condizionamento",
       "Nessuna esperienza richiesta",
@@ -195,10 +196,11 @@ const COURSES: Course[] = [
       { days: "Venerdì", time: "18:00 – 19:00" },
     ],
     info: [
-      "Livello: intermedio",
+      "Livello: Principiante - Intermedio - Avanzato",
+      "Tecnica pugilistica, strenght and conditioning (Forza e Condizionamento)",
       "Allenamento tecnico avanzato",
       "Durata lezione: 60 minuti",
-      "Richiesta esperienza base",
+      "Nessuna esperienza richiesta",
     ],
   },
   {
@@ -209,10 +211,12 @@ const COURSES: Course[] = [
       "Allenamenti intensi in fascia serale per migliorare tecnica, potenza e forma fisica, scaricando lo stress della giornata.",
     schedule: [{ days: "Lunedì, mercoledì e venerdì", time: "20:00 – 21:00" }],
     info: [
-      "Livello: avanzato",
+      "Livello: Principiante - Intermedio - Avanzato",
+      "Tecnica pugilistica, strenght and conditioning (Forza e Condizionamento)",
       "Allenamento ad alta intensità",
       "Durata lezione: 60 minuti",
       "Preparazione agonistica",
+      "Nessuna esperienza richiesta",
     ],
   },
   {
@@ -223,6 +227,8 @@ const COURSES: Course[] = [
       "Le lezioni private offrono un allenamento personalizzato e su misura, ideale per lavorare su obiettivi specifici, tecnica individuale e preparazione atletica.",
     schedule: [{ days: "Su appuntamento", time: "Orari flessibili" }],
     info: [
+      "Livello: Principiante - Intermedio - Avanzato",
+      "Tecnica pugilistica, strenght and conditioning (Forza e Condizionamento)",
       "Allenamento personalizzato",
       "Adatto a tutti i livelli",
       "Programma su misura",
@@ -495,7 +501,7 @@ function ContactStrip() {
         <div className="doghouse-contact-strip-info">
           <h2 className="doghouse-contact-strip-title">CONTATTI</h2>
           <p className="doghouse-contact-strip-text">
-            DogHouse è in Via V. Maiorano Capitano, 27 - 70128 Bari - Palese (BA)
+            DogHouse è in Via V. Maiorano Capitano, 24 - 70128 Bari - Palese (BA)
           </p>
         </div>
 
@@ -523,7 +529,7 @@ export function EventsAndMapSection() {
       title: "Primo posto campionati regionali esordienti 🏅",
       description:
         "Grande successo ai Campionati Regionali Esordienti di Brindisi: Gioele Galiano, 14 anni, categoria 60 kg, conquista il 1° posto, confermandosi uno dei giovani talenti più promettenti della nostra squadra. Un risultato che premia impegno, sacrificio e il lavoro costante svolto in palestra.",
-      date: "14-16 Aprile 2025",
+      date: "14 - 16 Aprile 2025",
       label: "Evento",
       imageSrc: "/evento1.jpg",
     },
