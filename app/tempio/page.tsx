@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FloatingWhatsAppButton } from "@/components/ui/FloatingWhatsAppButton";
 import "@/components/styles/floating-whatsapp.css";
@@ -13,6 +13,7 @@ import "@/styles/tempio.css";
 import { MainHeader } from "@/components/layout/MainHeader";
 import { MainFooter } from "@/components/layout/MainFooter";
 import { Hero } from "@/components/layout/Hero";
+import { publicAsset } from "@/lib/publicAsset";
 
 import {
   FaYoutube,
@@ -22,22 +23,12 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-function asset(path: string) {
-  if (typeof window === "undefined") return path;
-
-  const isGitHubStaging =
-    window.location.hostname === "iltempiofitnessclub.github.io" &&
-    window.location.pathname.startsWith("/staging");
-
-  return isGitHubStaging ? `/staging${path}` : path;
-}
-
 export default function TempioPage() {
   return (
     <div className="tempio-page">
       <MainHeader
         className="tempio-header"
-        logoSrc={asset("/tempio-logo.png")}
+        logoSrc={publicAsset("/tempio-logo.png")}
         logoAlt="Il Tempio Fitness Club"
         navItems={[
           { label: "Home", href: "/tempio" },
@@ -100,7 +91,7 @@ export default function TempioPage() {
 
       <MainFooter
         legalBasePath="/tempio"
-        logoSrc={asset("/tempio-logo-monogram.png")}
+        logoSrc={publicAsset("/tempio-logo-monogram.png")}
         email="info@iltempio.it"
         phone="080.530.1234"
         addressLines={["Bari – Palese – 70128", "via V. Maiorano Capitano 27"]}
@@ -139,9 +130,11 @@ const CLASSES: ClassItem[] = [
 function AnimatedCard({
   className = "",
   children,
+  onClick,
 }: {
   className?: string;
   children: React.ReactNode;
+  onClick?: () => void;
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = React.useRef<HTMLElement | null>(null);
@@ -161,10 +154,7 @@ function AnimatedCard({
           window.clearTimeout(fallback);
         }
       },
-      {
-        threshold: 0.15,
-        rootMargin: "200px 0px",
-      }
+      { threshold: 0.15, rootMargin: "200px 0px" }
     );
 
     observer.observe(node);
@@ -178,10 +168,12 @@ function AnimatedCard({
   return (
     <article
       ref={ref as React.RefObject<HTMLElement>}
+      onClick={onClick}
       className={
         "tempio-card-animated" +
         (isVisible ? " tempio-card-animated--visible" : "") +
-        (className ? ` ${className}` : "")
+        (className ? ` ${className}` : "") +
+        (onClick ? " tempio-card-clickable" : "")
       }
     >
       {children}
@@ -194,6 +186,8 @@ function ClassesSection() {
   const [visibleCount, setVisibleCount] = useState(3);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
+  const [selectedClass, setSelectedClass] = useState<ClassItem | null>(null);
+
   useEffect(() => {
     const updateVisibleCount = () => {
       if (window.innerWidth <= 640) setVisibleCount(1);
@@ -205,6 +199,21 @@ function ClassesSection() {
     window.addEventListener("resize", updateVisibleCount);
     return () => window.removeEventListener("resize", updateVisibleCount);
   }, []);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedClass(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (selectedClass) root.classList.add("tempio-modal-open");
+    else root.classList.remove("tempio-modal-open");
+    return () => root.classList.remove("tempio-modal-open");
+  }, [selectedClass]);
 
   const prev = () => {
     setStartIndex((prev) => (prev - 1 + CLASSES.length) % CLASSES.length);
@@ -247,7 +256,11 @@ function ClassesSection() {
           <button
             type="button"
             className="tempio-slider-arrow tempio-slider-arrow--left"
-            onClick={prev}
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
+            aria-label="Corsi precedenti"
           >
             ‹
           </button>
@@ -258,10 +271,14 @@ function ClassesSection() {
             onTouchEnd={handleTouchEnd}
           >
             {getVisibleClasses().map((cls) => (
-              <AnimatedCard key={cls.id} className="tempio-class-card">
+              <AnimatedCard
+                key={cls.id}
+                className="tempio-class-card"
+                onClick={() => setSelectedClass(cls)}
+              >
                 <div className="tempio-class-image">
                   <img
-                    src={asset(cls.imageSrc)}
+                    src={publicAsset(cls.imageSrc)}
                     alt={cls.title}
                     loading="lazy"
                     decoding="async"
@@ -275,7 +292,11 @@ function ClassesSection() {
           <button
             type="button"
             className="tempio-slider-arrow tempio-slider-arrow--right"
-            onClick={next}
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
+            aria-label="Corsi successivi"
           >
             ›
           </button>
@@ -296,6 +317,51 @@ function ClassesSection() {
           ))}
         </div>
       </div>
+
+      {selectedClass && (
+        <div
+          className="tempio-modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) setSelectedClass(null);
+          }}
+        >
+          <div className="tempio-modal">
+            <button
+              type="button"
+              className="tempio-modal-close"
+              onClick={() => setSelectedClass(null)}
+              aria-label="Chiudi"
+            >
+              ✕
+            </button>
+
+            <h3 className="tempio-modal-title">{selectedClass.title}</h3>
+
+            <div className="tempio-modal-body">
+              <div className="tempio-modal-image">
+                <img
+                  src={publicAsset(selectedClass.imageSrc)}
+                  alt={selectedClass.title}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              <div className="tempio-modal-actions">
+                <Link
+                  href="/tempio/contatti"
+                  className="tempio-modal-cta"
+                  onClick={() => setSelectedClass(null)}
+                >
+                  CHIEDI INFORMAZIONI
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
@@ -314,7 +380,7 @@ function ContactStrip() {
         <Link href="/tempio/contatti">
           <button className="tempio-contact-strip-button">
             <img
-              src={asset("/mark-email.svg")}
+              src={publicAsset("/mark-email.svg")}
               alt=""
               className="tempio-contact-strip-button-icon"
               loading="lazy"
@@ -364,7 +430,7 @@ export function EventsAndMapSection() {
                 <div className="tempio-event-layout">
                   <div className="tempio-event-image">
                     <img
-                      src={asset(ev.imageSrc)}
+                      src={publicAsset(ev.imageSrc)}
                       alt={ev.title}
                       loading="lazy"
                       decoding="async"
@@ -398,7 +464,7 @@ export function EventsAndMapSection() {
               className="tempio-map-button"
             >
               <img
-                src={asset("/pin-map.svg")}
+                src={publicAsset("/pin-map.svg")}
                 alt=""
                 className="tempio-map-button-icon"
                 loading="lazy"
