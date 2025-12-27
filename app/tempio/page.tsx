@@ -43,7 +43,6 @@ export default function TempioPage() {
           className="tempio-hero"
           titleLine1="BUILD STRENGTH"
           titleLine2="TRAIN HARD"
-          subtitle="Allenamenti funzionali, sala pesi e corsi di gruppo pensati per aumentare forza, resistenza e benessere a 360°."
           buttonLabel="RICHIEDI UNA PROVA GRATUITA"
           buttonHref="/tempio/contatti"
         />
@@ -117,69 +116,107 @@ type ClassItem = {
   id: number;
   title: string;
   imageSrc: string;
+
+  // nuovi campi (stile DogHouse, ma con nomi Tempio)
+  description: string;
+  schedule: { days: string; time: string }[];
+  info: string[];
 };
 
 const CLASSES: ClassItem[] = [
-  { id: 1, title: "STRENGTH TRAINING", imageSrc: "/tempio-pt.jpg" },
-  { id: 2, title: "CARDIO", imageSrc: "/tempio-cardio.jpg" },
-  { id: 3, title: "FUNCTIONAL TRAINING", imageSrc: "/tempio-functional.jpg" },
-  { id: 4, title: "HIIT", imageSrc: "/tempio-hiit.jpg" },
-  { id: 5, title: "PERSONAL TRAINING", imageSrc: "/tempio-pt.jpg" },
+  {
+    id: 1,
+    title: "KRAV MAGA",
+    imageSrc: "/kravmaga.jpg",
+    description:
+      "Allenati con il Krav Maga: la disciplina di difesa personale pratica ed efficace, adatta a tutti. Migliora sicurezza , forza e prontezza in ogni situazione.",
+    schedule: [
+      { days: "Lunedì e Mercoledì", time: "20:00 – 21:00" },
+    ],
+    info: [
+      "Livello: Principiante – Intermedio – Avanzato",
+      "Tecniche di difesa personale e condizionamento",
+      "Durata lezione: 60 minuti",
+      "Allenamento intenso e funzionale",
+    ],
+  },
+  {
+    id: 2,
+    title: "FIT POSTURAL",
+    imageSrc: "/fitpostural.jpg",
+    description:
+      "Il Fit Postural è un corso che unisce esercizi di tonificazione, allungamento e respirazione con l'obbiettivo di migliorare la postura, aumentare la mobilità articolare e ridurre tensioni muscolari . Ideale per chi vuole ritrovare equilibrio , benessere e una corretta consapevolezza del proprio corpo ,",
+    schedule: [
+      { days: "Martedì e Giovedì", time: "18:30 – 19:30" },
+    ],
+    info: [
+      "Livello: Tutti",
+      "Mobilità, postura, core e respirazione",
+      "Durata lezione: 60 minuti",
+      "Ottimo anche come prevenzione infortuni",
+    ],
+  },
+  {
+    id: 3,
+    title: "BUDO TAIJUTSU",
+    imageSrc: "/budo.jpg",
+    description:
+      "Il Budo è l’insieme delle arti marziali tradizionali giapponesi, nate come disciplina dei samurai. Oltre alla pratica tecnica di combattimento, il Budo pone al centro valori come rispetto, autocontrollo, armonia tra corpo e mente e crescita personale. Non è solo difesa o attacco, ma un vero percorso di formazione fisica, mentale e spirituale.",
+    schedule: [{ days: "Martedì e Giovedì", time: "20:30 – 21:30" }],
+    info: [
+      "Livello: Principiante – Intermedio – Avanzato",
+      "Tecniche tradizionali + lavoro su equilibrio e coordinazione",
+      "Durata lezione: 60 minuti",
+      "Approccio tecnico e progressivo",
+    ],
+  },
+  {
+    id: 4,
+    title: "MUSIC FIT",
+    imageSrc: "/musicfit.jpg",
+    description:
+      "Music Fit Energy – Un allenamento dinamico che unisce aerobica e total body, per bruciare calorie, tonificare tutto il corpo e divertirti al ritmo della musica.",
+    schedule: [
+      { days: "Lunedì e Mercoledì", time: "19:00 – 20:00" },
+    ],
+    info: [
+      "Livello: Tutti",
+      "Cardio + tonificazione",
+      "Durata lezione: 60 minuti",
+      "Alta energia e zero noia",
+    ],
+  },
+  {
+    id: 5,
+    title: "MUAY THAY",
+    imageSrc: "/moutai.jpg",
+    description:
+      "Allenamenti dinamici e coinvolgenti per migliorare forza, resistenza e coordinazione. Il corso di Muay Thai è adatto a tutti i livelli e combina tecnica, disciplina e allenamento funzionale, aiutando a sviluppare sicurezza, controllo del corpo e benessere fisico in un ambiente motivante e professionale.",
+    schedule: [{ days: "Mercoledì", time: "21:00 – 22:00" }],
+    info: [
+      "Livello: Intermedio – Avanzato",
+      "Forza, resistenza e coordinazione",
+      "Durata lezione: 60 minuti",
+      "Allenamento ad alta intensità",
+    ],
+  },
+  {
+    id: 6,
+    title: "FUNNY FIT",
+    imageSrc: "/funnyfit.jpg",
+    description:
+      "Funny Fit è un corso dinamico e coinvolgente che unisce cardio e tonificazione in un allenamento divertente e completo. Attraverso l’utilizzo di piccoli attrezzi come step, fitball, trampolino e pesetti, migliora resistenza, coordinazione e forza muscolare, rendendo ogni lezione varia, efficace e stimolante. Perfetto per chi vuole allenarsi con energia e buonumore!",
+    schedule: [
+      { days: "Martedì", time: "19:30 – 20:30" },
+    ],
+    info: [
+      "Livello: Tutti",
+      "Functional + circuito",
+      "Durata lezione: 60 minuti",
+      "Perfetto per ripartire e divertirsi",
+    ],
+  },
 ];
-
-function AnimatedCard({
-  className = "",
-  children,
-  onClick,
-}: {
-  className?: string;
-  children: React.ReactNode;
-  onClick?: () => void;
-}) {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = React.useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const fallback = window.setTimeout(() => setIsVisible(true), 800);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry?.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-          window.clearTimeout(fallback);
-        }
-      },
-      { threshold: 0.15, rootMargin: "200px 0px" }
-    );
-
-    observer.observe(node);
-
-    return () => {
-      observer.disconnect();
-      window.clearTimeout(fallback);
-    };
-  }, []);
-
-  return (
-    <article
-      ref={ref as React.RefObject<HTMLElement>}
-      onClick={onClick}
-      className={
-        "tempio-card-animated" +
-        (isVisible ? " tempio-card-animated--visible" : "") +
-        (className ? ` ${className}` : "") +
-        (onClick ? " tempio-card-clickable" : "")
-      }
-    >
-      {children}
-    </article>
-  );
-}
 
 function ClassesSection() {
   const [startIndex, setStartIndex] = useState(0);
@@ -340,13 +377,33 @@ function ClassesSection() {
             <h3 className="tempio-modal-title">{selectedClass.title}</h3>
 
             <div className="tempio-modal-body">
-              <div className="tempio-modal-image">
-                <img
-                  src={publicAsset(selectedClass.imageSrc)}
-                  alt={selectedClass.title}
-                  loading="lazy"
-                  decoding="async"
-                />
+              <p className="tempio-modal-desc">{selectedClass.description}</p>
+
+              <div className="tempio-modal-divider" />
+
+              <div className="tempio-modal-section">
+                <h4 className="tempio-modal-subtitle">Orari</h4>
+
+                <ul className="tempio-modal-schedule">
+                  {selectedClass.schedule.map((row, idx) => (
+                    <li key={idx} className="tempio-modal-schedule-row">
+                      <span>{row.days}</span>
+                      <span>{row.time}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="tempio-modal-divider" />
+
+              <div className="tempio-modal-section">
+                <h4 className="tempio-modal-subtitle">Info</h4>
+
+                <ul className="tempio-modal-list">
+                  {selectedClass.info.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
               </div>
 
               <div className="tempio-modal-actions">
@@ -363,6 +420,60 @@ function ClassesSection() {
         </div>
       )}
     </section>
+  );
+}
+
+function AnimatedCard({
+  className = "",
+  children,
+  onClick,
+}: {
+  className?: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const fallback = window.setTimeout(() => setIsVisible(true), 800);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+          window.clearTimeout(fallback);
+        }
+      },
+      { threshold: 0.15, rootMargin: "200px 0px" }
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
+  }, []);
+
+  return (
+    <article
+      ref={ref as React.RefObject<HTMLElement>}
+      onClick={onClick}
+      className={
+        "tempio-card-animated" +
+        (isVisible ? " tempio-card-animated--visible" : "") +
+        (className ? ` ${className}` : "") +
+        (onClick ? " tempio-card-clickable" : "")
+      }
+    >
+      {children}
+    </article>
   );
 }
 

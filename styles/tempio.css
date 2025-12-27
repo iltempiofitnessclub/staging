@@ -1003,36 +1003,104 @@ html.tempio-modal-open body {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.45);
 }
 
 .tempio-modal {
   width: min(720px, 100%);
-  border-radius: 16px;
-  background: #0b0b0b;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 18px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  padding: 18px 18px 16px;
+  position: relative;
 }
 
 .tempio-modal-close {
-  background: transparent;
-  color: white;
-  border: 0;
-  font-size: 22px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #f2f2f2;
+  border: 1px solid #e0e0e0;
+  color: #222222;
+  font-size: 20px;
+  line-height: 1;
   cursor: pointer;
-  float: right;
+}
+
+.tempio-modal-close:hover {
+  background: #eaeaea;
 }
 
 .tempio-modal-title {
-  margin: 0 0 14px 0;
-  color: white;
+  margin: 0 40px 12px 0;
+  color: #000000;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.tempio-modal-image img {
+.tempio-modal-body {
+  color: #222222;
+}
+
+.tempio-modal-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555555;
+}
+
+.tempio-modal-divider {
+  height: 1px;
   width: 100%;
-  height: auto;
-  border-radius: 12px;
-  display: block;
+  margin: 14px 0;
+  background: #e6e6e6;
+}
+
+.tempio-modal-subtitle {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.tempio-modal-schedule {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tempio-modal-schedule-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #f7f7f7;
+  color: #222222;
+}
+
+.tempio-modal-schedule-row span:last-child {
+  font-weight: 800;
+  color: #c7322b;
+}
+
+.tempio-modal-list {
+  margin: 0;
+  padding-left: 18px;
+  color: #555555;
+}
+
+.tempio-modal-list li {
+  margin: 6px 0;
 }
 
 .tempio-modal-actions {
@@ -1042,23 +1110,20 @@ html.tempio-modal-open body {
 }
 
 .tempio-modal-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 6px;
+  background: #c7322b;
+  color: #ffffff !important;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   text-decoration: none;
 }
 
-.hero-btn--tempio {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1px;
-}
-
-.tempio-contact-strip-button span {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-}
-
-.tempio-page .main-footer a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
+.tempio-modal-cta:hover {
+  background: #a7201a;
 }
