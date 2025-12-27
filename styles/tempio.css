@@ -989,3 +989,58 @@
     padding: 10px 10px;
   }
 }
+
+html.tempio-modal-open,
+html.tempio-modal-open body {
+  overflow: hidden;
+}
+
+.tempio-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.tempio-modal {
+  width: min(720px, 100%);
+  border-radius: 16px;
+  background: #0b0b0b;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 18px;
+}
+
+.tempio-modal-close {
+  background: transparent;
+  color: white;
+  border: 0;
+  font-size: 22px;
+  cursor: pointer;
+  float: right;
+}
+
+.tempio-modal-title {
+  margin: 0 0 14px 0;
+  color: white;
+}
+
+.tempio-modal-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
+
+.tempio-modal-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tempio-modal-cta {
+  text-decoration: none;
+}
