@@ -1127,3 +1127,19 @@ html.tempio-modal-open body {
 .tempio-modal-cta:hover {
   background: #a7201a;
 }
+
+.tempio-form-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 2px;
+  border: 1px solid #000000;
+  background-color: #f7f7f7;
+  color: #222222;
+  font-size: 0.9rem;
+}
+
+.tempio-form-select:focus {
+  outline: none;
+  border-color: #c7322b;
+  background-color: #ffffff;
+}
