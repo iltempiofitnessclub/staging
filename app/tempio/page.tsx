@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
+import NextLink from "next/link";
 import { FloatingWhatsAppButton } from "@/components/ui/FloatingWhatsAppButton";
 import "@/components/styles/floating-whatsapp.css";
 import "@/components/styles/header.css";
@@ -406,15 +407,19 @@ function ClassesSection() {
                 </ul>
               </div>
 
-              <div className="tempio-modal-actions">
-                <Link
-                  href="/tempio/contatti"
-                  className="tempio-modal-cta"
-                  onClick={() => setSelectedClass(null)}
-                >
-                  CHIEDI INFORMAZIONI
-                </Link>
-              </div>
+            <div className="tempio-modal-actions">
+              <NextLink
+                href={{
+                  pathname: "/tempio/contatti",
+                  query: { course: String(selectedClass.id) },
+                }}
+                className="tempio-modal-cta"
+                onClick={() => setSelectedClass(null)}
+              >
+                CHIEDI INFORMAZIONI
+              </NextLink>
+            </div>
+
             </div>
           </div>
         </div>

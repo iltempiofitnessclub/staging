@@ -126,7 +126,6 @@ function TempioContactPageInner() {
                   <input type="tel" name="telefono" required />
                 </div>
 
-                {/* ✅ CORSO (come DogHouse) */}
                 <div className="tempio-form-field">
                   <label>
                     Corso di interesse<span className="tempio-form-required">*</span>
@@ -150,7 +149,6 @@ function TempioContactPageInner() {
                     ))}
                   </select>
 
-                  {/* label leggibile (utile per mail / backend) */}
                   <input
                     type="hidden"
                     name="corso_label"
