@@ -212,6 +212,124 @@ const CLASSES: ClassItem[] = [
       "Perfetto per ripartire e divertirsi",
     ],
   },
+  {
+    id: 7,
+    title: "CORSO PERSONAL",
+    imageSrc: "/personal.png",
+    description:
+      "Personal Interval Training (P.I.T.) È un allenamento ad alta intensità che combina esercizi funzionali, forza e cardio. Alternando fasi di lavoro intenso a momenti di recupero attivo, migliora resistenza, tono muscolare e capacità cardiovascolare. Dinamico, coinvolgente e personalizzabile, il P.I.T. è ideale per chi vuole risultati concreti in tempi ridotti, aumentando energia, forza e concentrazione seguito da un personal trainer su prenotazione",
+    schedule: [
+      { days: "Lunedì e Venerdì", time: "Orario Variabile" },
+    ],
+    info: [
+      "Livello: Tutti"
+    ],
+  },
+  {
+    id: 8,
+    title: "CORSO FIT AND DANCE",
+    imageSrc: "/fitdance.png",
+    description:
+      "Fit and Dance è un corso dinamico per bambini che unisce movimento, musica e gioco, favorendo psicomotricità, coordinazione ed espressione corporea in un ambiente divertente e stimolante. Attraverso la danza, i piccoli migliorano postura, consapevolezza del corpo e socializzazione, imparando a muoversi con sicurezza e creatività.",
+    schedule: [
+      { days: "Mercoledì e Venerdì", time: "17:45 - 18:45" },
+    ],
+    info: [
+      "Livello: Tutti"
+    ],
+  },
+  {
+    id: 9,
+    title: "CIRCUIT TRAINING",
+    imageSrc: "/",
+    description:
+      "Il Circuit Training (allenamento a circuito) è una metodologia che prevede l'esecuzione di esercizi consecutivi senza pause, o con recuperi minimi. Il corso alterna stazioni cardio a esercizi di potenziamento muscolare utilizzando piccoli attrezzi e il peso corporeo.",
+    schedule: [
+      { days: "Lunedì, Mercoledì e Venerdì", time: "18:00 - 19:00 / 19:00 - 20:00" },
+    ],
+    info: [
+      "Benefici: Miglioramento della capacità cardiovascolare e della definizione muscolare.",
+      "Livello: Adatto a tutti i livelli di fitness, grazie alla possibilità di scalare l'intensità degli esercizi."
+    ],
+  },
+  {
+    id: 10,
+    title: "FUNCTIONAL TRAINING",
+    imageSrc: "/",
+    description:
+      "Functional Training: Allena il tuo corpo a 360° Dimentica le solite macchine isotoniche: nel Functional Training il protagonista sei tu. Attraverso movimenti naturali come spingere, tirare, sollevare e saltare, allenerai il corpo nel suo insieme, migliorando forza, coordinazione e agilità. Grazie all'uso di kettlebell, palle mediche e corpo libero, ogni lezione è una sfida diversa che ti permetterà di bruciare grassi e definire i muscoli in modo armonico. Preparati a diventare più forte, più veloce e più resistente!",
+    schedule: [
+      { days: "Lunedì, Mercoledì e Venerdì", time: "9:15 - 10:15 / 20:30 - 21:30" },
+    ],
+    info: [
+      "Livello: Tutti"
+    ],
+  },
+  {
+    id: 11,
+    title: "RISVEGLIO METABOLICO",
+    imageSrc: "/",
+    description:
+      "Il corso Risveglio Metabolico è pensato per riattivare il corpo in modo progressivo ed efficace, stimolando il metabolismo e migliorando il benessere generale. Attraverso esercizi funzionali a corpo libero, mobilità articolare e lavoro cardiovascolare a bassa–media intensità, aiuta a bruciare calorie, aumentare l’energia e migliorare la postura. È ideale per chi vuole rimettersi in movimento, combattere la sedentarietà e iniziare la giornata (o l’allenamento) con più vitalità, senza stressare articolazioni e muscoli. Un allenamento completo, accessibile a tutti, che rimette in moto corpo e mente.",
+    schedule: [
+      { days: "Martedì e Giovedì", time: "9:00 - 10:00" },
+    ],
+    info: [
+      "Livello: Tutti"
+    ],
+  },
+  {
+    id: 12,
+    title: "PILOGA",
+    imageSrc: "/",
+    description:
+      "Piloga unisce i benefici del Pilates e dello Yoga in un allenamento equilibrato e completo. Migliora postura, flessibilità e forza profonda, aiutando a ridurre stress e tensioni. Ideale per ritrovare benessere fisico e mentale in modo dolce ma efficace.",
+    schedule: [
+      { days: "Lunedì, Mercoledì e Venerdì", time: "10:00 - 11:00" },
+    ],
+    info: [
+      "Livello: Tutti"
+    ],
+  },
+  {
+    id: 13,
+    title: "DIFESA PERSONALE",
+    imageSrc: "/",
+    description:
+      "Il corso di Difesa Personale insegna tecniche pratiche per aumentare sicurezza e consapevolezza. Si lavora su coordinazione, reattività e gestione delle situazioni di rischio. Adatto a tutti, migliora anche autostima e controllo del corpo.",
+    schedule: [
+      { days: "Martedì e Giovedì", time: "18:00 - 19:00" },
+    ],
+    info: [
+      "Livello: Tutti"
+    ],
+  },
+  {
+    id: 14,
+    title: "BALLI DI GRUPPO",
+    imageSrc: "/",
+    description:
+      "Un corso divertente e dinamico che combina musica e movimento. Aiuta a migliorare coordinazione, resistenza e ritmo, allenandosi senza accorgersene. Perfetto per socializzare e tenersi in forma con il sorriso.",
+    schedule: [
+      { days: "Martedì e Giovedì", time: "16:30 - 17:30" },
+    ],
+    info: [
+      "Livello: Tutti"
+    ],
+  },
+  {
+    id: 15,
+    title: "SUPER JUMP",
+    imageSrc: "/",
+    description:
+      "Allenamento ad alta intensità su mini trampolino, energico e coinvolgente. Stimola il metabolismo, migliora resistenza cardiovascolare e tonifica tutto il corpo. Ideale per chi vuole bruciare calorie divertendosi.",
+    schedule: [
+      { days: "Martedì e Giovedì", time: "19:15 - 20:15" },
+    ],
+    info: [
+      "Livello: Tutti"
+    ],
+  },
 ];
 
 function ClassesSection() {

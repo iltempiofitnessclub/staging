@@ -20,6 +20,7 @@ import {
   FaYoutube,
   FaInstagram,
   FaTiktok,
+  FaFacebookF,
 } from "react-icons/fa";
 
 export default function DoghousePage() {
@@ -99,8 +100,9 @@ export default function DoghousePage() {
         ]}
         socialItems={[
           { href: "#", icon: <FaYoutube />, label: "YouTube" },
+          { href: "https://www.facebook.com/share/17MQaoh5Ya/?mibextid=wwXIfr", icon: <FaFacebookF />, label: "Facebook" },
           { href: "https://www.instagram.com/_doghouse__boxing/", icon: <FaInstagram />, label: "Instagram" },
-          { href: "#", icon: <FaTiktok />, label: "LinkedIn" },
+          { href: "https://www.tiktok.com/@dog.house056?_r=1&_t=ZN-932TvjyTyD8", icon: <FaTiktok />, label: "TikTok" },
         ]}
       />
 
