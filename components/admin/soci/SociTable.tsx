@@ -2,18 +2,18 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '@/app/admin/dashboard/dashboard.module.css';
 import type { SocioRow, StatusKind } from './types';
-import { useRouter } from 'next/navigation';
-import router from 'next/router';
 
 function StatusChip({ kind, label }: { kind: StatusKind; label: string }) {
   const icon =
     kind === 'ok'
       ? '/icon/status-ok.png'
       : kind === 'warn'
-        ? '/icon/status-warn.png'
-        : '/icon/status-bad.png';
+      ? '/icon/status-warn.png'
+      : '/icon/status-bad.png';
 
   return (
     <span className={styles.chip} data-kind={kind}>
@@ -36,12 +36,32 @@ type Props = {
   query: string;
   onChangeQuery: (v: string) => void;
 
+  dateIscrizione: string;
+  onChangeDateIscrizione: (v: string) => void;
+
   page: number;
   onChangePage: (p: number) => void;
 
   pageSize: number;
   onChangePageSize: (n: number) => void;
+
+  courseOptions: string[];
+  certOptions: string[];
 };
+
+function buildPages(page: number, totalPages: number) {
+  if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  const pages = new Set<number>();
+  pages.add(1);
+  pages.add(totalPages);
+
+  for (let p = page - 1; p <= page + 1; p++) {
+    if (p >= 1 && p <= totalPages) pages.add(p);
+  }
+
+  return Array.from(pages).sort((a, b) => a - b);
+}
 
 export default function SociTable({
   rows,
@@ -55,37 +75,88 @@ export default function SociTable({
   page,
   onChangePage,
   pageSize,
-  onChangePageSize
+  onChangePageSize,
+  courseOptions,
+  certOptions,
+  dateIscrizione,
+  onChangeDateIscrizione
 }: Props) {
-  const start = (page - 1) * pageSize + 1;
-  const end = Math.min(page * pageSize, total);
   const router = useRouter();
+
+  const safeRows = Array.isArray(rows) ? rows.filter(Boolean) : [];
+  const safeTotal = Number.isFinite(total) ? total : safeRows.length;
+
+  const totalPages = Math.max(1, Math.ceil(safeTotal / pageSize));
+  const currentPage = Math.min(Math.max(1, page), totalPages);
+
+  const start = safeTotal === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const end = safeTotal === 0 ? 0 : Math.min(currentPage * pageSize, safeTotal);
+
+  const pages = useMemo(() => buildPages(currentPage, totalPages), [currentPage, totalPages]);
+
+  function goToSocio(id?: string | number) {
+    if (!id) return;
+    router.push(`/admin/soci/${id}`);
+  }
 
   return (
     <>
       <div className={styles.topBar}>
         <h2 className={styles.pageTitle}>Elenco soci</h2>
 
-        <select className={styles.selectTop} value={filterCourse} onChange={(e) => onChangeFilterCourse(e.target.value)}>
-          <option>FILTRA PER CORSO</option>
-          <option>BOXE</option>
-          <option>KICKBOXING</option>
-          <option>SALA PESI</option>
+        <select
+          className={styles.selectTop}
+          value={filterCourse}
+          onChange={(e) => onChangeFilterCourse(e.target.value)}
+        >
+          <option value="FILTRA PER CORSO">FILTRA PER CORSO</option>
+          {courseOptions.map((c) => (
+            <option key={c} value={c}>
+              {c.toUpperCase()}
+            </option>
+          ))}
         </select>
       </div>
 
       <div className={styles.filtersRow}>
-        <select className={styles.selectFilter} value={filterCert} onChange={(e) => onChangeFilterCert(e.target.value)}>
-          <option>FILTRA PER STATO CERTIFICATO</option>
-          <option>PRESENTE</option>
-          <option>MANCANTE</option>
-          <option>IN SCADENZA</option>
+        <select
+          className={styles.selectFilter}
+          value={filterCert}
+          onChange={(e) => onChangeFilterCert(e.target.value)}
+        >
+          <option value="FILTRA PER STATO CERTIFICATO">FILTRA PER STATO CERTIFICATO</option>
+          {certOptions.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
         </select>
 
         <div className={styles.dateFake}>
           <span>Filtra per data di iscrizione</span>
+
+          {/* opzionale: se vuoi mostrare la data scelta */}
+          {dateIscrizione && (
+            <span className={styles.dateValue}>
+              {(() => {
+                const [y, m, d] = dateIscrizione.split('-');
+                return `${d}-${m}-${y}`;
+              })()}
+            </span>
+          )}
+
           <Image src="/icon/calendar.png" alt="" width={16} height={16} />
+
+          {/* input invisibile: prende il click e apre il datepicker */}
+          <input
+            type="date"
+            className={styles.dateOverlay}
+            value={dateIscrizione}
+            onChange={(e) => onChangeDateIscrizione(e.target.value)}
+            aria-label="Filtra per data di iscrizione"
+          />
         </div>
+
 
         <div className={styles.searchWrap}>
           <Image className={styles.searchIcon} src="/icon/search.png" alt="" width={16} height={16} />
@@ -135,12 +206,17 @@ export default function SociTable({
           </thead>
 
           <tbody>
-            {Array.from({ length: 10 }).map((_, idx) => {
-              const r = rows[idx % rows.length];
-              return (
-                <tr key={idx}>
+            {safeRows.length === 0 ? (
+              <tr>
+                <td colSpan={8} style={{ padding: 18 }}>
+                  Nessun socio trovato.
+                </td>
+              </tr>
+            ) : (
+              safeRows.map((r, idx) => (
+                <tr key={String(r.id)}>
                   <td className={styles.center}>
-                    <strong>{idx + 1}</strong>
+                    <strong>{(currentPage - 1) * pageSize + (idx + 1)}</strong>
                   </td>
 
                   <td>
@@ -151,13 +227,17 @@ export default function SociTable({
                   </td>
 
                   <td>{r.dataIscrizione}</td>
+
                   <td>
                     <StatusChip kind={r.pagamentoMensile.kind} label={r.pagamentoMensile.label} />
                   </td>
+
                   <td>{r.dataPagamento}</td>
+
                   <td>
                     <StatusChip kind={r.certificato.kind} label={r.certificato.label} />
                   </td>
+
                   <td>{r.scadenzaCertificato}</td>
 
                   <td className={styles.center}>
@@ -165,7 +245,7 @@ export default function SociTable({
                       className={styles.kebab}
                       type="button"
                       aria-label="Azioni"
-                      onClick={() => router.push(`/admin/soci/${r.id}`)}
+                      onClick={() => goToSocio(r.id)}
                     >
                       <span />
                       <span />
@@ -173,48 +253,63 @@ export default function SociTable({
                     </button>
                   </td>
                 </tr>
-              );
-            })}
+              ))
+            )}
           </tbody>
         </table>
 
         <div className={styles.tableFooter}>
           <div className={styles.footerLeft}>
-            <select className={styles.pageSize} value={String(pageSize)} onChange={(e) => onChangePageSize(Number(e.target.value))}>
+            <select
+              className={styles.pageSize}
+              value={String(pageSize)}
+              onChange={(e) => onChangePageSize(Number(e.target.value))}
+            >
               <option value="10">10 Elementi</option>
               <option value="25">25 Elementi</option>
               <option value="50">50 Elementi</option>
             </select>
 
             <div className={styles.resultsText}>
-              Mostrati {start}-{end} su {total} risultati
+              Mostrati {start}-{end} su {safeTotal} risultati
             </div>
           </div>
 
           <div className={styles.pager}>
-            <button className={styles.pagerBtn} type="button" onClick={() => onChangePage(Math.max(1, page - 1))}>
+            <button
+              className={styles.pagerBtn}
+              type="button"
+              onClick={() => onChangePage(Math.max(1, currentPage - 1))}
+              disabled={currentPage <= 1}
+            >
               ‹
             </button>
 
-            {[1, 2, 3].map((p) => (
-              <button
-                key={p}
-                className={styles.pageBtn}
-                data-active={p === page}
-                type="button"
-                onClick={() => onChangePage(p)}
-              >
-                {p}
-              </button>
-            ))}
+            {pages.map((p, i) => {
+              const prev = pages[i - 1];
+              const showDots = prev && p - prev > 1;
 
-            <span className={styles.dots}>…</span>
+              return (
+                <span key={p} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  {showDots && <span className={styles.dots}>…</span>}
+                  <button
+                    className={styles.pageBtn}
+                    data-active={p === currentPage}
+                    type="button"
+                    onClick={() => onChangePage(p)}
+                  >
+                    {p}
+                  </button>
+                </span>
+              );
+            })}
 
-            <button className={styles.pageBtn} type="button" data-active={5 === page} onClick={() => onChangePage(5)}>
-              5
-            </button>
-
-            <button className={styles.pagerBtn} type="button" onClick={() => onChangePage(page + 1)}>
+            <button
+              className={styles.pagerBtn}
+              type="button"
+              onClick={() => onChangePage(Math.min(totalPages, currentPage + 1))}
+              disabled={currentPage >= totalPages}
+            >
               ›
             </button>
           </div>

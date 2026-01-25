@@ -1,6 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './socioForm.module.css';
 
 export type Socio = {
@@ -64,12 +65,22 @@ type Props = {
   mode: 'create' | 'edit';
   initialData?: Partial<Socio>;
   onSubmit?: (data: Socio) => Promise<void> | void;
+  backHref?: string; // default: /admin/dashboard
 };
 
-export default function SocioForm({ mode, initialData, onSubmit }: Props) {
+export default function SocioForm({ mode, initialData, onSubmit, backHref = '/admin/dashboard' }: Props) {
+  const router = useRouter();
+
   const initial = useMemo(() => ({ ...emptySocio, ...initialData }), [initialData]);
+
   const [form, setForm] = useState<Socio>(initial);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Se initialData arriva dopo (edit page), riallineiamo lo stato
+  useEffect(() => {
+    setForm(initial);
+  }, [initial]);
 
   const set = <K extends keyof Socio>(key: K, value: Socio[K]) =>
     setForm((p) => ({ ...p, [key]: value }));
@@ -77,9 +88,13 @@ export default function SocioForm({ mode, initialData, onSubmit }: Props) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
+    setError(null);
+
     try {
       await onSubmit?.(form);
-      alert(mode === 'create' ? 'Socio creato (TODO API)' : 'Socio salvato (TODO API)');
+      router.push(backHref);
+    } catch (err: any) {
+      setError(err?.message ?? 'Errore durante il salvataggio.');
     } finally {
       setSaving(false);
     }
@@ -178,7 +193,7 @@ export default function SocioForm({ mode, initialData, onSubmit }: Props) {
               </div>
 
               <div className={styles.row2}>
-               <label className={styles.field}>
+                <label className={styles.field}>
                   <span>
                     Indica il luogo di nascita del socio <span className={styles.req}>*</span>
                   </span>
@@ -316,18 +331,17 @@ export default function SocioForm({ mode, initialData, onSubmit }: Props) {
                     ))}
                   </select>
 
-                <select
-                  className={styles.select}
-                  value={form.quotaAnno}
-                  onChange={(e) => set('quotaAnno', e.target.value)}
-                >
-                  {years.map((y) => (
-                    <option key={y} value={y}>
-                      {y}
-                    </option>
-                  ))}
-                </select>
-
+                  <select
+                    className={styles.select}
+                    value={form.quotaAnno}
+                    onChange={(e) => set('quotaAnno', e.target.value)}
+                  >
+                    {years.map((y) => (
+                      <option key={y} value={y}>
+                        {y}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className={styles.inlineChecks}>
@@ -410,10 +424,22 @@ export default function SocioForm({ mode, initialData, onSubmit }: Props) {
           </div>
         </div>
 
+        {error && (
+          <div style={{ marginTop: 10, fontSize: 12, color: '#c20000', fontWeight: 700 }}>
+            {error}
+          </div>
+        )}
+
         <div className={styles.actionsOutside}>
-          <button type="button" className={styles.cancel} disabled={saving}>
+          <button
+            type="button"
+            className={styles.cancel}
+            disabled={saving}
+            onClick={() => router.push(backHref)}
+          >
             ANNULLA
           </button>
+
           <button type="submit" className={styles.save} disabled={saving}>
             {saving ? 'SALVATAGGIO...' : 'SALVA'}
           </button>
