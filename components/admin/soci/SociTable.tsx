@@ -96,7 +96,7 @@ export default function SociTable({
 
   function goToSocio(id?: string | number) {
     if (!id) return;
-    router.push(`/admin/soci/${id}`);
+    router.push(`/admin/soci/edit?id=${id}`)
   }
 
   return (
