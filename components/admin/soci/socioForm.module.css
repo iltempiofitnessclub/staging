@@ -175,15 +175,6 @@
   cursor: not-allowed;
 }
 
-.wrap {
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
-
-.actionsOutside {
-  margin-bottom: 8px;
-}
-
 @media (max-width: 980px) {
   .grid {
     grid-template-columns: 1fr;
