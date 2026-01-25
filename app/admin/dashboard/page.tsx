@@ -76,7 +76,6 @@ export default function DashboardPage() {
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(1);
 
-  // ✅ DATA PRECISA (yyyy-mm-dd) oppure ''
   const [dateIscrizione, setDateIscrizione] = useState('');
 
   const [rows, setRows] = useState<SocioRow[]>([]);
@@ -92,13 +91,10 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // reset pagina quando cambiano filtri tabella
   useEffect(() => {
     setPage(1);
   }, [filterCourse, filterCert, query, pageSize, dateIscrizione]);
 
-  // KPI (mese/anno) non devono resettare la paginazione tabella per forza,
-  // ma se vuoi lasciarlo uguale al tuo:
   useEffect(() => {
     setPage(1);
   }, [month, year]);
@@ -111,7 +107,7 @@ export default function DashboardPage() {
         const courses = await fetchDistinctCourses();
         if (!cancelled) setCourseOptions(courses);
       } catch {
-        // ignore
+        
       }
     })();
 
@@ -134,7 +130,7 @@ export default function DashboardPage() {
           cert: filterCert,
           page,
           pageSize,
-          dateIscrizione, // ✅ PASSO DATA SINGOLA
+          dateIscrizione,
         });
 
         if (cancelled) return;
@@ -142,7 +138,6 @@ export default function DashboardPage() {
         setTotal(total);
         setRows(list.map(toSocioRow));
 
-        // KPI filtrati per quota mese/anno (come volevi)
         const kpiList = filterListByQuotaPeriod(list as SocioDb[], month, year);
         const kpis = buildKpis(kpiList);
 
@@ -160,7 +155,7 @@ export default function DashboardPage() {
     return () => {
       cancelled = true;
     };
-  }, [page, pageSize, filterCourse, filterCert, query, month, year, dateIscrizione]); // ✅ NO dateFrom/dateTo
+  }, [page, pageSize, filterCourse, filterCert, query, month, year, dateIscrizione]);
 
   if (checkingAuth) {
     return (

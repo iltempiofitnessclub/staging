@@ -1,9 +1,5 @@
 import { supabase } from '@/lib/supabase/client';
 
-/**
- * Ritorna la lista dei corsi presenti nella tabella "soci"
- * (dinamica, unica, senza vuoti, ordinata).
- */
 export async function fetchDistinctCourses(): Promise<string[]> {
   const { data, error } = await supabase
     .from('soci')

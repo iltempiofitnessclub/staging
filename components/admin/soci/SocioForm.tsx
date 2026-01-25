@@ -65,7 +65,7 @@ type Props = {
   mode: 'create' | 'edit';
   initialData?: Partial<Socio>;
   onSubmit?: (data: Socio) => Promise<void> | void;
-  backHref?: string; // default: /admin/dashboard
+  backHref?: string;
 };
 
 export default function SocioForm({ mode, initialData, onSubmit, backHref = '/admin/dashboard' }: Props) {
@@ -77,7 +77,6 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Se initialData arriva dopo (edit page), riallineiamo lo stato
   useEffect(() => {
     setForm(initial);
   }, [initial]);

@@ -48,7 +48,6 @@ export default function EditSocioPage() {
   async function handleUpdate(data: Socio) {
     if (!id) return;
     await updateSocio(String(id), data);
-    // NON serve router.push qui: lo fa già SocioForm dopo submit usando backHref
   }
 
   if (loading) {

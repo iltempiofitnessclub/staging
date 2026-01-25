@@ -16,7 +16,7 @@ type FetchSociArgs = {
   q?: string;
   course?: string;
   cert?: string;
-  dateIscrizione?: string; // ✅ yyyy-mm-dd oppure ''
+  dateIscrizione?: string;
   page: number;
   pageSize: number;
 };
@@ -32,7 +32,6 @@ export async function fetchSoci(args: FetchSociArgs): Promise<{ list: SocioDb[];
     .select('*', { count: 'exact' })
     .order('created_at', { ascending: false });
 
-  // 🔎 search
   const qq = q.trim();
   if (qq) {
     const safe = qq.replaceAll(',', '');
@@ -41,12 +40,10 @@ export async function fetchSoci(args: FetchSociArgs): Promise<{ list: SocioDb[];
     );
   }
 
-  // 🎯 course
   if (course && course !== 'FILTRA PER CORSO') {
     query = query.eq('corso', course);
   }
 
-  // 🩺 cert
   if (cert && cert !== 'FILTRA PER STATO CERTIFICATO') {
     if (cert === 'PRESENTE') query = query.eq('certificato_valido', true);
     if (cert === 'MANCANTE') query = query.eq('certificato_valido', false);
@@ -58,7 +55,6 @@ export async function fetchSoci(args: FetchSociArgs): Promise<{ list: SocioDb[];
     }
   }
 
-  // 📅 data iscrizione (GIORNO PRECISO su created_at timestamptz)
   if (dateIscrizione) {
     const start = new Date(`${dateIscrizione}T00:00:00.000Z`);
     const end = new Date(start);

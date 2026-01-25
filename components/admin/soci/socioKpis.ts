@@ -20,7 +20,6 @@ function mensileKind(s: SocioDb): StatusKind {
   return s.mensile_pagato ? 'ok' : 'bad';
 }
 
-// Filtra i soci in base al mese/anno selezionato (quota_mese + quota_anno)
 export function filterByQuotaPeriod(list: SocioDb[], month: string, year: string) {
   return list.filter((s) => (s.quota_mese ?? '') === month && (s.quota_anno ?? '') === year);
 }
@@ -28,13 +27,12 @@ export function filterByQuotaPeriod(list: SocioDb[], month: string, year: string
 export function buildKpisFromSoci(list: SocioDb[]) {
   let mensili_ok = 0;
   let mensili_bad = 0;
-  let mensili_warn = 0; // per ora 0 (quando avrai una data scadenza pagamento)
+  let mensili_warn = 0;
 
   let cert_ok = 0;
   let cert_warn = 0;
   let cert_bad = 0;
 
-  // iscrizioni: per ora “valide = count”
   const iscrizioni_valide = list.length;
   const iscrizioni_warn = 0;
   const iscrizioni_scadute = 0;

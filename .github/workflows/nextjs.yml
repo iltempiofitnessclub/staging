@@ -21,6 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -56,6 +59,11 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: ${{ steps.detect-package-manager.outputs.manager }} run build:github
+
+      - name: Verify export output
+        run: |
+          test -d out
+          ls -la out
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

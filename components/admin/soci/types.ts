@@ -3,12 +3,12 @@ export type StatusKind = 'ok' | 'warn' | 'bad';
 export type SocioRow = {
   id: string;
   nome: string;
-  nascita: string; // stringa pronta da mostrare (es. 22-08-1999)
-  dataIscrizione: string; // es. 01-01-2025 (da created_at)
+  nascita: string;
+  dataIscrizione: string;
   pagamentoMensile: { kind: StatusKind; label: string };
-  dataPagamento: string; // per ora placeholder (non hai campo in tabella)
+  dataPagamento: string;
   certificato: { kind: StatusKind; label: string };
-  scadenzaCertificato: string; // es. 22-08-2026
+  scadenzaCertificato: string;
 };
 
 export type KpiItem = { kind: StatusKind; label: string; value: number };
@@ -18,7 +18,7 @@ export type SocioDb = {
   nome: string;
   cognome: string;
   sesso: string | null;
-  data_nascita: string | null; // date -> string ISO
+  data_nascita: string | null;
   luogo_nascita: string | null;
   codice_fiscale: string | null;
   indirizzo: string | null;
@@ -41,6 +41,6 @@ export type SocioDb = {
   corso: string | null;
   note: string | null;
 
-  created_at: string; // timestamptz
-  updated_at: string; // timestamptz
+  created_at: string;
+  updated_at: string;
 };

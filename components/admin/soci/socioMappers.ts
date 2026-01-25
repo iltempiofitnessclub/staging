@@ -2,7 +2,6 @@ import type { SocioDb, SocioRow, StatusKind, KpiItem } from './types';
 
 function formatDateIT(iso?: string | null) {
   if (!iso) return '';
-  // iso può essere '2026-08-22' oppure timestamptz
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return String(iso);
   const dd = String(d.getDate()).padStart(2, '0');
@@ -21,10 +20,6 @@ function daysUntil(dateIso?: string | null) {
 }
 
 export function certKindAndLabel(s: SocioDb): { kind: StatusKind; label: string } {
-  // regole:
-  // - se certificato_valido=false -> bad
-  // - se scadenza entro 30 gg -> warn
-  // - altrimenti ok
   const valido = !!s.certificato_valido;
   if (!valido) return { kind: 'bad', label: 'CERTIFICATO MANCANTE' };
 
@@ -35,8 +30,6 @@ export function certKindAndLabel(s: SocioDb): { kind: StatusKind; label: string 
 }
 
 export function pagamentoKindAndLabel(s: SocioDb): { kind: StatusKind; label: string } {
-  // per ora: mensile_pagato true => ok, false => bad
-  // (quando aggiungerai “data pagamento / scadenza”, mettiamo il warn)
   const pagato = !!s.mensile_pagato;
   return pagato
     ? { kind: 'ok', label: 'MENSILE PAGATO' }
@@ -53,7 +46,7 @@ export function toSocioRow(s: SocioDb): SocioRow {
     nascita: s.data_nascita ? `Nato/a il ${formatDateIT(s.data_nascita)}` : 'Data di nascita',
     dataIscrizione: formatDateIT(s.created_at),
     pagamentoMensile: pag,
-    dataPagamento: '-', // non hai un campo: se lo aggiungi, lo mappiamo qui
+    dataPagamento: '-',
     certificato: cert,
     scadenzaCertificato: formatDateIT(s.certificato_scadenza),
   };
@@ -71,8 +64,6 @@ export function buildKpis(list: SocioDb[]): {
   let cert_warn = 0;
   let cert_bad = 0;
 
-  // iscrizioni: non hai “scadenza iscrizione” nel db, quindi per ora:
-  // tutte valide = count, in futuro ci mettiamo scadenza_iscrizione.
   const iscrizioni_valide = list.length;
   const iscrizioni_warn = 0;
   const iscrizioni_scadute = 0;
@@ -94,7 +85,7 @@ export function buildKpis(list: SocioDb[]): {
       { kind: 'ok', label: 'ISCRIZIONI VALIDE', value: iscrizioni_valide },
     ],
     warnItems: [
-      { kind: 'warn', label: 'MENSILI IN SCADENZA', value: 0 }, // quando hai scadenza mensile lo calcoliamo
+      { kind: 'warn', label: 'MENSILI IN SCADENZA', value: 0 },
       { kind: 'warn', label: 'CERTIFICATI MEDICI IN SCADENZA', value: cert_warn },
       { kind: 'warn', label: 'ISCRIZIONI IN SCADENZA', value: iscrizioni_warn },
     ],

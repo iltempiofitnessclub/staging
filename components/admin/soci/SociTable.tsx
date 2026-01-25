@@ -135,7 +135,6 @@ export default function SociTable({
         <div className={styles.dateFake}>
           <span>Filtra per data di iscrizione</span>
 
-          {/* opzionale: se vuoi mostrare la data scelta */}
           {dateIscrizione && (
             <span className={styles.dateValue}>
               {(() => {
@@ -147,7 +146,6 @@ export default function SociTable({
 
           <Image src="/icon/calendar.png" alt="" width={16} height={16} />
 
-          {/* input invisibile: prende il click e apre il datepicker */}
           <input
             type="date"
             className={styles.dateOverlay}
