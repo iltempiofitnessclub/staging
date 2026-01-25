@@ -5,37 +5,35 @@ import styles from './login.module.css';
 export default function AdminLoginPage() {
   return (
     <div className={styles.page}>
-      {/* HEADER */}
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.logoWrap}>
-            {/* Metti il tuo logo qui: public/images/logo.png (o cambia path) */}
             <Image
-              src="/public/tempio-logo.png"
+              src="/dog81.png"
               alt="Il Tempio Fitness Club - Doghouse Boxing"
               width={70}
               height={70}
               priority
             />
           </div>
-
-          <h1 className={styles.title}>IL TEMPIO FITNESS CLUB - DOGHOUSE BOXING</h1>
+          <h1 className={styles.title}>
+            IL TEMPIO FITNESS CLUB - DOGHOUSE BOXING
+          </h1>
         </div>
       </header>
 
-      {/* MAIN */}
       <main className={styles.main}>
         <section className={styles.card} aria-label="Area Riservata">
           <div className={styles.cardHeader}>
             <span className={styles.cardHeaderLine} />
             <div className={styles.cardHeaderTitle}>
               <span>Area Riservata</span>
-              <span className={styles.userIcon} aria-hidden="true">👤</span>
+              <span className={styles.userIcon}>👤</span>
             </div>
             <span className={styles.cardHeaderLine} />
           </div>
 
-          <form className={styles.form} method="post" action="#">
+          <form className={styles.form}>
             <label className={styles.label}>
               <span>
                 Username / Nome utente <span className={styles.req}>*</span>
@@ -63,7 +61,7 @@ export default function AdminLoginPage() {
             </label>
 
             <label className={styles.remember}>
-              <input type="checkbox" name="remember" className={styles.checkbox} />
+              <input type="checkbox" className={styles.checkbox} />
               <span>Ricordami</span>
             </label>
 
@@ -80,12 +78,11 @@ export default function AdminLoginPage() {
         </section>
       </main>
 
-      {/* FOOTER */}
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.footerLogo}>
             <Image
-              src="/images/logo.png"
+              src="/dog81.png"
               alt="Il Tempio Fitness Club - Doghouse Boxing"
               width={90}
               height={90}
