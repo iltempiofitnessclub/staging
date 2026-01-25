@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/app/admin/dashboard/dashboard.module.css';
 import type { SocioRow, StatusKind } from './types';
+import { useRouter } from 'next/navigation';
+import router from 'next/router';
 
 function StatusChip({ kind, label }: { kind: StatusKind; label: string }) {
   const icon =
@@ -57,6 +59,7 @@ export default function SociTable({
 }: Props) {
   const start = (page - 1) * pageSize + 1;
   const end = Math.min(page * pageSize, total);
+  const router = useRouter();
 
   return (
     <>
@@ -158,7 +161,12 @@ export default function SociTable({
                   <td>{r.scadenzaCertificato}</td>
 
                   <td className={styles.center}>
-                    <button className={styles.kebab} type="button" aria-label="Azioni">
+                    <button
+                      className={styles.kebab}
+                      type="button"
+                      aria-label="Azioni"
+                      onClick={() => router.push(`/admin/soci/${r.id}`)}
+                    >
                       <span />
                       <span />
                       <span />

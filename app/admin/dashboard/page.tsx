@@ -10,6 +10,7 @@ import SociTable from '@/components/admin/soci/SociTable';
 import SociMonitoringDashboard from '@/components/admin/soci/SociMonitoringDashboard';
 
 import type { SocioRow } from '@/components/admin/soci/types';
+import { useRouter } from 'next/router';
 
 export default function DashboardPage() {
   const [filterCert, setFilterCert] = useState('FILTRA PER STATO CERTIFICATO');
@@ -21,7 +22,7 @@ export default function DashboardPage() {
 
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(1);
-
+  
   const rows: SocioRow[] = useMemo(
     () => [
       {

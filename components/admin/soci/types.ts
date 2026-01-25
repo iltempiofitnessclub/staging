@@ -16,3 +16,32 @@ export type KpiItem = {
   label: string;
   value: number;
 };
+
+export type Socio = {
+  id: string;
+  nome: string;
+  cognome: string;
+  sesso: '' | 'M' | 'F' | 'ALTRO';
+  dataNascita: string;
+  luogoNascita: string;
+  codiceFiscale: string;
+  indirizzo: string;
+
+  genitoreNome: string;
+  genitoreCognome: string;
+  genitoreCodiceFiscale: string;
+  genitoreTelefono: string;
+
+  certificatoValido: boolean;
+  certificatoScadenza: string;
+
+  quotaMese: string;
+  quotaAnno: string;
+  mensilePagato: boolean;
+
+  telefono: string;
+  email: string;
+
+  corso: string;
+  note: string;
+};
