@@ -5,10 +5,9 @@ const nextConfig = {
   output: 'export',
   images: {
     unoptimized: true,
-    path: isGitHub ? '/staging/_next/image' : '/_next/image',
   },
   basePath: isGitHub ? '/staging' : '',
-  assetPrefix: isGitHub ? '/staging' : '',
+  assetPrefix: isGitHub ? '/staging/' : '',
 };
 
 export default nextConfig;
