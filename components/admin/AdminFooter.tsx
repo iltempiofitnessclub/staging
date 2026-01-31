@@ -47,35 +47,16 @@ export default function AdminFooter({
         </div>
 
         <div className={colClassName}>
-          <h3>Link utili</h3>
-          <p>
-            <Link className={linkClassName} href="#">
-              Privacy Policy
-            </Link>
-          </p>
-          <p>
-            <Link className={linkClassName} href="#">
-              Cookie Policy
-            </Link>
-          </p>
-          <p>
-            <Link className={linkClassName} href="#">
-              Termini e Condizioni
-            </Link>
-          </p>
-          <p>
-            <Link className={linkClassName} href="#">
-              Note legali
-            </Link>
-          </p>
+          <h3>Tecnologie</h3>
+          <p>GitHub</p>
+          <p>Netlify</p>
+          <p>Supabase</p>
         </div>
 
         <div className={colClassName}>
-          <h3>Da capire</h3>
-          <p>Uno</p>
-          <p>Dueeeeeeee</p>
-          <p>Tre</p>
-          <p>Quattro</p>
+          <h3>Servizio Clienti</h3>
+          <p>devteamsolutionswork@gmail.com</p>
+          <p>dangelodavide.work@gmail.com</p>
         </div>
       </div>
     </footer>

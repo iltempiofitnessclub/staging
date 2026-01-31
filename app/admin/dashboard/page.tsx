@@ -12,8 +12,8 @@ import SociMonitoringDashboard from '@/components/admin/soci/SociMonitoringDashb
 import type { SocioDb, SocioRow, KpiItem } from '@/components/admin/soci/types';
 import { supabase } from '@/lib/supabase/client';
 
-import { fetchSoci } from '@/lib/supabase/soci';
-import { fetchDistinctCourses } from '@/lib/supabase/sociFilters';
+import { fetchSoci, fetchSociKpis } from '@/lib/supabase/soci';
+import { fetchCourseOptions } from '@/lib/supabase/sociFilters';
 import { toSocioRow, buildKpis } from '@/components/admin/soci/socioMappers';
 
 const CERT_FILTERS = ['PRESENTE', 'MANCANTE', 'IN SCADENZA'] as const;
@@ -70,8 +70,17 @@ export default function DashboardPage() {
   const [filterCert, setFilterCert] = useState('FILTRA PER STATO CERTIFICATO');
   const [query, setQuery] = useState('');
 
-  const [month, setMonth] = useState('DICEMBRE');
-  const [year, setYear] = useState(String(new Date().getFullYear()));
+  const MONTHS = [
+    'GENNAIO','FEBBRAIO','MARZO','APRILE','MAGGIO','GIUGNO',
+    'LUGLIO','AGOSTO','SETTEMBRE','OTTOBRE','NOVEMBRE','DICEMBRE',
+  ] as const;
+
+  function getCurrentMonthLabel() {
+    return MONTHS[new Date().getMonth()];
+  }
+
+  const [month, setMonth] = useState<string>(getCurrentMonthLabel());
+  const [year, setYear] = useState<string>(String(new Date().getFullYear()));
 
   const [pageSize, setPageSize] = useState(10);
   const [page, setPage] = useState(1);
@@ -85,7 +94,7 @@ export default function DashboardPage() {
   const [warnItems, setWarnItems] = useState<KpiItem[]>([]);
   const [badItems, setBadItems] = useState<KpiItem[]>([]);
 
-  const [courseOptions, setCourseOptions] = useState<string[]>([]);
+  const [courseOptions, setCourseOptions] = useState<{ code: string; title: string }[]>([]);
   const certOptions: string[] = useMemo(() => [...CERT_FILTERS], []);
 
   const [loading, setLoading] = useState(false);
@@ -99,22 +108,42 @@ export default function DashboardPage() {
     setPage(1);
   }, [month, year]);
 
-  useEffect(() => {
-    let cancelled = false;
+type CourseOpt = { code: string; title: string };
 
-    (async () => {
-      try {
-        const courses = await fetchDistinctCourses();
-        if (!cancelled) setCourseOptions(courses);
-      } catch {
-        
-      }
-    })();
+function uniqueByCode(arr: CourseOpt[]) {
+  const m = new Map<string, CourseOpt>();
+  for (const c of arr || []) {
+    const code = String(c?.code ?? '').trim();
+    if (!code) continue;
+    if (!m.has(code)) m.set(code, { code, title: String(c?.title ?? code).trim() || code });
+  }
+  return Array.from(m.values());
+}
 
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+useEffect(() => {
+  let cancelled = false;
+
+  (async () => {
+    try {
+      const courses = await fetchCourseOptions();
+
+      const unique = uniqueByCode(Array.isArray(courses) ? courses : []);
+
+      console.log('COURSE OPTIONS UNIQUE:', unique.map((c) => c.code));
+
+      if (!cancelled) setCourseOptions(unique);
+    } catch (e) {
+      console.error(e);
+      if (!cancelled) setCourseOptions([]);
+    }
+  })();
+
+  return () => {
+    cancelled = true;
+  };
+}, []);
+
+
 
   useEffect(() => {
     let cancelled = false;
@@ -138,8 +167,16 @@ export default function DashboardPage() {
         setTotal(total);
         setRows(list.map(toSocioRow));
 
-        const kpiList = filterListByQuotaPeriod(list as SocioDb[], month, year);
-        const kpis = buildKpis(kpiList);
+        const kpiList = await fetchSociKpis({
+        q: query,
+        course: filterCourse,
+        cert: filterCert,
+        dateIscrizione,
+      });
+
+      if (cancelled) return;
+
+      const kpis = buildKpis(kpiList as SocioDb[], month, year);
 
         setOkItems(kpis.okItems);
         setWarnItems(kpis.warnItems);

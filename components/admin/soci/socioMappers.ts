@@ -19,6 +19,12 @@ function daysUntil(dateIso?: string | null) {
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 }
 
+function formatQuotaLabel(mese?: string | null, anno?: string | null) {
+  const m = String(mese ?? '').trim().toUpperCase();
+  const y = String(anno ?? '').trim();
+  return m && y ? `${m} ${y}` : '-';
+}
+
 export function certKindAndLabel(s: SocioDb): { kind: StatusKind; label: string } {
   const valido = !!s.certificato_valido;
   if (!valido) return { kind: 'bad', label: 'CERTIFICATO MANCANTE' };
@@ -40,59 +46,122 @@ export function toSocioRow(s: SocioDb): SocioRow {
   const cert = certKindAndLabel(s);
   const pag = pagamentoKindAndLabel(s);
 
+  const quotaLabel = formatQuotaLabel(s.quota_mese, s.quota_anno);
+
   return {
     id: s.id,
     nome: `${s.nome} ${s.cognome}`.trim(),
     nascita: s.data_nascita ? `Nato/a il ${formatDateIT(s.data_nascita)}` : 'Data di nascita',
     dataIscrizione: formatDateIT(s.created_at),
     pagamentoMensile: pag,
-    dataPagamento: '-',
+    dataPagamento: quotaLabel,
     certificato: cert,
     scadenzaCertificato: formatDateIT(s.certificato_scadenza),
+    status: !!s.status,
   };
 }
 
-export function buildKpis(list: SocioDb[]): {
-  okItems: KpiItem[];
-  warnItems: KpiItem[];
-  badItems: KpiItem[];
-} {
+const MONTHS = [
+  'GENNAIO','FEBBRAIO','MARZO','APRILE','MAGGIO','GIUGNO',
+  'LUGLIO','AGOSTO','SETTEMBRE','OTTOBRE','NOVEMBRE','DICEMBRE',
+] as const;
+
+const norm = (v: any) => String(v ?? '').trim().toUpperCase();
+
+function endOfMonth(year: number, monthIndex0: number) {
+  return new Date(year, monthIndex0 + 1, 0);
+}
+
+function daysUntilDate(d: Date) {
+  const now = new Date();
+  return Math.ceil((d.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+}
+
+function filterByQuotaPeriod(list: SocioDb[], month: string, year: string) {
+  const m = norm(month);
+  const y = norm(year);
+  return list.filter((s) => norm(s.quota_mese) === m && norm(s.quota_anno) === y);
+}
+
+export function buildKpis(
+  listAll: SocioDb[],
+  month: string,
+  year: string
+): { okItems: KpiItem[]; warnItems: KpiItem[]; badItems: KpiItem[] } {
+  const listPeriodo = filterByQuotaPeriod(listAll, month, year);
+
   let mensili_ok = 0;
+  let mensili_warn = 0;
   let mensili_bad = 0;
+
+  const mi = MONTHS.indexOf(norm(month) as any);
+  const y = Number(year);
+
+  for (const s of listPeriodo) {
+    if (!!s.mensile_pagato) {
+      mensili_ok++;
+    } else if (mi >= 0 && Number.isFinite(y)) {
+      const due = endOfMonth(y, mi);
+      const left = daysUntilDate(due);
+
+      if (left >= 0 && left <= 7) mensili_warn++;
+      else mensili_bad++;
+    } else {
+      mensili_bad++;
+    }
+  }
 
   let cert_ok = 0;
   let cert_warn = 0;
   let cert_bad = 0;
 
-  const iscrizioni_valide = list.length;
-  const iscrizioni_warn = 0;
-  const iscrizioni_scadute = 0;
+  for (const s of listAll) {
+    const valido = !!s.certificato_valido;
+    if (!valido) {
+      cert_bad++;
+      continue;
+    }
+    const left = daysUntil(s.certificato_scadenza);
+    if (left !== null && left <= 30) cert_warn++;
+    else cert_ok++;
+  }
 
-  for (const s of list) {
-    if (!!s.mensile_pagato) mensili_ok++;
-    else mensili_bad++;
+  let iscr_ok = 0;
+  let iscr_warn = 0;
+  let iscr_bad = 0;
 
-    const c = certKindAndLabel(s).kind;
-    if (c === 'ok') cert_ok++;
-    if (c === 'warn') cert_warn++;
-    if (c === 'bad') cert_bad++;
+  for (const s of listAll) {
+    if (s.iscrizione_attiva === false) {
+      iscr_bad++;
+      continue;
+    }
+    const left = daysUntil(s.iscrizione_scadenza);
+    if (left === null) {
+      iscr_ok++;
+    } else if (left < 0) {
+      iscr_bad++;
+    } else if (left <= 30) {
+      iscr_warn++;
+    } else {
+      iscr_ok++;
+    }
   }
 
   return {
     okItems: [
       { kind: 'ok', label: 'MENSILI PAGATI', value: mensili_ok },
       { kind: 'ok', label: 'CERTIFICATI MEDICI PRESENTI', value: cert_ok },
-      { kind: 'ok', label: 'ISCRIZIONI VALIDE', value: iscrizioni_valide },
+      { kind: 'ok', label: 'ISCRIZIONI VALIDE', value: iscr_ok },
     ],
     warnItems: [
-      { kind: 'warn', label: 'MENSILI IN SCADENZA', value: 0 },
+      { kind: 'warn', label: 'MENSILI IN SCADENZA', value: mensili_warn },
       { kind: 'warn', label: 'CERTIFICATI MEDICI IN SCADENZA', value: cert_warn },
-      { kind: 'warn', label: 'ISCRIZIONI IN SCADENZA', value: iscrizioni_warn },
+      { kind: 'warn', label: 'ISCRIZIONI IN SCADENZA', value: iscr_warn },
     ],
     badItems: [
       { kind: 'bad', label: 'MENSILI NON PAGATI', value: mensili_bad },
       { kind: 'bad', label: 'CERTIFICATI MEDICI NON PRESENTI', value: cert_bad },
-      { kind: 'bad', label: 'ISCRIZIONI SCADUTE', value: iscrizioni_scadute },
+      { kind: 'bad', label: 'ISCRIZIONI SCADUTE', value: iscr_bad },
     ],
   };
 }

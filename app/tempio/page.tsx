@@ -632,6 +632,15 @@ export function EventsAndMapSection() {
       label: "Evento",
       imageSrc: "/event-1.jpg",
     },
+    {
+      id: 2,
+      title: "Siamo online!",
+       description:
+        "Il nostro sito web ufficiale è finalmente online",
+      date: "15 Marzo 2026",
+      label: "Evento",
+      imageSrc: "/event-1.jpg",
+    },
   ];
 
   return (

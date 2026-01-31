@@ -175,6 +175,66 @@
   cursor: not-allowed;
 }
 
+.courseBox {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  display: grid;
+  gap: 10px;
+  max-height: 220px;
+  overflow: auto;
+  background: #fff;
+}
+
+.courseItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.courseItem input {
+  width: 18px;
+  height: 18px;
+}
+
+.courseTitle {
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.selectedWrap {
+  margin-top: 10px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chipBtn {
+  border: 1px solid #222;
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.chipBtn:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.chipX {
+  margin-left: 6px;
+  font-weight: 900;
+}
+
 @media (max-width: 980px) {
   .grid {
     grid-template-columns: 1fr;

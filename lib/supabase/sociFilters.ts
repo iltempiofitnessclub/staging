@@ -1,19 +1,15 @@
 import { supabase } from '@/lib/supabase/client';
 
-export async function fetchDistinctCourses(): Promise<string[]> {
+export type CourseOption = { code: string; title: string; kind: string | null };
+
+export async function fetchCourseOptions(): Promise<CourseOption[]> {
   const { data, error } = await supabase
-    .from('soci')
-    .select('corso')
-    .not('corso', 'is', null);
+    .from('corsi')
+    .select('code,title,kind')
+    .eq('is_active', true)
+    .order('sort_order', { ascending: true })
+    .order('title', { ascending: true });
 
   if (error) throw error;
-
-  const unique = new Set<string>();
-
-  for (const row of data ?? []) {
-    const v = String((row as any).corso ?? '').trim();
-    if (v) unique.add(v);
-  }
-
-  return Array.from(unique).sort((a, b) => a.localeCompare(b));
+  return (data ?? []) as CourseOption[];
 }

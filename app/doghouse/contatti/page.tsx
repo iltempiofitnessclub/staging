@@ -173,7 +173,7 @@ function DoghouseContactPageInner() {
       <MainFooter
         legalBasePath="/doghouse"
         logoSrc={publicAsset("/doghouse-logo-monogram.png")}
-        email="tempiofitness@gmail.com"
+        email="boxingdoghouse@gmail.com"
         phone="080.530.1234"
         addressLines={["Bari – Palese – 70128", "via V. Maiorano Capitano 27"]}
         socialItems={[

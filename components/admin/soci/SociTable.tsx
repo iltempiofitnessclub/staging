@@ -2,10 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@/app/admin/dashboard/dashboard.module.css';
 import type { SocioRow, StatusKind } from './types';
+import { FiSettings } from 'react-icons/fi';
 
 function StatusChip({ kind, label }: { kind: StatusKind; label: string }) {
   const icon =
@@ -22,6 +23,8 @@ function StatusChip({ kind, label }: { kind: StatusKind; label: string }) {
     </span>
   );
 }
+
+type CourseOpt = { code: string; title: string };
 
 type Props = {
   rows: SocioRow[];
@@ -45,7 +48,7 @@ type Props = {
   pageSize: number;
   onChangePageSize: (n: number) => void;
 
-  courseOptions: string[];
+  courseOptions: CourseOpt[];
   certOptions: string[];
 };
 
@@ -79,9 +82,10 @@ export default function SociTable({
   courseOptions,
   certOptions,
   dateIscrizione,
-  onChangeDateIscrizione
+  onChangeDateIscrizione,
 }: Props) {
   const router = useRouter();
+  const dateRef = useRef<HTMLInputElement | null>(null);
 
   const safeRows = Array.isArray(rows) ? rows.filter(Boolean) : [];
   const safeTotal = Number.isFinite(total) ? total : safeRows.length;
@@ -96,7 +100,33 @@ export default function SociTable({
 
   function goToSocio(id?: string | number) {
     if (!id) return;
-    router.push(`/admin/soci/edit?id=${id}`)
+    router.push(`/admin/soci/edit?id=${id}`);
+  }
+
+  function openDatePicker() {
+    const el = dateRef.current;
+    if (!el) return;
+
+    try {
+      el.focus({ preventScroll: true });
+    } catch {
+      el.focus();
+    }
+
+    // @ts-ignore
+    if (typeof el.showPicker === 'function') {
+      // @ts-ignore
+      el.showPicker();
+    } else {
+      el.click();
+    }
+  }
+
+  function clearDate(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    onChangeDateIscrizione('');
+    if (dateRef.current) dateRef.current.value = '';
   }
 
   return (
@@ -105,14 +135,14 @@ export default function SociTable({
         <h2 className={styles.pageTitle}>Elenco soci</h2>
 
         <select
-          className={styles.selectTop}
+          className={styles.selectFilter}
           value={filterCourse}
           onChange={(e) => onChangeFilterCourse(e.target.value)}
         >
           <option value="FILTRA PER CORSO">FILTRA PER CORSO</option>
           {courseOptions.map((c) => (
-            <option key={c} value={c}>
-              {c.toUpperCase()}
+            <option key={`${c.code}-${c.title}`} value={c.code}>
+              {c.title}
             </option>
           ))}
         </select>
@@ -132,7 +162,22 @@ export default function SociTable({
           ))}
         </select>
 
-        <div className={styles.dateFake}>
+        <div
+          className={styles.dateFake}
+          role="button"
+          tabIndex={0}
+          onClick={(e) => {
+            e.preventDefault();
+            openDatePicker();
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openDatePicker();
+            }
+          }}
+          aria-label="Filtra per data di iscrizione"
+        >
           <span>Filtra per data di iscrizione</span>
 
           {dateIscrizione && (
@@ -144,9 +189,22 @@ export default function SociTable({
             </span>
           )}
 
+          {dateIscrizione && (
+            <button
+              type="button"
+              className={styles.dateClear}
+              onClick={clearDate}
+              aria-label="Rimuovi filtro data"
+              title="Rimuovi filtro"
+            >
+              ✕
+            </button>
+          )}
+
           <Image src="/icon/calendar.png" alt="" width={16} height={16} />
 
           <input
+            ref={dateRef}
             type="date"
             className={styles.dateOverlay}
             value={dateIscrizione}
@@ -154,7 +212,6 @@ export default function SociTable({
             aria-label="Filtra per data di iscrizione"
           />
         </div>
-
 
         <div className={styles.searchWrap}>
           <Image className={styles.searchIcon} src="/icon/search.png" alt="" width={16} height={16} />
@@ -195,7 +252,7 @@ export default function SociTable({
               <th className={styles.thN}></th>
               <th>Socio</th>
               <th>Data iscrizione</th>
-              <th>Pagamento mensile</th>
+              <th>Stato pagamento</th>
               <th>Data pagamento mensile</th>
               <th>Certificato medico</th>
               <th>Scadenza certificato medico</th>
@@ -206,7 +263,7 @@ export default function SociTable({
           <tbody>
             {safeRows.length === 0 ? (
               <tr>
-                <td colSpan={8} style={{ padding: 18 }}>
+                <td colSpan={9} style={{ padding: 18 }}>
                   Nessun socio trovato.
                 </td>
               </tr>
@@ -240,14 +297,12 @@ export default function SociTable({
 
                   <td className={styles.center}>
                     <button
-                      className={styles.kebab}
                       type="button"
-                      aria-label="Azioni"
+                      aria-label="Modifica socio"
                       onClick={() => goToSocio(r.id)}
+                      className={styles.iconOnlyBtn}
                     >
-                      <span />
-                      <span />
-                      <span />
+                      <FiSettings size={18} />
                     </button>
                   </td>
                 </tr>

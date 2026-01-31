@@ -531,7 +531,7 @@ export function EventsAndMapSection() {
       title: "Primo posto campionati regionali esordienti 🏅",
       description:
         "Grande successo ai Campionati Regionali Esordienti di Brindisi: Gioele Galiano, 14 anni, categoria 60 kg, conquista il 1° posto, confermandosi uno dei giovani talenti più promettenti della nostra squadra. Un risultato che premia impegno, sacrificio e il lavoro costante svolto in palestra.",
-      date: "14 - 16 Aprile 2025",
+      date: "03 - 04 - 05 - 06 Aprile 2025",
       label: "Evento",
       imageSrc: "/evento1.jpg",
     },

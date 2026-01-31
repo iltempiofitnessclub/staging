@@ -19,7 +19,7 @@ import {
 import { publicAsset } from "@/lib/publicAsset";
 
 const BRAND_NAME = "DogHouse Boxing";
-const BRAND_EMAIL = "tempiofitness@gmail.com";
+const BRAND_EMAIL = "boxingdoghouse@gmail.com";
 
 export default function DoghousePrivacyPolicyPage() {
   return (
