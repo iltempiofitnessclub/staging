@@ -30,6 +30,7 @@ export function certKindAndLabel(s: SocioDb): { kind: StatusKind; label: string 
   if (!valido) return { kind: 'bad', label: 'CERTIFICATO MANCANTE' };
 
   const left = daysUntil(s.certificato_scadenza);
+  if (left !== null && left < 0) return { kind: 'bad', label: 'CERTIFICATO SCADUTO' };
   if (left !== null && left <= 30) return { kind: 'warn', label: 'CERTIFICATO IN SCADENZA' };
 
   return { kind: 'ok', label: 'CERTIFICATO PRESENTE' };
@@ -88,7 +89,10 @@ export function buildKpis(
   month: string,
   year: string
 ): { okItems: KpiItem[]; warnItems: KpiItem[]; badItems: KpiItem[] } {
-  const listPeriodo = filterByQuotaPeriod(listAll, month, year);
+  // Filtra solo i soci attivi per le KPI
+  const listActive = listAll.filter((s) => !!s.status);
+  
+  const listPeriodo = filterByQuotaPeriod(listActive, month, year);
 
   let mensili_ok = 0;
   let mensili_warn = 0;
@@ -115,27 +119,56 @@ export function buildKpis(
   let cert_warn = 0;
   let cert_bad = 0;
 
-  for (const s of listAll) {
+  for (const s of listActive) {
     const valido = !!s.certificato_valido;
     if (!valido) {
       cert_bad++;
       continue;
     }
     const left = daysUntil(s.certificato_scadenza);
-    if (left !== null && left <= 30) cert_warn++;
-    else cert_ok++;
+    if (left !== null && left < 0) {
+      cert_bad++;
+    } else if (left !== null && left <= 30) {
+      cert_warn++;
+    } else {
+      cert_ok++;
+    }
   }
 
   let iscr_ok = 0;
   let iscr_warn = 0;
   let iscr_bad = 0;
 
-  for (const s of listAll) {
+  for (const s of listActive) {
+    // Se iscrizione_attiva è esplicitamente false, conta come scaduta
     if (s.iscrizione_attiva === false) {
       iscr_bad++;
       continue;
     }
-    const left = daysUntil(s.iscrizione_scadenza);
+
+    // Calcola la scadenza dell'iscrizione: created_at + 1 anno
+    let scadenzaIscrizione: Date | null = null;
+    
+    if (s.iscrizione_scadenza) {
+      // Se c'è una data di scadenza esplicita nel DB, usala
+      scadenzaIscrizione = new Date(s.iscrizione_scadenza);
+    } else if (s.created_at) {
+      // Altrimenti calcola: data iscrizione + 1 anno
+      const dataIscrizione = new Date(s.created_at);
+      if (!Number.isNaN(dataIscrizione.getTime())) {
+        scadenzaIscrizione = new Date(dataIscrizione);
+        scadenzaIscrizione.setFullYear(scadenzaIscrizione.getFullYear() + 1);
+      }
+    }
+
+    if (!scadenzaIscrizione || Number.isNaN(scadenzaIscrizione.getTime())) {
+      // Se non c'è data di iscrizione, considera valida
+      iscr_ok++;
+      continue;
+    }
+
+    const left = daysUntil(scadenzaIscrizione.toISOString());
+    
     if (left === null) {
       iscr_ok++;
     } else if (left < 0) {

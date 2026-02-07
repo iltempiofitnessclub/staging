@@ -30,8 +30,8 @@ type Props = {
   rows: SocioRow[];
   total: number;
 
-  filterCourse: string;
-  onChangeFilterCourse: (v: string) => void;
+  filterCourse: string[];
+  onChangeFilterCourse: (v: string[]) => void;
 
   filterCert: string;
   onChangeFilterCert: (v: string) => void;
@@ -134,18 +134,38 @@ export default function SociTable({
       <div className={styles.topBar}>
         <h2 className={styles.pageTitle}>Elenco soci</h2>
 
-        <select
-          className={styles.selectFilter}
-          value={filterCourse}
-          onChange={(e) => onChangeFilterCourse(e.target.value)}
-        >
-          <option value="FILTRA PER CORSO">FILTRA PER CORSO</option>
-          {courseOptions.map((c) => (
-            <option key={`${c.code}-${c.title}`} value={c.code}>
-              {c.title}
-            </option>
-          ))}
-        </select>
+        <div className={styles.multiSelectWrapper}>
+          <div className={styles.multiSelectLabel}>
+            {filterCourse.length === 0 ? 'FILTRA PER CORSO' : `${filterCourse.length} CORS${filterCourse.length === 1 ? 'O' : 'I'} SELEZIONAT${filterCourse.length === 1 ? 'O' : 'I'}`}
+          </div>
+          <div className={styles.multiSelectDropdown}>
+            {courseOptions.map((c) => (
+              <label key={c.code} className={styles.multiSelectOption}>
+                <input
+                  type="checkbox"
+                  checked={filterCourse.includes(c.code)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      onChangeFilterCourse([...filterCourse, c.code]);
+                    } else {
+                      onChangeFilterCourse(filterCourse.filter(code => code !== c.code));
+                    }
+                  }}
+                />
+                <span>{c.title}</span>
+              </label>
+            ))}
+            {filterCourse.length > 0 && (
+              <button
+                type="button"
+                className={styles.multiSelectClear}
+                onClick={() => onChangeFilterCourse([])}
+              >
+                Cancella tutto
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className={styles.filtersRow}>
@@ -178,13 +198,13 @@ export default function SociTable({
           }}
           aria-label="Filtra per data di iscrizione"
         >
-          <span>Filtra per data di iscrizione</span>
+          {!dateIscrizione && <span>Filtra per data di iscrizione</span>}
 
           {dateIscrizione && (
             <span className={styles.dateValue}>
               {(() => {
                 const [y, m, d] = dateIscrizione.split('-');
-                return `${d}-${m}-${y}`;
+                return `${d}/${m}/${y}`;
               })()}
             </span>
           )}
@@ -222,11 +242,6 @@ export default function SociTable({
             placeholder="Ricerca un socio per nome"
           />
         </div>
-
-        <button className={styles.btnDark} type="button">
-          <Image src="/icon/search-white.png" alt="" width={18} height={18} />
-          <span>CERCA</span>
-        </button>
 
         <Link className={styles.btnDark} href="/admin/soci/new">
           <Image src="/icon/user-plus.png" alt="" width={18} height={18} />

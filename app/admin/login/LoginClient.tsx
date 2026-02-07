@@ -37,7 +37,7 @@ export default function LoginClient() {
 
     if (error) {
       setLoading(false);
-      setErrorMsg(error.message);
+      setErrorMsg('Credenziali non corrette. Riprovare');
       return;
     }
 
@@ -58,10 +58,11 @@ export default function LoginClient() {
   }
 
   function onForgot(e: React.MouseEvent) {
-    e.preventDefault();
-    setErrorMsg(null);
-    setInfoMsg('Per il reset password contatta il personale tecnico per l’aggiornamento delle credenziali.');
-  }
+      e.preventDefault();
+      setErrorMsg(null);
+      setInfoMsg('Per il reset o l\'aggiornamento della password si prega di inviare un email all\'indirizzo webteamsolutionswork@gmail.com');
+    }
+
 
   return (
     <div className={styles.page}>

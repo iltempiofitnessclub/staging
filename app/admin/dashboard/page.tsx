@@ -27,6 +27,25 @@ export default function DashboardPage() {
 
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [userEmail, setUserEmail] = useState('');
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check for success message in URL
+    const params = new URLSearchParams(window.location.search);
+    const success = params.get('success');
+    
+    if (success === 'created') {
+      setSuccessMessage('Socio creato con successo!');
+      // Remove query param from URL
+      window.history.replaceState({}, '', '/admin/dashboard');
+      // Auto-hide after 5 seconds
+      setTimeout(() => setSuccessMessage(null), 5000);
+    } else if (success === 'updated') {
+      setSuccessMessage('Socio aggiornato con successo!');
+      window.history.replaceState({}, '', '/admin/dashboard');
+      setTimeout(() => setSuccessMessage(null), 5000);
+    }
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -66,7 +85,7 @@ export default function DashboardPage() {
     };
   }, [router]);
 
-  const [filterCourse, setFilterCourse] = useState('FILTRA PER CORSO');
+  const [filterCourse, setFilterCourse] = useState<string[]>([]);
   const [filterCert, setFilterCert] = useState('FILTRA PER STATO CERTIFICATO');
   const [query, setQuery] = useState('');
 
@@ -240,6 +259,12 @@ useEffect(() => {
 
       <main className={styles.main}>
         <div className={styles.wrap}>
+          {successMessage && (
+            <div className={styles.successMessage}>
+              ✓ {successMessage}
+            </div>
+          )}
+
           {error && (
             <div style={{ marginBottom: 10, fontWeight: 800, color: '#c20000' }}>
               {error}

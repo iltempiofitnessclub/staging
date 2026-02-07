@@ -63,8 +63,11 @@ export type SocioKpiDb = Pick<
   | 'certificato_scadenza'
   | 'iscrizione_attiva'
   | 'iscrizione_scadenza'
+  | 'status'
+  | 'created_at'
 > & {
   corso?: string | null;
+  corsi?: string[];
 };
 
 export type Socio = {

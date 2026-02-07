@@ -9,7 +9,7 @@ export async function fetchSociAll(): Promise<SocioDb[]> {
 
 type FetchSociArgs = {
   q?: string;
-  course?: string;
+  course?: string | string[];
   cert?: string;
   dateIscrizione?: string;
   page: number;
@@ -18,7 +18,7 @@ type FetchSociArgs = {
 
 type FetchSociKpisArgs = {
   q?: string;
-  course?: string;
+  course?: string | string[];
   cert?: string;
   dateIscrizione?: string;
 };
@@ -39,7 +39,12 @@ export async function fetchSoci(args: FetchSociArgs): Promise<{ list: SocioDb[];
     );
   }
 
-  if (course && course !== 'FILTRA PER CORSO') {
+  // Handle multiple course filter
+  if (Array.isArray(course) && course.length > 0) {
+    // Filter soci that have at least one of the selected courses
+    const courseFilters = course.map(c => `corsi.cs.{${c}}`).join(',');
+    query = query.or(courseFilters);
+  } else if (typeof course === 'string' && course && course !== 'FILTRA PER CORSO') {
     query = query.contains('corsi', [course]);
   }
 
@@ -222,7 +227,7 @@ export async function fetchSociKpis(args: FetchSociKpisArgs): Promise<SocioKpiDb
 
   let query = supabase
     .from('soci')
-    .select('quota_mese,quota_anno,mensile_pagato,certificato_valido,certificato_scadenza,iscrizione_attiva,iscrizione_scadenza,corso');
+    .select('quota_mese,quota_anno,mensile_pagato,certificato_valido,certificato_scadenza,iscrizione_attiva,iscrizione_scadenza,status,corsi,created_at');
 
   const qq = q.trim();
   if (qq) {
@@ -232,7 +237,11 @@ export async function fetchSociKpis(args: FetchSociKpisArgs): Promise<SocioKpiDb
     );
   }
 
-  if (course && course !== 'FILTRA PER CORSO') {
+  // Handle multiple course filter
+  if (Array.isArray(course) && course.length > 0) {
+    const courseFilters = course.map(c => `corsi.cs.{${c}}`).join(',');
+    query = query.or(courseFilters);
+  } else if (typeof course === 'string' && course && course !== 'FILTRA PER CORSO') {
     query = query.contains('corsi', [course]);
   }
 

@@ -51,9 +51,31 @@ function mensileKindForPeriod(s: SocioDb, month: string, year: string): StatusKi
 }
 
 function iscrizioneKind(s: SocioDb): StatusKind {
+  // Se iscrizione_attiva è esplicitamente false, è scaduta
   if (s.iscrizione_attiva === false) return 'bad';
 
-  const left = daysUntil(s.iscrizione_scadenza);
+  // Calcola la scadenza dell'iscrizione: created_at + 1 anno
+  let scadenzaIscrizione: Date | null = null;
+  
+  if (s.iscrizione_scadenza) {
+    // Se c'è una data di scadenza esplicita nel DB, usala
+    scadenzaIscrizione = new Date(s.iscrizione_scadenza);
+  } else if (s.created_at) {
+    // Altrimenti calcola: data iscrizione + 1 anno
+    const dataIscrizione = new Date(s.created_at);
+    if (!Number.isNaN(dataIscrizione.getTime())) {
+      scadenzaIscrizione = new Date(dataIscrizione);
+      scadenzaIscrizione.setFullYear(scadenzaIscrizione.getFullYear() + 1);
+    }
+  }
+
+  if (!scadenzaIscrizione || Number.isNaN(scadenzaIscrizione.getTime())) {
+    // Se non c'è data di iscrizione, considera valida
+    return 'ok';
+  }
+
+  const left = daysUntil(scadenzaIscrizione.toISOString());
+  
   if (left === null) return 'ok';
   if (left < 0) return 'bad';
   if (left <= 30) return 'warn';

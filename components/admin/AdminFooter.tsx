@@ -28,7 +28,8 @@ export default function AdminFooter({
     <footer className={className}>
       <div className={innerClassName}>
         <div className={logoClassName}>
-          <Image src={logoSrc} alt={logoAlt} width={90} height={90} />
+          <Image src="/dog81.png" alt="DogHouse Boxing" width={70} height={70} />
+          <Image src="/tempio-logo.png" alt="Il Tempio Fitness Club" width={70} height={70} />
         </div>
 
         <div className={colClassName}>

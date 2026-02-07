@@ -133,6 +133,7 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
   const [form, setForm] = useState<Socio>(initial);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const [courses, setCourses] = useState<CourseOption[]>([]);
   const [coursesLoading, setCoursesLoading] = useState(false);
@@ -188,71 +189,114 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
   }, [form.corsi, courses]);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSaving(true);
-    setError(null);
+      e.preventDefault();
+      setSaving(true);
+      setError(null);
+      setFieldErrors({});
 
-    try {
-      const next: Socio = {
-        ...form,
-        nome: normalizeText(form.nome),
-        cognome: normalizeText(form.cognome),
-        luogoNascita: normalizeText(form.luogoNascita),
-        indirizzo: normalizeText(form.indirizzo),
-        email: normalizeEmail(form.email),
-        telefono: normalizePhone(form.telefono),
-        codiceFiscale: normalizeCF(form.codiceFiscale),
+      const errors: Record<string, string> = {};
 
-        genitoreNome: normalizeText(form.genitoreNome),
-        genitoreCognome: normalizeText(form.genitoreCognome),
-        genitoreCodiceFiscale: normalizeCF(form.genitoreCodiceFiscale),
-        genitoreTelefono: normalizePhone(form.genitoreTelefono),
+      try {
+        const next: Socio = {
+          ...form,
+          nome: normalizeText(form.nome),
+          cognome: normalizeText(form.cognome),
+          luogoNascita: normalizeText(form.luogoNascita),
+          indirizzo: normalizeText(form.indirizzo),
+          email: normalizeEmail(form.email),
+          telefono: normalizePhone(form.telefono),
+          codiceFiscale: normalizeCF(form.codiceFiscale),
 
-        corsi: normalizeCourses(form.corsi),
-        corso: '',
-      };
+          genitoreNome: normalizeText(form.genitoreNome),
+          genitoreCognome: normalizeText(form.genitoreCognome),
+          genitoreCodiceFiscale: normalizeCF(form.genitoreCodiceFiscale),
+          genitoreTelefono: normalizePhone(form.genitoreTelefono),
 
-      if (!next.nome) throw new Error('Il nome è obbligatorio.');
-      if (!next.cognome) throw new Error('Il cognome è obbligatorio.');
-      if (!next.sesso) throw new Error('Il sesso è obbligatorio.');
-      if (!next.dataNascita) throw new Error('La data di nascita è obbligatoria.');
+          corsi: normalizeCourses(form.corsi),
+          corso: '',
+        };
 
-      if (!next.luogoNascita) throw new Error('Il luogo di nascita è obbligatorio.');
-      if (!PLACE_RE.test(next.luogoNascita)) throw new Error('Luogo di nascita non valido.');
+        if (!next.nome) errors.nome = 'Il nome è obbligatorio.';
+        if (!next.cognome) errors.cognome = 'Il cognome è obbligatorio.';
+        if (!next.sesso) errors.sesso = 'Il sesso è obbligatorio.';
+        
+        if (!next.dataNascita) {
+          errors.dataNascita = 'La data di nascita è obbligatoria.';
+        } else {
+          const birthDate = new Date(next.dataNascita);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          if (birthDate >= today) {
+            errors.dataNascita = 'La data di nascita deve essere nel passato.';
+          }
+        }
 
-      if (!next.codiceFiscale) throw new Error('Il codice fiscale è obbligatorio.');
-      if (!CF_RE.test(next.codiceFiscale)) throw new Error('Codice fiscale non valido (16 caratteri alfanumerici).');
+        if (!next.luogoNascita) {
+          errors.luogoNascita = 'Il luogo di nascita è obbligatorio.';
+        } else if (!PLACE_RE.test(next.luogoNascita)) {
+          errors.luogoNascita = 'Luogo di nascita non valido (solo lettere e spazi).';
+        }
 
-      if (!next.indirizzo) throw new Error("L’indirizzo di residenza è obbligatorio.");
-      if (next.indirizzo.length < 5) throw new Error('Indirizzo troppo corto.');
+        if (!next.codiceFiscale) {
+          errors.codiceFiscale = 'Il codice fiscale è obbligatorio.';
+        } else if (!CF_RE.test(next.codiceFiscale)) {
+          errors.codiceFiscale = 'Codice fiscale non valido (16 caratteri alfanumerici).';
+        }
 
-      if (!next.telefono) throw new Error('Il numero di telefono è obbligatorio.');
-      if (!PHONE_RE.test(next.telefono)) throw new Error('Numero di telefono non valido (solo numeri, spazi, + e -).');
+        if (!next.indirizzo) {
+          errors.indirizzo = "L'indirizzo di residenza è obbligatorio.";
+        } else if (next.indirizzo.length < 5) {
+          errors.indirizzo = 'Indirizzo troppo corto (minimo 5 caratteri).';
+        }
 
-      if (!next.email) throw new Error("L’email è obbligatoria.");
-      if (!next.email.includes('@')) throw new Error('Email non valida.');
+        if (!next.telefono) {
+          errors.telefono = 'Il numero di telefono è obbligatorio.';
+        } else if (!PHONE_RE.test(next.telefono)) {
+          errors.telefono = 'Numero di telefono non valido.';
+        }
 
-      if (next.certificatoValido) {
-        if (!next.certificatoScadenza) throw new Error('Inserisci la data di scadenza del certificato (certificato valido).');
-      } else {
-        next.certificatoScadenza = next.certificatoScadenza || '';
+        if (!next.email) {
+          errors.email = "L'email è obbligatoria.";
+        } else if (!next.email.includes('@')) {
+          errors.email = 'Email non valida.';
+        }
+
+        if (next.certificatoValido && !next.certificatoScadenza) {
+          errors.certificatoScadenza = 'Inserisci la data di scadenza del certificato.';
+        } else {
+          next.certificatoScadenza = next.certificatoScadenza || '';
+        }
+
+        if (next.genitoreTelefono && !PHONE_RE.test(next.genitoreTelefono)) {
+          errors.genitoreTelefono = 'Telefono genitore non valido.';
+        }
+        if (next.genitoreCodiceFiscale && !CF_RE.test(next.genitoreCodiceFiscale)) {
+          errors.genitoreCodiceFiscale = 'Codice fiscale genitore non valido (16 caratteri).';
+        }
+
+        if (Object.keys(errors).length > 0) {
+          setFieldErrors(errors);
+          setError('Correggi gli errori evidenziati prima di salvare.');
+          setSaving(false);
+          // Scroll to first error
+          setTimeout(() => {
+            const firstErrorField = document.querySelector(`.${styles.hasError}`);
+            if (firstErrorField) {
+              firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }, 100);
+          return;
+        }
+
+        await onSubmit?.(next);
+        router.push(`${backHref}?success=${mode === 'create' ? 'created' : 'updated'}`);
+      } catch (err: any) {
+        setError(err?.message ?? 'Errore durante il salvataggio.');
+        setSaving(false);
       }
-
-      if (next.genitoreTelefono && !PHONE_RE.test(next.genitoreTelefono)) {
-        throw new Error('Telefono genitore non valido.');
-      }
-      if (next.genitoreCodiceFiscale && !CF_RE.test(next.genitoreCodiceFiscale)) {
-        throw new Error('Codice fiscale genitore non valido (16 caratteri).');
-      }
-
-      await onSubmit?.(next);
-      router.push(backHref);
-    } catch (err: any) {
-      setError(err?.message ?? 'Errore durante il salvataggio.');
-    } finally {
-      setSaving(false);
     }
-  }
+
 
   return (
     <div className={styles.wrap}>
@@ -268,28 +312,54 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
 
               <label className={styles.field}>
                 <span>Indica il nome del socio <span className={styles.req}>*</span></span>
-                <input className={styles.input} value={form.nome} onChange={(e) => set('nome', e.target.value)} required />
+                <input 
+                  className={`${styles.input} ${fieldErrors.nome ? styles.hasError : ''}`}
+                  value={form.nome} 
+                  onChange={(e) => set('nome', e.target.value)} 
+                  required 
+                />
+                {fieldErrors.nome && <span className={styles.fieldError}>{fieldErrors.nome}</span>}
               </label>
 
               <label className={styles.field}>
                 <span>Indica il cognome del socio <span className={styles.req}>*</span></span>
-                <input className={styles.input} value={form.cognome} onChange={(e) => set('cognome', e.target.value)} required />
+                <input 
+                  className={`${styles.input} ${fieldErrors.cognome ? styles.hasError : ''}`}
+                  value={form.cognome} 
+                  onChange={(e) => set('cognome', e.target.value)} 
+                  required 
+                />
+                {fieldErrors.cognome && <span className={styles.fieldError}>{fieldErrors.cognome}</span>}
               </label>
 
               <div className={styles.row2}>
                 <label className={styles.field}>
                   <span>Seleziona il sesso del socio <span className={styles.req}>*</span></span>
-                  <select className={styles.select} value={form.sesso} onChange={(e) => set('sesso', e.target.value as Socio['sesso'])} required>
+                  <select 
+                    className={`${styles.select} ${fieldErrors.sesso ? styles.hasError : ''}`}
+                    value={form.sesso} 
+                    onChange={(e) => set('sesso', e.target.value as Socio['sesso'])} 
+                    required
+                  >
                     <option value="">Seleziona sesso</option>
                     <option value="M">Maschio</option>
                     <option value="F">Femmina</option>
                     <option value="ALTRO">Altro</option>
                   </select>
+                  {fieldErrors.sesso && <span className={styles.fieldError}>{fieldErrors.sesso}</span>}
                 </label>
 
                 <label className={styles.field}>
                   <span>Seleziona la data di nascita del socio <span className={styles.req}>*</span></span>
-                  <input className={styles.input} type="date" value={form.dataNascita} onChange={(e) => set('dataNascita', e.target.value)} required />
+                  <input 
+                    className={`${styles.input} ${fieldErrors.dataNascita ? styles.hasError : ''}`}
+                    type="date" 
+                    value={form.dataNascita} 
+                    onChange={(e) => set('dataNascita', e.target.value)} 
+                    max={new Date().toISOString().split('T')[0]}
+                    required 
+                  />
+                  {fieldErrors.dataNascita && <span className={styles.fieldError}>{fieldErrors.dataNascita}</span>}
                 </label>
               </div>
 
@@ -297,7 +367,7 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
                 <label className={styles.field}>
                   <span>Indica il luogo di nascita del socio <span className={styles.req}>*</span></span>
                   <input
-                    className={styles.input}
+                    className={`${styles.input} ${fieldErrors.luogoNascita ? styles.hasError : ''}`}
                     type="text"
                     value={form.luogoNascita}
                     onChange={(e) => set('luogoNascita', e.target.value)}
@@ -306,12 +376,13 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
                     pattern="[A-Za-zÀ-ÖØ-öø-ÿ'’\s.-]{2,60}"
                     title="Inserisci un luogo valido (solo lettere e spazi)."
                   />
+                  {fieldErrors.luogoNascita && <span className={styles.fieldError}>{fieldErrors.luogoNascita}</span>}
                 </label>
 
                 <label className={styles.field}>
                   <span>Indica il codice fiscale del socio <span className={styles.req}>*</span></span>
                   <input
-                    className={styles.input}
+                    className={`${styles.input} ${fieldErrors.codiceFiscale ? styles.hasError : ''}`}
                     value={form.codiceFiscale}
                     onChange={(e) => set('codiceFiscale', e.target.value.toUpperCase())}
                     required
@@ -320,12 +391,20 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
                     pattern="[A-Za-z0-9]{16}"
                     title="Inserisci un codice fiscale valido (16 caratteri alfanumerici)."
                   />
+                  {fieldErrors.codiceFiscale && <span className={styles.fieldError}>{fieldErrors.codiceFiscale}</span>}
                 </label>
               </div>
 
               <label className={styles.field}>
                 <span>Indica l’indirizzo di residenza del socio <span className={styles.req}>*</span></span>
-                <input className={styles.input} value={form.indirizzo} onChange={(e) => set('indirizzo', e.target.value)} required minLength={5} />
+                <input 
+                  className={`${styles.input} ${fieldErrors.indirizzo ? styles.hasError : ''}`}
+                  value={form.indirizzo} 
+                  onChange={(e) => set('indirizzo', e.target.value)} 
+                  required 
+                  minLength={5} 
+                />
+                {fieldErrors.indirizzo && <span className={styles.fieldError}>{fieldErrors.indirizzo}</span>}
               </label>
 
               <h3 className={`${styles.sectionTitle} ${styles.sectionSpacer}`}>CONTATTI GENITORE MINORE</h3>
@@ -343,24 +422,26 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
               <label className={styles.field}>
                 <span>Indica il codice fiscale del genitore del socio</span>
                 <input
-                  className={styles.input}
+                  className={`${styles.input} ${fieldErrors.genitoreCodiceFiscale ? styles.hasError : ''}`}
                   value={form.genitoreCodiceFiscale}
                   onChange={(e) => set('genitoreCodiceFiscale', e.target.value.toUpperCase())}
                   maxLength={16}
                   pattern="[A-Za-z0-9]{16}"
                 />
+                {fieldErrors.genitoreCodiceFiscale && <span className={styles.fieldError}>{fieldErrors.genitoreCodiceFiscale}</span>}
               </label>
 
               <label className={styles.field}>
                 <span>Inserisci il numero di telefono del genitore del socio</span>
                 <input
-                  className={styles.input}
+                  className={`${styles.input} ${fieldErrors.genitoreTelefono ? styles.hasError : ''}`}
                   value={form.genitoreTelefono}
                   onChange={(e) => set('genitoreTelefono', e.target.value)}
                   maxLength={18}
                   inputMode="tel"
                   pattern="[+]?[\d\s-]{6,18}"
                 />
+                {fieldErrors.genitoreTelefono && <span className={styles.fieldError}>{fieldErrors.genitoreTelefono}</span>}
               </label>
             </section>
 
@@ -393,12 +474,13 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
               <label className={styles.field}>
                 <span>Indica la data di scadenza del certificato {form.certificatoValido ? <span className={styles.req}>*</span> : null}</span>
                 <input
-                  className={styles.input}
+                  className={`${styles.input} ${fieldErrors.certificatoScadenza ? styles.hasError : ''}`}
                   type="date"
                   value={form.certificatoScadenza}
                   onChange={(e) => set('certificatoScadenza', e.target.value)}
                   required={form.certificatoValido}
                 />
+                {fieldErrors.certificatoScadenza && <span className={styles.fieldError}>{fieldErrors.certificatoScadenza}</span>}
               </label>
 
               <label className={styles.field}>
@@ -441,7 +523,7 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
               <label className={styles.field}>
                 <span>Inserisci il numero di telefono del socio <span className={styles.req}>*</span></span>
                 <input
-                  className={styles.input}
+                  className={`${styles.input} ${fieldErrors.telefono ? styles.hasError : ''}`}
                   value={form.telefono}
                   onChange={(e) => set('telefono', e.target.value)}
                   required
@@ -449,11 +531,19 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
                   inputMode="tel"
                   pattern="[+]?[\d\s-]{6,18}"
                 />
+                {fieldErrors.telefono && <span className={styles.fieldError}>{fieldErrors.telefono}</span>}
               </label>
 
               <label className={styles.field}>
                 <span>Indica l’indirizzo email del socio <span className={styles.req}>*</span></span>
-                <input className={styles.input} type="email" value={form.email} onChange={(e) => set('email', e.target.value)} required />
+                <input 
+                  className={`${styles.input} ${fieldErrors.email ? styles.hasError : ''}`}
+                  type="email" 
+                  value={form.email} 
+                  onChange={(e) => set('email', e.target.value)} 
+                  required 
+                />
+                {fieldErrors.email && <span className={styles.fieldError}>{fieldErrors.email}</span>}
               </label>
 
             <label className={styles.field}>
