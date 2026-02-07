@@ -46,7 +46,7 @@ export default function TempioPage() {
           buttonHref="/tempio/contatti"
         />
 
-        <section id="chi-siamo" className="tempio-section tempio-about">
+        <AnimatedSection id="chi-siamo" className="tempio-section tempio-about">
           <div className="tempio-section-inner tempio-about-layout">
             <div className="tempio-about-text">
               <h2 className="tempio-section-title">CHI SIAMO</h2>
@@ -79,7 +79,7 @@ export default function TempioPage() {
               </Link>
             </div>
           </div>
-        </section>
+        </AnimatedSection>
 
         <ClassesSection />
         <ContactStrip />
@@ -399,7 +399,7 @@ function ClassesSection() {
   };
 
   return (
-    <section id="corsi" className="tempio-section tempio-classes">
+    <AnimatedSection id="corsi" className="tempio-section tempio-classes">
       <div className="tempio-section-inner">
         <h2 className="tempio-section-title">I NOSTRI CORSI</h2>
 
@@ -537,7 +537,7 @@ function ClassesSection() {
           </div>
         </div>
       )}
-    </section>
+    </AnimatedSection>
   );
 }
 
@@ -557,25 +557,22 @@ function AnimatedCard({
     const node = ref.current;
     if (!node) return;
 
-    const fallback = window.setTimeout(() => setIsVisible(true), 800);
-
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry?.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
-          window.clearTimeout(fallback);
+        } else {
+          setIsVisible(false);
         }
       },
-      { threshold: 0.15, rootMargin: "200px 0px" }
+      { threshold: 0.2, rootMargin: "30px 0px" }
     );
 
     observer.observe(node);
 
     return () => {
       observer.disconnect();
-      window.clearTimeout(fallback);
     };
   }, []);
 
@@ -595,9 +592,63 @@ function AnimatedCard({
   );
 }
 
+function AnimatedSection({
+  className = "",
+  children,
+  as = "section",
+  id,
+}: {
+  className?: string;
+  children: React.ReactNode;
+  as?: "section" | "div";
+  id?: string;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      },
+      { threshold: 0.15, rootMargin: "50px 0px" }
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const Component = as;
+
+  return (
+    <Component
+      ref={ref as any}
+      id={id}
+      className={
+        "tempio-card-animated" +
+        (isVisible ? " tempio-card-animated--visible" : "") +
+        (className ? ` ${className}` : "")
+      }
+    >
+      {children}
+    </Component>
+  );
+}
+
 function ContactStrip() {
   return (
-    <section className="tempio-contact-strip" id="contatti">
+    <AnimatedSection className="tempio-contact-strip" id="contatti">
       <div className="tempio-contact-strip-inner">
         <div className="tempio-contact-strip-info">
           <h2 className="tempio-contact-strip-title">CONTATTI</h2>
@@ -619,7 +670,7 @@ function ContactStrip() {
           </button>
         </Link>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }
 
@@ -644,7 +695,7 @@ export function EventsAndMapSection() {
   ];
 
   return (
-    <section className="tempio-section tempio-events">
+    <AnimatedSection className="tempio-section tempio-events">
       <div className="tempio-section-inner tempio-events-grid">
         <div className="tempio-events-column">
           <h2 className="tempio-section-title">I NOSTRI EVENTI</h2>
@@ -676,13 +727,13 @@ export function EventsAndMapSection() {
           <div className="tempio-map-wrapper">
             <iframe
               title="Il Tempio Fitness Club - Palese Bari"
-              src="https://maps.google.com/maps?q=Palese%20Bari&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              src="https://maps.google.com/maps?q=via+V.+Maiorano,+27,+70128+Bari+BA&t=&z=16&ie=UTF8&iwloc=&output=embed"
               loading="lazy"
             ></iframe>
           </div>
           <div className="tempio-map-button-wrapper">
             <a
-              href="https://www.google.com/maps?q=41.1486,16.7602"
+              href="https://www.google.com/maps/search/?api=1&query=via+V.+Maiorano,+27,+70128+Bari+BA"
               target="_blank"
               rel="noopener noreferrer"
               className="tempio-map-button"
@@ -699,7 +750,7 @@ export function EventsAndMapSection() {
           </div>
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }
 
@@ -781,7 +832,7 @@ function ReviewsSection() {
   };
 
   return (
-    <section className="tempio-section tempio-reviews">
+    <AnimatedSection className="tempio-section tempio-reviews">
       <div className="tempio-section-inner">
         <h2 className="tempio-section-title">
           LE VALUTAZIONI SULLA NOSTRA PALESTRA
@@ -832,6 +883,6 @@ function ReviewsSection() {
           ))}
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }

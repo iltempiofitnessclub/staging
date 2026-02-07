@@ -10,7 +10,7 @@ export type Course = {
 export const COURSES: Course[] = [
   {
     id: 1,
-    title: "BOXE MATUTTINO",
+    title: "Boxe matuttino",
     imageSrc: "/mattutino.jpg",
     description:
       "Allenati al mattino con un corso completo di boxe per migliorare forma fisica, tecnica ed energia. Adatto a tutti i livelli, seguito da istruttori qualificati.",
@@ -30,7 +30,7 @@ export const COURSES: Course[] = [
 
   {
     id: 2,
-    title: "BOXE BABY",
+    title: "Boxe baby",
     imageSrc: "/baby.jpg",
     description:
       "Un corso divertente e sicuro per avvicinare i bambini alla boxe. Migliora coordinazione, disciplina e fiducia in sé stessi attraverso lo sport.",
@@ -50,7 +50,7 @@ export const COURSES: Course[] = [
 
   {
     id: 3,
-    title: "BOXE FEMMINILE",
+    title: "Boxe femminile",
     imageSrc: "/femminile.jpg",
     description:
       "Corso di boxe femminile dedicato a forza, tecnica e sicurezza di sè. Allenamenti energici in un ambiente motivante e inclusivo.",
@@ -70,7 +70,7 @@ export const COURSES: Course[] = [
 
   {
     id: 4,
-    title: "BOXE ADULTI I",
+    title: "Boxe adulti I",
     imageSrc: "/adultiI.jpg",
     description:
       "Il corso serale ideale dopo il lavoro. Allenamenti dinamici per migliorare forza, resistenza e tecnica pugilistica.",
@@ -90,7 +90,7 @@ export const COURSES: Course[] = [
 
   {
     id: 5,
-    title: "BOXE ADULTI II",
+    title: "Boxe adulti II",
     imageSrc: "/adultiII.jpg",
     description:
       "Orari flessibili e allenamenti completi. Perfetto per chi vuole risultati concreti senza vincoli di orario.",
@@ -114,7 +114,7 @@ export const COURSES: Course[] = [
 
   {
     id: 6,
-    title: "BOXE ADULTI III",
+    title: "Boxe adulti III",
     imageSrc: "/adultiIII.jpg",
     description:
       "Allenamenti intensi in fascia serale per migliorare tecnica, potenza e forma fisica, scaricando lo stress della giornata.",
@@ -134,7 +134,7 @@ export const COURSES: Course[] = [
 
   {
     id: 7,
-    title: "LEZIONI PRIVATE",
+    title: "Lezioni private",
     imageSrc: "/private.jpg",
     description:
       "Le lezioni private offrono un allenamento personalizzato e su misura, ideale per lavorare su obiettivi specifici, tecnica individuale e preparazione atletica.",

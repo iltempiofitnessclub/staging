@@ -48,7 +48,7 @@ export default function DoghousePage() {
           buttonHref="/doghouse/contatti"
         />
 
-        <section id="chi-siamo" className="doghouse-section doghouse-about">
+        <AnimatedSection id="chi-siamo" className="doghouse-section doghouse-about">
           <div className="doghouse-section-inner doghouse-about-inner">
             <div className="doghouse-about-text">
               <h2 className="doghouse-section-title">CHI SIAMO</h2>
@@ -81,7 +81,7 @@ export default function DoghousePage() {
               </NextLink>
             </div>
           </div>
-        </section>
+        </AnimatedSection>
 
         <CoursesSection />
         <ContactStrip />
@@ -255,25 +255,22 @@ function AnimatedCard({
     const node = ref.current;
     if (!node) return;
 
-    const fallback = window.setTimeout(() => setIsVisible(true), 800);
-
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry?.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
-          window.clearTimeout(fallback);
+        } else {
+          setIsVisible(false);
         }
       },
-      { threshold: 0.15, rootMargin: "200px 0px" }
+      { threshold: 0.2, rootMargin: "30px 0px" }
     );
 
     observer.observe(node);
 
     return () => {
       observer.disconnect();
-      window.clearTimeout(fallback);
     };
   }, []);
 
@@ -290,6 +287,60 @@ function AnimatedCard({
     >
       {children}
     </article>
+  );
+}
+
+function AnimatedSection({
+  className = "",
+  children,
+  as = "section",
+  id,
+}: {
+  className?: string;
+  children: React.ReactNode;
+  as?: "section" | "div";
+  id?: string;
+}) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      },
+      { threshold: 0.15, rootMargin: "50px 0px" }
+    );
+
+    observer.observe(node);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const Component = as;
+
+  return (
+    <Component
+      ref={ref as any}
+      id={id}
+      className={
+        "doghouse-card-animated" +
+        (isVisible ? " doghouse-card-animated--visible" : "") +
+        (className ? ` ${className}` : "")
+      }
+    >
+      {children}
+    </Component>
   );
 }
 
@@ -362,7 +413,7 @@ function CoursesSection() {
   };
 
   return (
-    <section id="corsi" className="doghouse-section doghouse-courses">
+    <AnimatedSection id="corsi" className="doghouse-section doghouse-courses">
       <div className="doghouse-section-inner">
         <h2 className="doghouse-section-title">I NOSTRI CORSI</h2>
 
@@ -492,13 +543,13 @@ function CoursesSection() {
           </div>
         </div>
       )}
-    </section>
+    </AnimatedSection>
   );
 }
 
 function ContactStrip() {
   return (
-    <section className="doghouse-contact-strip" id="contatti">
+    <AnimatedSection className="doghouse-contact-strip" id="contatti">
       <div className="doghouse-contact-strip-inner">
         <div className="doghouse-contact-strip-info">
           <h2 className="doghouse-contact-strip-title">CONTATTI</h2>
@@ -520,7 +571,7 @@ function ContactStrip() {
           </button>
         </NextLink>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }
 
@@ -547,7 +598,7 @@ export function EventsAndMapSection() {
   ];
 
   return (
-    <section className="doghouse-section doghouse-events">
+    <AnimatedSection className="doghouse-section doghouse-events">
       <div className="doghouse-section-inner doghouse-events-grid">
         <div className="doghouse-events-column">
           <h2 className="doghouse-section-title">I NOSTRI EVENTI</h2>
@@ -586,14 +637,14 @@ export function EventsAndMapSection() {
           <div className="doghouse-map-wrapper">
             <iframe
               title="DogHouse Boxing - Palese Bari"
-              src="https://maps.google.com/maps?q=Palese%20Bari&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              src="https://maps.google.com/maps?q=Via+V.+Maiorano+Capitano,+24,+70128+Bari+BA&t=&z=16&ie=UTF8&iwloc=&output=embed"
               loading="lazy"
             ></iframe>
           </div>
 
           <div className="doghouse-map-button-wrapper">
             <a
-              href="https://www.google.com/maps/place/41.1549521,16.7669332"
+              href="https://www.google.com/maps/search/?api=1&query=Via+V.+Maiorano+Capitano,+24,+70128+Bari+BA"
               target="_blank"
               rel="noopener noreferrer"
               className="doghouse-map-button"
@@ -610,7 +661,7 @@ export function EventsAndMapSection() {
           </div>
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }
 
@@ -675,7 +726,7 @@ function ReviewsSection() {
   };
 
   return (
-    <section className="doghouse-section doghouse-reviews">
+    <AnimatedSection className="doghouse-section doghouse-reviews">
       <div className="doghouse-section-inner">
         <h2 className="doghouse-section-title">
           LE VALUTAZIONI SULLA NOSTRA PALESTRA
@@ -722,6 +773,6 @@ function ReviewsSection() {
           ))}
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }

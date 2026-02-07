@@ -9,6 +9,13 @@ import "@/styles/tempio.css";
 
 import { MainHeader } from "@/components/layout/MainHeader";
 import { MainFooter } from "@/components/layout/MainFooter";
+import { publicAsset as asset } from "@/lib/publicAsset";
+
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTiktok,
+} from "react-icons/fa";
 
 type ClassItem = {
   id: number;
@@ -16,23 +23,13 @@ type ClassItem = {
 };
 
 const CLASSES: ClassItem[] = [
-  { id: 1, title: "KRAV MAGA" },
-  { id: 2, title: "FIT POSTURAL" },
-  { id: 3, title: "BUDO TAIJUTSU" },
-  { id: 4, title: "MUSIC FIT" },
-  { id: 5, title: "MOUTAI" },
-  { id: 6, title: "FUNNY FIT" },
+  { id: 1, title: "Krav Maga" },
+  { id: 2, title: "Fit postural" },
+  { id: 3, title: "Budo Taijutsu" },
+  { id: 4, title: "Music fit" },
+  { id: 5, title: "Moutai" },
+  { id: 6, title: "Funny fit" },
 ];
-
-function asset(path: string) {
-  if (typeof window === "undefined") return path;
-
-  const isGitHubStaging =
-    window.location.hostname === "iltempiofitnessclub.github.io" &&
-    window.location.pathname.startsWith("/staging");
-
-  return isGitHubStaging ? `/staging${path}` : path;
-}
 
 function TempioContactPageInner() {
   const searchParams = useSearchParams();
@@ -43,16 +40,149 @@ function TempioContactPageInner() {
     return Number.isFinite(n) ? n : null;
   }, [searchParams]);
 
-  const [selectedClassId, setSelectedClassId] = useState<string>("");
+  const [selectedClassIds, setSelectedClassIds] = useState<number[]>([]);
+  const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [telefonoError, setTelefonoError] = useState("");
+  const [contactError, setContactError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     if (!courseIdFromUrl) return;
     const exists = CLASSES.some((c) => c.id === courseIdFromUrl);
-    if (exists) setSelectedClassId(String(courseIdFromUrl));
+    if (exists) setSelectedClassIds([courseIdFromUrl]);
   }, [courseIdFromUrl]);
 
-  const selectedClassTitle =
-    CLASSES.find((c) => String(c.id) === selectedClassId)?.title ?? "";
+  const selectedClassTitles = selectedClassIds
+    .map((id) => CLASSES.find((c) => c.id === id)?.title)
+    .filter(Boolean)
+    .join(", ");
+
+  const toggleClass = (classId: number) => {
+    setSelectedClassIds((prev) =>
+      prev.includes(classId)
+        ? prev.filter((id) => id !== classId)
+        : [...prev, classId]
+    );
+  };
+
+  const validateEmail = (value: string): boolean => {
+    if (!value) return true; // Email non obbligatoria se c'è telefono
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      setEmailError("Inserisci un indirizzo email valido");
+      return false;
+    }
+    setEmailError("");
+    return true;
+  };
+
+  const validateTelefono = (value: string): boolean => {
+    if (!value) return true; // Telefono non obbligatorio se c'è email
+    const telefonoRegex = /^[\d\s\+\-\(\)]{9,}$/;
+    if (!telefonoRegex.test(value)) {
+      setTelefonoError("Inserisci un numero di telefono valido (minimo 9 cifre)");
+      return false;
+    }
+    setTelefonoError("");
+    return true;
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    validateEmail(value);
+    if (value || telefono) {
+      setContactError("");
+    }
+  };
+
+  const handleTelefonoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setTelefono(value);
+    validateTelefono(value);
+    if (value || email) {
+      setContactError("");
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Salva il riferimento al form prima della chiamata async
+    const form = e.currentTarget;
+
+    // Validazione: almeno email o telefono deve essere compilato
+    if (!email && !telefono) {
+      setContactError("Inserisci almeno un indirizzo email o un numero di telefono");
+      return;
+    }
+
+    // Validazione formato email
+    if (email && !validateEmail(email)) {
+      return;
+    }
+
+    // Validazione formato telefono
+    if (telefono && !validateTelefono(telefono)) {
+      return;
+    }
+
+    // Validazione corsi
+    if (selectedClassIds.length === 0) {
+      return;
+    }
+
+    // Prepara i dati del form
+    const formData = new FormData(form);
+    const data = {
+      nome: formData.get("nome"),
+      cognome: formData.get("cognome"),
+      email: email || null,
+      telefono: telefono || null,
+      corsi: selectedClassIds.join(","),
+      corsi_labels: selectedClassTitles,
+      privacy: formData.get("privacy") === "on",
+    };
+
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const response = await fetch("/api/contact/tempio", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Errore nell'invio del form");
+      }
+
+      setSubmitSuccess(true);
+      // Reset form
+      form.reset();
+      setEmail("");
+      setTelefono("");
+      setSelectedClassIds([]);
+    } catch (error) {
+      console.error("Errore:", error);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Si è verificato un errore. Riprova più tardi."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="tempio-page tempio-contact-page">
@@ -97,7 +227,35 @@ function TempioContactPageInner() {
                 necessarie affinché possiamo contattarti il prima possibile.
               </p>
 
-              <form className="tempio-contact-form">
+              {submitSuccess && (
+                <div style={{
+                  padding: "16px",
+                  marginBottom: "20px",
+                  backgroundColor: "#d4edda",
+                  color: "#155724",
+                  border: "1px solid #c3e6cb",
+                  borderRadius: "4px",
+                  textAlign: "center"
+                }}>
+                  ✅ Messaggio inviato con successo! Ti contatteremo presto.
+                </div>
+              )}
+
+              {submitError && (
+                <div style={{
+                  padding: "16px",
+                  marginBottom: "20px",
+                  backgroundColor: "#f8d7da",
+                  color: "#721c24",
+                  border: "1px solid #f5c6cb",
+                  borderRadius: "4px",
+                  textAlign: "center"
+                }}>
+                  ❌ {submitError}
+                </div>
+              )}
+
+              <form className="tempio-contact-form" onSubmit={handleSubmit}>
                 <div className="tempio-form-field">
                   <label>
                     Nome<span className="tempio-form-required">*</span>
@@ -112,47 +270,81 @@ function TempioContactPageInner() {
                   <input type="text" name="cognome" required />
                 </div>
 
+                {contactError && (
+                  <div className="tempio-form-error" style={{ marginBottom: "12px" }}>
+                    {contactError}
+                  </div>
+                )}
+
                 <div className="tempio-form-field">
                   <label>
-                    Indirizzo email<span className="tempio-form-required">*</span>
+                    Indirizzo email
                   </label>
-                  <input type="email" name="email" required />
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    placeholder="esempio@email.com"
+                  />
+                  {emailError && (
+                    <div className="tempio-form-error">{emailError}</div>
+                  )}
                 </div>
 
                 <div className="tempio-form-field">
                   <label>
-                    Numero di telefono<span className="tempio-form-required">*</span>
+                    Numero di telefono
                   </label>
-                  <input type="tel" name="telefono" required />
+                  <input 
+                    type="tel" 
+                    name="telefono"
+                    value={telefono}
+                    onChange={handleTelefonoChange}
+                    placeholder="+39 123 456 7890"
+                  />
+                  {telefonoError && (
+                    <div className="tempio-form-error">{telefonoError}</div>
+                  )}
                 </div>
 
                 <div className="tempio-form-field">
                   <label>
-                    Corso di interesse<span className="tempio-form-required">*</span>
+                    Corsi di interesse<span className="tempio-form-required">*</span>
                   </label>
 
-                  <select
-                    name="corso"
-                    value={selectedClassId}
-                    onChange={(e) => setSelectedClassId(e.target.value)}
-                    required
-                    className="tempio-form-select"
-                  >
-                    <option value="" disabled>
-                      Seleziona un corso
-                    </option>
-
+                  <div className="tempio-courses-multiselect">
                     {CLASSES.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.title}
-                      </option>
+                      <label
+                        key={c.id}
+                        className="tempio-course-checkbox-label"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedClassIds.includes(c.id)}
+                          onChange={() => toggleClass(c.id)}
+                        />
+                        <span>{c.title}</span>
+                      </label>
                     ))}
-                  </select>
+                  </div>
+
+                  {selectedClassIds.length === 0 && (
+                    <div className="tempio-form-error">
+                      Seleziona almeno un corso
+                    </div>
+                  )}
 
                   <input
                     type="hidden"
-                    name="corso_label"
-                    value={selectedClassTitle}
+                    name="corsi"
+                    value={selectedClassIds.join(",")}
+                    required={selectedClassIds.length === 0}
+                  />
+                  <input
+                    type="hidden"
+                    name="corsi_labels"
+                    value={selectedClassTitles}
                   />
                 </div>
 
@@ -169,8 +361,12 @@ function TempioContactPageInner() {
 
                 <div className="tempio-form-footer">
                   <a href="#" className="tempio-form-link"></a>
-                  <button type="submit" className="tempio-form-submit">
-                    INVIA
+                  <button 
+                    type="submit" 
+                    className="tempio-form-submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "INVIO IN CORSO..." : "INVIA"}
                   </button>
                 </div>
               </form>
@@ -182,13 +378,17 @@ function TempioContactPageInner() {
       <MainFooter
         legalBasePath="/tempio"
         logoSrc={asset("/tempio-logo-monogram.png")}
-        email="tempiofitness@gmail.com"
-        phone="080.530.1234"
+        email="iltempiofitnessclub@gmail.com"
+        phone="392.097.8713"
         addressLines={[
           "Bari – Palese – 70128",
-          "via V. Maiorano Capitano 27",
+          "via V. Maiorano, 27",
         ]}
-        socialItems={[]}
+        socialItems={[
+          { href: "https://www.facebook.com/tempiofitnessclub/?locale=it_IT", icon: <FaFacebookF />, label: "Facebook" },
+          { href: "https://www.instagram.com/tempiofitnessclub/?hl=it", icon: <FaInstagram />, label: "Instagram" },
+          { href: "https://www.tiktok.com/@iltempio", icon: <FaTiktok />, label: "TikTok" },
+        ]}
       />
     </div>
   );

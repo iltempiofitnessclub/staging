@@ -92,6 +92,7 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
+  line-height: 1;
 }
 
 .tempio-hero .hero-btn {
@@ -179,12 +180,24 @@
 
 .tempio-class-title {
   text-align: center;
-  padding: 12px 8px 16px;
+  padding: 12px 16px;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #000000;
+  color: #ffffff;
+  background-color: #c7322b;
+  border-radius: 6px;
+  margin: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.tempio-class-title:hover {
+  background-color: #a7201a;
 }
 
 .tempio-slider-arrow {
@@ -210,9 +223,11 @@
 .tempio-contact-strip-inner {
   padding: 32px 24px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 24px;
+  text-align: center;
 }
 
 .tempio-contact-strip-title {
@@ -241,6 +256,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  line-height: 1;
 }
 
 .tempio-contact-strip-button:hover {
@@ -365,6 +381,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  line-height: 1;
 }
 
 .tempio-map-button:hover {
@@ -454,13 +471,14 @@
 }
 
 .tempio-card-animated {
-  animation: tempio-slide-fade 0.35s ease-out;
   opacity: 0;
   transform: translateY(20px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 .tempio-card-animated--visible {
-  animation: tempio-fade-up 0.4s ease-out forwards;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes tempio-fade-up {
@@ -517,7 +535,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 0;
+  line-height: 1;
   margin-right: 10px;
   font-size: 1.2rem;
 }
@@ -526,11 +544,6 @@
 @media (max-width: 900px) {
   .tempio-events-grid {
     grid-template-columns: 1fr;
-  }
-
-  .tempio-contact-strip-inner {
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .tempio-reviews-wrapper {
@@ -689,20 +702,35 @@
   margin-left: 2px;
 }
 
-.tempio-form-field input {
+.tempio-form-field input,
+.tempio-form-field select {
   width: 100%;
-  padding: 10px 12px;
+  height: 42px;
+  padding: 0 12px;
   border-radius: 2px;
   border: 1px solid #000000;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   color: #222222;
   font-size: 0.9rem;
+  line-height: 42px;
+  box-sizing: border-box;
 }
 
-.tempio-form-field input:focus {
+.tempio-form-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("/chevron-down.png");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  cursor: pointer;
+}
+
+.tempio-form-field input:focus,
+.tempio-form-field select:focus {
   outline: none;
   border-color: #c7322b;
-  background-color: #ffffff;
 }
 
 .tempio-form-privacy {
@@ -713,49 +741,46 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 0.85rem;
-  color: #111;
-  line-height: 1.35;
+  font-size: 0.8rem;
+  color: #444444;
   cursor: pointer;
+  position: relative;
 }
 
 .tempio-checkbox-label input {
   position: absolute;
   opacity: 0;
   pointer-events: none;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 .tempio-checkbox-custom {
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
-  border: 2px solid #c7322b;
-  background: transparent;
-  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  border: 1px solid #c7322b;
+  margin-top: 3px;
   flex-shrink: 0;
+  background-color: transparent;
   position: relative;
 }
 
-.tempio-checkbox-custom::after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 1px;
-  width: 5px;
-  height: 10px;
-  border-right: 3px solid #c7322b;
-  border-bottom: 3px solid #c7322b;
-  transform: rotate(45deg);
-  opacity: 0;
+.tempio-checkbox-label input:checked + .tempio-checkbox-custom {
+  background-color: transparent;
 }
 
 .tempio-checkbox-label input:checked + .tempio-checkbox-custom::after {
-  opacity: 1;
-}
-
-.tempio-checkbox-label input:focus-visible + .tempio-checkbox-custom {
-  outline: 3px solid rgba(199, 50, 43, 0.25);
-  outline-offset: 2px;
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border-right: 2px solid #c7322b;
+  border-bottom: 2px solid #c7322b;
+  transform: rotate(45deg);
 }
 
 .tempio-checkbox-text {
@@ -787,10 +812,58 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
   cursor: pointer;
+  line-height: 1;
 }
 
 .tempio-form-submit:hover {
   background-color: #b41a1a;
+}
+
+.tempio-form-submit:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.tempio-courses-multiselect {
+  border: 1px solid #000000;
+  border-radius: 2px;
+  padding: 12px;
+  background-color: #ffffff;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.tempio-course-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 6px 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tempio-course-checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.tempio-course-checkbox-label span {
+  font-size: 0.9rem;
+  color: #222222;
+  line-height: 1.4;
+  vertical-align: middle;
+}
+
+.tempio-form-error {
+  font-size: 0.85rem;
+  color: #e02424;
+  margin-top: 6px;
 }
 
 @media (max-width: 900px) {
@@ -1143,6 +1216,7 @@ html.tempio-modal-open body {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   text-decoration: none;
+  line-height: 1;
 }
 
 .tempio-modal-cta:hover {
@@ -1154,7 +1228,7 @@ html.tempio-modal-open body {
   padding: 10px 12px;
   border-radius: 2px;
   border: 1px solid #000000;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   color: #222222;
   font-size: 0.9rem;
 }
@@ -1162,6 +1236,41 @@ html.tempio-modal-open body {
 .tempio-form-select:focus {
   outline: none;
   border-color: #c7322b;
-  background-color: #ffffff;
 }
 
+
+.tempio-contact-strip-button span {
+  text-decoration: underline;
+  text-underline-offset: 1px;
+  text-decoration-thickness: 1px;
+}
+
+.tempio-page .hero-btn {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.tempio-map-button span {
+  text-decoration: underline;
+  text-underline-offset: 1px;
+  text-decoration-thickness: 1px;
+}
+
+.tempio-form-submit {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+
+.tempio-modal-cta {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+
+.tempio-page .main-footer a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}

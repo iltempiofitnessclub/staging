@@ -117,7 +117,7 @@ export default function Home() {
           <p className="landing-description">
             Con la giusta disciplina, la boxe diventa per tutti. 
               <br />
-            Allenamenti guidati e professionali, metodo chiaro e cresciata costante.
+            Allenamenti guidati e professionali, metodo chiaro e crescita costante.
           </p>
 
           {isMobile && selected === "doghouse" && (

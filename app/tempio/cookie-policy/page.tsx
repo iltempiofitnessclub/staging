@@ -28,7 +28,7 @@ function asset(path: string) {
 }
 
 const BRAND_NAME = "Tempio Fitness Club";
-const BRAND_EMAIL = "tempiofitness@gmail.com";
+const BRAND_EMAIL = "iltempiofitnessclub@gmail.com";
 
 export default function TempioCookiePolicyPage() {
   return (
@@ -48,7 +48,7 @@ export default function TempioCookiePolicyPage() {
       <main className="legal-main">
         <div className="legal-inner">
           <h1 className="legal-title">Cookie Policy</h1>
-          <p className="legal-updated">Ultimo aggiornamento: 2025</p>
+          <p className="legal-updated">Ultimo aggiornamento: 2026</p>
 
           <section className="legal-section">
             <h2>1. Uso dei cookie</h2>

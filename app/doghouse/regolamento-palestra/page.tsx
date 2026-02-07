@@ -39,7 +39,7 @@ export default function DoghouseGymRulesPage() {
       <main className="legal-main">
         <div className="legal-inner">
           <h1 className="legal-title">Regolamento Palestra</h1>
-          <p className="legal-updated">Ultimo aggiornamento: 2025</p>
+          <p className="legal-updated">Ultimo aggiornamento: 2026</p>
 
           <section className="legal-section">
             <h2>1. Accesso alla struttura</h2>

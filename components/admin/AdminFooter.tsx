@@ -34,7 +34,7 @@ export default function AdminFooter({
 
         <div className={colClassName}>
           <h3>Contatti</h3>
-          <p>tempiofitness@gmail.com</p>
+          <p>iltempiofitnessclub@gmail.com</p>
           <p>doghouseboxing@gmail.com</p>
           <p>080.530.1234</p>
           <p>080.530.5678</p>

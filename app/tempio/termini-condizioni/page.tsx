@@ -27,7 +27,7 @@ function asset(path: string) {
 }
 
 const BRAND_NAME = "Tempio Fitness Club";
-const BRAND_EMAIL = "tempiofitness@gmail.com";
+const BRAND_EMAIL = "iltempiofitnessclub@gmail.com";
 
 export default function TempioTermsConditionsPage() {
   return (
@@ -47,7 +47,7 @@ export default function TempioTermsConditionsPage() {
       <main className="legal-main">
         <div className="legal-inner">
           <h1 className="legal-title">Termini e Condizioni</h1>
-          <p className="legal-updated">Ultimo aggiornamento: 2025</p>
+          <p className="legal-updated">Ultimo aggiornamento: 2026</p>
 
           <section className="legal-section">
             <h2>1. Ambito di applicazione</h2>
