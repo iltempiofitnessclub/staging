@@ -202,8 +202,8 @@
 }
 
 .courseBox {
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  border: 1px solid #222;
+  border-radius: 3px;
   padding: 10px;
   display: grid;
   gap: 10px;
@@ -273,5 +273,189 @@
 
   .rowMonthYear {
     grid-template-columns: 1fr 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    width: calc(100% - 24px);
+  }
+
+  .pageTitle {
+    font-size: 16px;
+    margin: 12px 0 10px;
+  }
+
+  .formBox {
+    padding: 16px;
+  }
+
+  .grid {
+    gap: 18px;
+  }
+
+  .col {
+    gap: 14px;
+  }
+
+  .sectionTitle {
+    font-size: 12px;
+  }
+
+  .field {
+    gap: 8px;
+    font-size: 11px;
+  }
+
+  .input,
+  .select {
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .textarea {
+    height: 150px;
+    font-size: 14px;
+  }
+
+  .courseBox {
+    max-height: 180px;
+  }
+
+  .courseTitle {
+    font-size: 12px;
+  }
+
+  .actionsOutside {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cancel,
+  .save {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 520px) {
+  .wrap {
+    width: calc(100% - 16px);
+  }
+
+  .pageTitle {
+    font-size: 15px;
+    margin: 10px 0 8px;
+  }
+
+  .formBox {
+    padding: 12px;
+  }
+
+  .grid {
+    gap: 14px;
+  }
+
+  .col {
+    gap: 12px;
+  }
+
+  .sectionTitle {
+    font-size: 11px;
+  }
+
+  .sectionSpacer {
+    margin-top: 14px;
+  }
+
+  .field {
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  .row2 {
+    gap: 12px;
+  }
+
+  .rowMonthYear {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .input,
+  .select {
+    height: 44px;
+    font-size: 15px;
+    padding: 0 12px;
+  }
+
+  .select {
+    padding: 0 36px 0 12px;
+  }
+
+  .textarea {
+    height: 120px;
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .inlineChecks {
+    gap: 14px;
+  }
+
+  .check {
+    font-size: 11px;
+  }
+
+  .check input {
+    width: 16px;
+    height: 16px;
+  }
+
+  .courseBox {
+    max-height: 160px;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .courseItem {
+    gap: 8px;
+  }
+
+  .courseItem input {
+    width: 20px;
+    height: 20px;
+  }
+
+  .courseTitle {
+    font-size: 13px;
+  }
+
+  .chips {
+    gap: 6px;
+  }
+
+  .chipBtn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .counter {
+    font-size: 10px;
+  }
+
+  .meta {
+    font-size: 10px;
+  }
+
+  .actionsOutside {
+    margin-top: 12px;
+  }
+
+  .cancel,
+  .save {
+    padding: 14px 18px;
+    font-size: 14px;
   }
 }

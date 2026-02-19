@@ -2,7 +2,7 @@
 const isGitHub = process.env.NEXT_PUBLIC_ENV === 'github';
 
 const nextConfig = {
-  output: 'export',
+  // Rimosso output: 'export' per abilitare API routes su Netlify
   images: {
     unoptimized: true,
   },

@@ -106,6 +106,9 @@ function toDbPayload(s: Socio) {
   const quotaAnno = (s.quotaAnno || '').trim();
   const corsi = normalizeCourses(s.corsi);
 
+  // Se il socio è disattivo, l'iscrizione deve essere scaduta
+  const iscrizioneAttiva = s.status ? true : false;
+
   return {
     nome: s.nome,
     cognome: s.cognome,
@@ -138,6 +141,7 @@ function toDbPayload(s: Socio) {
 
     note: s.note || null,
     status: s.status,
+    iscrizione_attiva: iscrizioneAttiva,
   };
 }
 

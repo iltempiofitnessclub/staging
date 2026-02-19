@@ -126,6 +126,7 @@
 .doghouse-about-btn-wrapper {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .doghouse-about-btn-wrapper .hero-btn {
@@ -153,6 +154,9 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   line-height: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
 }
 
 .doghouse-map-button-wrapper {
@@ -259,7 +263,7 @@
   background-color: #ffd52e;
   color: #000000;
   border-radius: 6px;
-  margin: 12px 16px;
+  margin: 20px 16px 12px 16px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   text-decoration: underline;
@@ -306,7 +310,7 @@
 }
 
 .doghouse-modal-actions{
-  margin-top: 16px;
+  margin-top: 32px;
   display: flex;
   justify-content: flex-end;
 }
@@ -980,22 +984,55 @@
 
   .doghouse-courses-wrapper {
     gap: 16px;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .doghouse-courses-grid {
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .doghouse-course-card {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .doghouse-course-image {
+    flex-shrink: 0;
+  }
+
+  .doghouse-course-image img {
+    height: 280px;
+    width: 100%;
+    object-fit: cover;
   }
 
   .doghouse-courses-image img {
     height: 200px;
   }
 
-  .doghouse-courses-grid {
-    grid-template-columns: 1fr;
-  }
-
   .doghouse-review-multi-container {
     grid-template-columns: 1fr;
+    overflow: visible;
   }
 
   .doghouse-review-card.multi {
-    max-width: 260px;
+    max-width: 100%;
+    width: 100%;
+    min-height: 160px;
+    height: auto;
+  }
+
+  .doghouse-review-text {
+    font-size: 1rem;
+    min-height: 80px;
+  }
+
+  .doghouse-reviews-wrapper {
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .doghouse-contact-section {
@@ -1085,11 +1122,28 @@
   .tempio-reviews-wrapper,
   .tempio-events-grid {
     overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .doghouse-slider-arrow,
   .tempio-slider-arrow {
     flex-shrink: 0;
+  }
+
+  .doghouse-courses-grid,
+  .tempio-classes-grid,
+  .doghouse-review-multi-container,
+  .tempio-review-multi-container {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .doghouse-course-card,
+  .tempio-class-card,
+  .doghouse-review-card,
+  .tempio-review-card {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -1324,11 +1378,5 @@ html.doghouse-modal-open body {
 .doghouse-page .main-footer a {
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-}
-
-.hero-btn {
-  text-decoration: underline;
-  text-underline-offset: 4px;
   text-decoration-thickness: 1px;
 }

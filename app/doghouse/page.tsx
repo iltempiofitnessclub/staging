@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
 
+import PageLoader from "@/components/ui/PageLoader";
 import { FloatingWhatsAppButton } from "@/components/ui/FloatingWhatsAppButton";
 import "@/components/styles/floating-whatsapp.css";
 import "@/components/styles/header.css";
@@ -25,28 +26,29 @@ import {
 
 export default function DoghousePage() {
   return (
-    <div className="doghouse-page">
-      <MainHeader
-        className="doghouse-header"
-        logoSrc={publicAsset("/doghouse-logo.png")}
-        logoAlt="DogHouse Boxing"
-        navItems={[
-          { label: "Home", href: "/doghouse" },
-          { label: "Chi siamo", href: "/doghouse#chi-siamo" },
-          { label: "Corsi", href: "/doghouse#corsi" },
-          { label: "Contatti", href: "/doghouse#contatti" },
-        ]}
-      />
-
-      <main className="doghouse-main">
-        <Hero
-          className="doghouse-hero"
-          backgroundImage={("/hero-doghouse.jpg")}
-          titleLine1="BUILD STRONG"
-          titleLine2="TRAIN HARD"
-          buttonLabel="RICHIEDI UNA PROVA GRATUITA"
-          buttonHref="/doghouse/contatti"
+    <PageLoader>
+      <div className="doghouse-page">
+        <MainHeader
+          className="doghouse-header"
+          logoSrc={publicAsset("/doghouse-logo.png")}
+          logoAlt="DogHouse Boxing"
+          navItems={[
+            { label: "Home", href: "/doghouse" },
+            { label: "Chi siamo", href: "/doghouse#chi-siamo" },
+            { label: "Corsi", href: "/doghouse#corsi" },
+            { label: "Contatti", href: "/doghouse#contatti" },
+          ]}
         />
+
+        <main className="doghouse-main">
+          <Hero
+            className="doghouse-hero"
+            backgroundImage={("/hero-doghouse.jpg")}
+            titleLine1="BUILD STRONG"
+            titleLine2="TRAIN HARD"
+            buttonLabel="RICHIEDI UNA PROVA GRATUITA"
+            buttonHref="/doghouse/contatti"
+          />
 
         <AnimatedSection id="chi-siamo" className="doghouse-section doghouse-about">
           <div className="doghouse-section-inner doghouse-about-inner">
@@ -112,6 +114,7 @@ export default function DoghousePage() {
         className="floating-whatsapp-btn-doghouse"
       />
     </div>
+    </PageLoader>
   );
 }
 
@@ -372,9 +375,14 @@ function CoursesSection() {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (selectedCourse) root.classList.add("doghouse-modal-open");
-    else root.classList.remove("doghouse-modal-open");
-    return () => root.classList.remove("doghouse-modal-open");
+    if (selectedCourse) {
+      root.classList.add("doghouse-modal-open");
+    } else {
+      root.classList.remove("doghouse-modal-open");
+    }
+    return () => {
+      root.classList.remove("doghouse-modal-open");
+    };
   }, [selectedCourse]);
 
   const prev = () => {

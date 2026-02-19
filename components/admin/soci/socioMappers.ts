@@ -92,8 +92,7 @@ export function buildKpis(
   // Filtra solo i soci attivi per le KPI
   const listActive = listAll.filter((s) => !!s.status);
   
-  const listPeriodo = filterByQuotaPeriod(listActive, month, year);
-
+  // Per i mensili, conta TUTTI i soci attivi, non solo quelli con quota_mese/anno impostati
   let mensili_ok = 0;
   let mensili_warn = 0;
   let mensili_bad = 0;
@@ -101,7 +100,19 @@ export function buildKpis(
   const mi = MONTHS.indexOf(norm(month) as any);
   const y = Number(year);
 
-  for (const s of listPeriodo) {
+  for (const s of listActive) {
+    // Se il socio ha quota_mese e quota_anno impostati, verifica che corrispondano al periodo selezionato
+    const hasQuotaPeriod = s.quota_mese && s.quota_anno;
+    const matchesPeriod = hasQuotaPeriod && 
+                          norm(s.quota_mese) === norm(month) && 
+                          norm(s.quota_anno) === norm(year);
+    
+    // Se ha il periodo impostato ma non corrisponde, salta questo socio
+    if (hasQuotaPeriod && !matchesPeriod) {
+      continue;
+    }
+    
+    // Conta il socio
     if (!!s.mensile_pagato) {
       mensili_ok++;
     } else if (mi >= 0 && Number.isFinite(y)) {

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import NextLink from "next/link";
+import PageLoader from "@/components/ui/PageLoader";
 import { FloatingWhatsAppButton } from "@/components/ui/FloatingWhatsAppButton";
 import "@/components/styles/floating-whatsapp.css";
 import "@/components/styles/header.css";
@@ -24,30 +25,31 @@ import {
 
 export default function TempioPage() {
   return (
-    <div className="tempio-page">
-      <MainHeader
-        className="tempio-header"
-        logoSrc={publicAsset("/tempio-logo.png")}
-        logoAlt="Il Tempio Fitness Club"
-        navItems={[
-          { label: "Home", href: "/tempio" },
-          { label: "Chi siamo", href: "#chi-siamo" },
-          { label: "Corsi", href: "#corsi" },
-          { label: "Contatti", href: "#contatti" },
-        ]}
-      />
-
-      <main className="tempio-main">
-        <Hero
-          className="tempio-hero"
-          titleLine1="BUILD STRENGTH"
-          titleLine2="TRAIN HARD"
-          buttonLabel="RICHIEDI UNA PROVA GRATUITA"
-          buttonHref="/tempio/contatti"
+    <PageLoader>
+      <div className="tempio-page">
+        <MainHeader
+          className="tempio-header"
+          logoSrc={publicAsset("/tempio-logo.png")}
+          logoAlt="Il Tempio Fitness Club"
+          navItems={[
+            { label: "Home", href: "/tempio" },
+            { label: "Chi siamo", href: "#chi-siamo" },
+            { label: "Corsi", href: "#corsi" },
+            { label: "Contatti", href: "#contatti" },
+          ]}
         />
 
-        <AnimatedSection id="chi-siamo" className="tempio-section tempio-about">
-          <div className="tempio-section-inner tempio-about-layout">
+        <main className="tempio-main">
+          <Hero
+            className="tempio-hero"
+            titleLine1="BUILD STRENGTH"
+            titleLine2="TRAIN HARD"
+            buttonLabel="RICHIEDI UNA PROVA GRATUITA"
+            buttonHref="/tempio/contatti"
+          />
+
+          <AnimatedSection id="chi-siamo" className="tempio-section tempio-about">
+            <div className="tempio-section-inner tempio-about-layout">
             <div className="tempio-about-text">
               <h2 className="tempio-section-title">CHI SIAMO</h2>
               <p className="tempio-section-text">
@@ -92,7 +94,7 @@ export default function TempioPage() {
         logoSrc={publicAsset("/tempio-logo-monogram.png")}
         email="iltempiofitnessclub@gmail.com"
         phone="392.097.8713"
-        addressLines={["Bari – Palese – 70128", "via Vico VI Duca D'Aosta, 7A "]}
+        addressLines={["Bari – Palese – 70128", "via V. Maiorano, 27"]}
         socialItems={[
           { href: "https://www.facebook.com/tempiofitnessclub/?locale=it_IT", icon: <FaFacebookF />, label: "Facebook" },
           { href: "https://www.instagram.com/tempiofitnessclub/?hl=it", icon: <FaInstagram />, label: "Instagram" },
@@ -106,6 +108,7 @@ export default function TempioPage() {
         className="floating-whatsapp-btn-tempio"
       />
     </div>
+    </PageLoader>
   );
 }
 
@@ -361,9 +364,14 @@ function ClassesSection() {
 
   useEffect(() => {
     const root = document.documentElement;
-    if (selectedClass) root.classList.add("tempio-modal-open");
-    else root.classList.remove("tempio-modal-open");
-    return () => root.classList.remove("tempio-modal-open");
+    if (selectedClass) {
+      root.classList.add("tempio-modal-open");
+    } else {
+      root.classList.remove("tempio-modal-open");
+    }
+    return () => {
+      root.classList.remove("tempio-modal-open");
+    };
   }, [selectedClass]);
 
   const prev = () => {
@@ -726,14 +734,14 @@ export function EventsAndMapSection() {
           <h2 className="tempio-section-title">COME RAGGIUNGERCI</h2>
           <div className="tempio-map-wrapper">
             <iframe
-              title="Il Tempio Fitness Club - Palese Bari"
-              src="https://maps.google.com/maps?q=via+V.+Maiorano,+27,+70128+Bari+BA&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              title="Il Tempio Fitness Club - Bari"
+              src="https://maps.google.com/maps?q=Via+Vincenzo+Maiorano,+27,+70128+Bari+BA,+Italy&t=&z=16&ie=UTF8&iwloc=&output=embed"
               loading="lazy"
             ></iframe>
           </div>
           <div className="tempio-map-button-wrapper">
             <a
-              href="https://www.google.com/maps/search/?api=1&query=via+V.+Maiorano,+27,+70128+Bari+BA"
+              href="https://www.google.com/maps/search/?api=1&query=Via+Vincenzo+Maiorano+27+70128+Bari+BA+Italy"
               target="_blank"
               rel="noopener noreferrer"
               className="tempio-map-button"

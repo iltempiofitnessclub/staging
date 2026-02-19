@@ -41,6 +41,15 @@
   background-image: url("/hero-tempio.jpg");
   background-size: cover;
   background-position: center;
+  position: relative;
+}
+
+.tempio-hero.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
 }
 
 .tempio-hero .hero-container {
@@ -50,6 +59,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  position: relative;
+  z-index: 1;
 }
 
 .tempio-hero .hero-text {
@@ -58,10 +69,11 @@
 }
 
 .tempio-hero .hero-line1 {
-  color: #000000;
+  color: #ffffff;
   font-size: 3rem;
   font-weight: 800;
   letter-spacing: 0.03em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .tempio-hero .hero-line2 {
@@ -69,6 +81,7 @@
   font-size: 3rem;
   font-weight: 800;
   letter-spacing: 0.03em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .tempio-hero .hero-subtitle {
@@ -91,8 +104,10 @@
   letter-spacing: 0.06em;
   border: none;
   cursor: pointer;
-  text-decoration: none;
   line-height: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
 }
 
 .tempio-hero .hero-btn {
@@ -188,7 +203,7 @@
   color: #ffffff;
   background-color: #c7322b;
   border-radius: 6px;
-  margin: 12px 16px;
+  margin: 20px 16px 12px 16px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   text-decoration: underline;
@@ -520,6 +535,7 @@
 .tempio-about-btn-wrapper {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .tempio-page .hero-btn.hero-btn--tempio {
@@ -588,14 +604,51 @@
 
   .tempio-classes-wrapper {
     gap: 16px;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .tempio-classes-grid {
     grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .tempio-class-card {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .tempio-class-image {
+    flex-shrink: 0;
+  }
+
+  .tempio-class-image img {
+    height: 280px;
+    width: 100%;
+    object-fit: cover;
   }
 
   .tempio-review-multi-container {
     grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .tempio-review-card.multi {
+    max-width: 100%;
+    width: 100%;
+    min-height: 160px;
+    height: auto;
+  }
+
+  .tempio-review-text {
+    font-size: 1.1rem;
+    min-height: 80px;
+  }
+
+  .tempio-reviews-wrapper {
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 }
 
@@ -950,11 +1003,28 @@
   .tempio-reviews-wrapper,
   .tempio-events-grid {
     overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .doghouse-slider-arrow,
   .tempio-slider-arrow {
     flex-shrink: 0;
+  }
+
+  .doghouse-courses-grid,
+  .tempio-classes-grid,
+  .doghouse-review-multi-container,
+  .tempio-review-multi-container {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .doghouse-course-card,
+  .tempio-class-card,
+  .doghouse-review-card,
+  .tempio-review-card {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -1198,7 +1268,7 @@ html.tempio-modal-open body {
 }
 
 .tempio-modal-actions {
-  margin-top: 16px;
+  margin-top: 32px;
   display: flex;
   justify-content: flex-end;
 }
@@ -1242,12 +1312,6 @@ html.tempio-modal-open body {
 .tempio-contact-strip-button span {
   text-decoration: underline;
   text-underline-offset: 1px;
-  text-decoration-thickness: 1px;
-}
-
-.tempio-page .hero-btn {
-  text-decoration: underline;
-  text-underline-offset: 4px;
   text-decoration-thickness: 1px;
 }
 

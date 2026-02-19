@@ -13,11 +13,22 @@
 }
 
 .logoWrap {
-  width: 70px;
-  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 12px;
+}
+
+.logoWrap a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.logoWrap a:hover {
+  opacity: 0.7;
 }
 
 .title {
@@ -30,8 +41,50 @@
   flex: 1;
 }
 
+.title a {
+  transition: opacity 0.2s ease;
+}
+
+.title a:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
 .right {
   min-width: 0;
   display: flex;
   justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .headerInner {
+    gap: 14px;
+    padding: 14px 0;
+  }
+
+  .logoWrap {
+    gap: 10px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  .headerInner {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+  }
+
+  .logoWrap {
+    gap: 8px;
+  }
+
+  .title {
+    font-size: 14px;
+    line-height: 1.3;
+  }
 }

@@ -166,6 +166,9 @@ useEffect(() => {
 
   useEffect(() => {
     let cancelled = false;
+    
+    // Salva la posizione di scroll prima del caricamento
+    const scrollY = window.scrollY;
 
     (async () => {
       setLoading(true);
@@ -204,7 +207,13 @@ useEffect(() => {
         if (cancelled) return;
         setError(e?.message ?? 'Errore caricamento dati');
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+          // Ripristina la posizione di scroll dopo il caricamento
+          requestAnimationFrame(() => {
+            window.scrollTo(0, scrollY);
+          });
+        }
       }
     })();
 

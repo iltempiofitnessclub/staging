@@ -1,5 +1,6 @@
 html {
   scroll-behavior: smooth;
+  overflow-y: scroll;
 }
 
 body {
@@ -7,8 +8,16 @@ body {
   padding: 0;
 }
 
+/* Fix per landing page - blocca scroll */
+html:has(.landing-home),
+body:has(.landing-home) {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .landing-home {
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
   display: flex;
   margin: 0;
   padding: 0;

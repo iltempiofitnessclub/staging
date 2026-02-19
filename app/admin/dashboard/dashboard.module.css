@@ -54,12 +54,33 @@
   gap: 10px;
 }
 
+.logoWrap a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.logoWrap a:hover {
+  opacity: 0.7;
+}
+
 .title {
   margin: 0;
   font-size: 22px;
   font-weight: 800;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+}
+
+.title a {
+  transition: opacity 0.2s ease;
+}
+
+.title a:hover {
+  opacity: 0.7;
+  text-decoration: underline;
 }
 
 .main {
@@ -546,19 +567,212 @@
   }
 }
 
+@media (max-width: 768px) {
+  .topBar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .pageTitle {
+    font-size: 18px;
+  }
+
+  .multiSelectWrapper {
+    min-width: 100%;
+  }
+
+  .selectTop {
+    min-width: 100%;
+  }
+
+  .filtersRow {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .tableBox {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table {
+    min-width: 900px;
+  }
+
+  .tableFooter {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .footerLeft {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .pageSize {
+    width: 100%;
+  }
+
+  .resultsText {
+    text-align: center;
+  }
+
+  .pager {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .dashboardFilters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .selectSmall {
+    min-width: 100%;
+  }
+}
+
 @media (max-width: 520px) {
   .headerInner {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+  }
+
+  .logoWrap {
+    gap: 8px;
   }
 
   .title {
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .main {
+    padding: 10px 0 14px;
+  }
+
+  .topBar {
+    margin: 8px 0 10px;
+  }
+
+  .pageTitle {
     font-size: 16px;
-    text-align: left;
+  }
+
+  .filtersRow {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .selectFilter,
+  .dateFake,
+  .searchWrap,
+  .btnDark {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .btnDark {
+    padding: 0 10px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .tableBox {
+    margin-top: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  .table {
+    font-size: 11px;
+    min-width: 800px;
+  }
+
+  .table thead th {
+    padding: 8px 6px;
+    font-size: 10px;
+  }
+
+  .table tbody td {
+    padding: 8px 6px;
+  }
+
+  .socioName {
+    font-size: 11px;
+  }
+
+  .socioSub {
+    font-size: 9px;
+  }
+
+  .chip {
+    font-size: 10px;
+    gap: 6px;
+  }
+
+  .chipIcon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .tableFooter {
+    padding: 10px 8px;
+  }
+
+  .pageSize {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .resultsText {
+    font-size: 11px;
+  }
+
+  .pagerBtn,
+  .pageBtn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dashboard {
+    margin-top: 14px;
+  }
+
+  .dashboardTitle {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .kpiCard {
+    padding: 8px 10px;
+    font-size: 10px;
   }
 
   .footerInner {
     grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 18px 0;
+  }
+
+  .footerLogo {
+    justify-content: center;
+  }
+
+  .footerCol h3 {
+    font-size: 12px;
+  }
+
+  .footerCol p {
+    font-size: 11px;
   }
 }
 

@@ -278,7 +278,7 @@ export default function SociTable({
           <tbody>
             {safeRows.length === 0 ? (
               <tr>
-                <td colSpan={9} style={{ padding: 18 }}>
+                <td colSpan={8} style={{ padding: 18, textAlign: 'center', borderBottom: 0 }}>
                   Nessun socio trovato.
                 </td>
               </tr>
