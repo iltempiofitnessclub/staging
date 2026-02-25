@@ -61,14 +61,14 @@ export default function TempioPage() {
             </div>
 
             <div className="tempio-about-btn-wrapper">
-              <Link href="/" className="hero-btn hero-btn--tempio">
+              <NextLink href="/" className="hero-btn hero-btn--tempio">
                 <span className="hero-btn-icon">
                   <svg
                     width="22"
                     height="22"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="currentColor"
+                    stroke="white"
                     strokeWidth="2.2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -78,7 +78,7 @@ export default function TempioPage() {
                   </svg>
                 </span>
                 TORNA ALLA SELEZIONE DEL SITO
-              </Link>
+              </NextLink>
             </div>
           </div>
         </AnimatedSection>
@@ -94,7 +94,7 @@ export default function TempioPage() {
         logoSrc={publicAsset("/tempio-logo-monogram.png")}
         email="iltempiofitnessclub@gmail.com"
         phone="392.097.8713"
-        addressLines={["Bari – Palese – 70128", "via V. Maiorano, 27"]}
+        addressLines={["Bari – Palese – 70128", "Vico VI Duca D'Aosta, 7/a"]}
         socialItems={[
           { href: "https://www.facebook.com/tempiofitnessclub/?locale=it_IT", icon: <FaFacebookF />, label: "Facebook" },
           { href: "https://www.instagram.com/tempiofitnessclub/?hl=it", icon: <FaInstagram />, label: "Instagram" },
@@ -296,19 +296,6 @@ const CLASSES: ClassItem[] = [
   },
   {
     id: 13,
-    title: "DIFESA PERSONALE",
-    imageSrc: "/",
-    description:
-      "Il corso di Difesa Personale insegna tecniche pratiche per aumentare sicurezza e consapevolezza. Si lavora su coordinazione, reattività e gestione delle situazioni di rischio. Adatto a tutti, migliora anche autostima e controllo del corpo.",
-    schedule: [
-      { days: "Martedì e Giovedì", time: "18:00 - 19:00" },
-    ],
-    info: [
-      "Livello: Tutti"
-    ],
-  },
-  {
-    id: 14,
     title: "BALLI DI GRUPPO",
     imageSrc: "/",
     description:
@@ -321,7 +308,7 @@ const CLASSES: ClassItem[] = [
     ],
   },
   {
-    id: 15,
+    id: 14,
     title: "SUPER JUMP",
     imageSrc: "/",
     description:
@@ -661,7 +648,7 @@ function ContactStrip() {
         <div className="tempio-contact-strip-info">
           <h2 className="tempio-contact-strip-title">CONTATTI</h2>
           <p className="tempio-contact-strip-text">
-            Il Tempio Fitness Club è in via V. Maiorano, 27 – 70128 Bari (BA)
+            Il Tempio Fitness Club è in Vico VI Duca D'Aosta, 7/a – 70128 Bari (BA)
           </p>
         </div>
 
@@ -735,13 +722,13 @@ export function EventsAndMapSection() {
           <div className="tempio-map-wrapper">
             <iframe
               title="Il Tempio Fitness Club - Bari"
-              src="https://maps.google.com/maps?q=Via+Vincenzo+Maiorano,+27,+70128+Bari+BA,+Italy&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              src="https://maps.google.com/maps?q=Vico+VI+Duca+D'Aosta,+7a,+70128+Bari+BA,+Italy&t=&z=16&ie=UTF8&iwloc=&output=embed"
               loading="lazy"
             ></iframe>
           </div>
           <div className="tempio-map-button-wrapper">
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Via+Vincenzo+Maiorano+27+70128+Bari+BA+Italy"
+              href="https://www.google.com/maps/search/?api=1&query=Vico+VI+Duca+D'Aosta+7a+70128+Bari+BA+Italy"
               target="_blank"
               rel="noopener noreferrer"
               className="tempio-map-button"

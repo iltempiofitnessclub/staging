@@ -122,7 +122,7 @@ export default function TempioTermsConditionsPage() {
         logoAlt={BRAND_NAME}
         email={BRAND_EMAIL}
         phone="080.530.1234"
-        addressLines={["Bari – Palese – 70128", "via V. Maiorano Capitano 27"]}
+        addressLines={["Bari – Palese – 70128", "Vico VI Duca D'Aosta, 7/a"]}
         socialItems={[
           { href: "#", icon: <FaYoutube />, label: "YouTube" },
           { href: "#", icon: <FaWhatsapp />, label: "WhatsApp" },

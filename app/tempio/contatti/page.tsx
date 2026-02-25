@@ -372,7 +372,7 @@ function TempioContactPageInner() {
         phone="392.097.8713"
         addressLines={[
           "Bari – Palese – 70128",
-          "via V. Maiorano, 27",
+          "Vico VI Duca D'Aosta, 7/a",
         ]}
         socialItems={[
           { href: "https://www.facebook.com/tempiofitnessclub/?locale=it_IT", icon: <FaFacebookF />, label: "Facebook" },
