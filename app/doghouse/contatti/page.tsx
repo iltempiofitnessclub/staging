@@ -125,34 +125,21 @@ function DoghouseContactPageInner() {
       return;
     }
 
-    // Prepara i dati del form
-    const formData = new FormData(form);
-    const data = {
-      nome: formData.get("nome"),
-      cognome: formData.get("cognome"),
-      email: email || null,
-      telefono: telefono || null,
-      corsi: selectedCourseIds.join(","),
-      corsi_labels: selectedCourseTitles,
-      privacy: formData.get("privacy") === "on",
-    };
-
     setIsSubmitting(true);
     setSubmitError("");
 
     try {
-      const response = await fetch("/api/contact/doghouse", {
+      // Netlify Forms submission
+      const formData = new FormData(form);
+      
+      const response = await fetch("/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.error || "Errore nell'invio del form");
+        throw new Error("Errore nell'invio del form");
       }
 
       setSubmitSuccess(true);
@@ -245,7 +232,10 @@ function DoghouseContactPageInner() {
                   </div>
                 )}
 
-                <form className="doghouse-contact-form" onSubmit={handleSubmit}>
+                <form className="doghouse-contact-form" onSubmit={handleSubmit} name="doghouse-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                  <input type="hidden" name="form-name" value="doghouse-contact" />
+                  <input type="hidden" name="bot-field" />
+                  
                   <div className="doghouse-form-field">
                     <label>
                       Nome<span className="doghouse-form-required">*</span>

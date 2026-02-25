@@ -136,34 +136,21 @@ function TempioContactPageInner() {
       return;
     }
 
-    // Prepara i dati del form
-    const formData = new FormData(form);
-    const data = {
-      nome: formData.get("nome"),
-      cognome: formData.get("cognome"),
-      email: email || null,
-      telefono: telefono || null,
-      corsi: selectedClassIds.join(","),
-      corsi_labels: selectedClassTitles,
-      privacy: formData.get("privacy") === "on",
-    };
-
     setIsSubmitting(true);
     setSubmitError("");
 
     try {
-      const response = await fetch("/api/contact/tempio", {
+      // Netlify Forms submission
+      const formData = new FormData(form);
+      
+      const response = await fetch("/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.error || "Errore nell'invio del form");
+        throw new Error("Errore nell'invio del form");
       }
 
       setSubmitSuccess(true);
@@ -255,7 +242,10 @@ function TempioContactPageInner() {
                 </div>
               )}
 
-              <form className="tempio-contact-form" onSubmit={handleSubmit}>
+              <form className="tempio-contact-form" onSubmit={handleSubmit} name="tempio-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="tempio-contact" />
+                <input type="hidden" name="bot-field" />
+                
                 <div className="tempio-form-field">
                   <label>
                     Nome<span className="tempio-form-required">*</span>
