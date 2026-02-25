@@ -56,7 +56,7 @@ export default function AdminFooter({
 
         <div className={colClassName}>
           <h3>Servizio Clienti</h3>
-          <p>devteamsolutionswork@gmail.com</p>
+          <p>webteamsolutionswork@gmail.com</p>
           <p>dangelodavide.work@gmail.com</p>
         </div>
       </div>
