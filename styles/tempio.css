@@ -1235,17 +1235,17 @@ html.tempio-modal-open body {
 .tempio-modal-divider {
   height: 1px;
   width: 100%;
-  margin: 14px 0;
-  background: #e6e6e6;
+  margin: 8px 0;
+  background: transparent;
 }
 
 .tempio-modal-section {
-  border-top: 1px solid #e6e6e6;
-  padding-top: 12px;
+  border-top: none;
+  padding-top: 8px;
 }
 
 .tempio-modal-subtitle {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   font-size: 0.9rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -1258,15 +1258,15 @@ html.tempio-modal-open body {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .tempio-modal-schedule-row {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 12px;
-  border: 1px solid #e0e0e0;
+  padding: 8px 12px;
+  border: none;
   border-radius: 10px;
   background: #f7f7f7;
   color: #222222;
@@ -1286,13 +1286,13 @@ html.tempio-modal-open body {
 }
 
 .tempio-modal-list li {
-  margin: 6px 0;
+  margin: 4px 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
 .tempio-modal-actions {
-  margin-top: 32px;
+  margin-top: 20px;
   display: flex;
   justify-content: flex-end;
 }
