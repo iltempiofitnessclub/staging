@@ -157,7 +157,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 40px;
+  gap: 24px;
 }
 
 .tempio-about-text {
@@ -166,7 +166,7 @@
 
 .tempio-about-btn-wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 }
 
@@ -535,8 +535,10 @@
 
 .tempio-about-btn-wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 10;
 }
 
 .tempio-about-btn-wrapper .hero-btn {
@@ -544,6 +546,9 @@
   padding: 14px 28px;
   background-color: #e02424;
   color: #ffffff;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
 }
 
 .tempio-about-btn-wrapper .hero-btn:hover {
@@ -580,11 +585,13 @@
   .tempio-about-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 16px;
   }
 
   .tempio-about-btn-wrapper {
-    justify-content: flex-start;
-    margin-top: 1.5rem;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0;
   }
 
   .tempio-review-multi-container {
@@ -1221,6 +1228,8 @@ html.tempio-modal-open body {
   margin: 0 0 14px;
   color: #555555;
   line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .tempio-modal-divider {
@@ -1272,10 +1281,14 @@ html.tempio-modal-open body {
   margin: 0;
   padding-left: 18px;
   color: #555555;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .tempio-modal-list li {
   margin: 6px 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .tempio-modal-actions {

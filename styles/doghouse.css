@@ -116,7 +116,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 40px;
+  gap: 24px;
 }
 
 .doghouse-about-text {
@@ -125,7 +125,7 @@
 
 .doghouse-about-btn-wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 }
 
@@ -915,11 +915,13 @@
   .doghouse-about-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 16px;
   }
 
   .doghouse-about-btn-wrapper {
-    justify-content: flex-start;
-    margin-top: 1.5rem;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0;
   }
 
   .doghouse-courses-grid {
