@@ -170,17 +170,6 @@
   align-items: center;
 }
 
-.tempio-about-btn-wrapper .hero-btn {
-  font-size: 1rem;
-  padding: 14px 28px;
-  background-color: #e02424;
-  color: #ffffff;
-}
-
-.tempio-about-btn-wrapper .hero-btn:hover {
-  background-color: #b41a1a;
-}
-
 .tempio-classes-wrapper {
   margin-top: 24px;
   display: flex;
@@ -561,15 +550,6 @@
   background-color: #b41a1a;
 }
 
-.tempio-page .hero-btn.hero-btn--tempio {
-  background-color: #e02424;
-  color: #ffffff;
-}
-
-.tempio-page .hero-btn.hero-btn--tempio:hover {
-  background-color: #b41a1a;
-}
-
 .tempio-classes {
   background-color: #eeeeee;
 }
@@ -600,7 +580,6 @@
   .tempio-about-inner {
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
   }
 
   .tempio-about-btn-wrapper {
