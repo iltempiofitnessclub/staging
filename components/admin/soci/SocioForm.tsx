@@ -563,28 +563,37 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
                   const currentCorsi = Array.isArray(form.corsi) ? form.corsi : [];
                   const checked = currentCorsi.includes(c.code);
 
+                  const handleToggle = () => {
+                    const prev = Array.isArray(form.corsi) ? [...form.corsi] : [];
+                    let next: string[];
+                    
+                    if (!checked) {
+                      // Aggiungi il corso solo se non è già presente
+                      if (!prev.includes(c.code)) {
+                        next = [...prev, c.code];
+                      } else {
+                        next = prev;
+                      }
+                    } else {
+                      // Rimuovi SOLO questo corso specifico
+                      next = prev.filter((code) => code !== c.code);
+                    }
+                    
+                    set('corsi', next);
+                  };
+
                   return (
-                    <label key={c.code} className={styles.courseItem}>
+                    <div key={c.code} className={styles.courseItem}>
                       <input
                         type="checkbox"
                         checked={checked}
-                        onChange={(e) => {
-                          const prev = Array.isArray(form.corsi) ? [...form.corsi] : [];
-                          let next: string[];
-                          
-                          if (e.target.checked) {
-                            // Aggiungi il corso se non è già presente
-                            next = prev.includes(c.code) ? prev : [...prev, c.code];
-                          } else {
-                            // Rimuovi il corso
-                            next = prev.filter((x) => x !== c.code);
-                          }
-                          
-                          set('corsi', next);
-                        }}
+                        onChange={handleToggle}
+                        id={`course-${c.code}`}
                       />
-                      <span className={styles.courseTitle}>{c.title}</span>
-                    </label>
+                      <label htmlFor={`course-${c.code}`} className={styles.courseTitle}>
+                        {c.title}
+                      </label>
+                    </div>
                   );
                 })}
               </div>

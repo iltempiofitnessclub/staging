@@ -216,19 +216,31 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  cursor: pointer;
   user-select: none;
 }
 
 .courseItem input {
   width: 18px;
   height: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.courseItem input:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
 }
 
 .courseTitle {
   font-weight: 700;
   font-size: 13px;
   line-height: 1.2;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.courseTitle:hover {
+  color: #0066cc;
 }
 
 .selectedWrap {
