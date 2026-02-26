@@ -558,62 +558,36 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
                 {coursesError}
               </div>
             ) : (
-              <>
-                <div className={styles.courseBox} role="group" aria-label="Selezione corsi">
-                  {(courses || []).map((c) => {
-                    const currentCorsi = Array.isArray(form.corsi) ? form.corsi : [];
-                    const checked = currentCorsi.includes(c.code);
+              <div className={styles.courseBox} role="group" aria-label="Selezione corsi">
+                {(courses || []).map((c) => {
+                  const currentCorsi = Array.isArray(form.corsi) ? form.corsi : [];
+                  const checked = currentCorsi.includes(c.code);
 
-                    return (
-                      <label key={c.code} className={styles.courseItem}>
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={(e) => {
-                            const prev = Array.isArray(form.corsi) ? [...form.corsi] : [];
-                            let next: string[];
-                            
-                            if (e.target.checked) {
-                              // Aggiungi il corso se non è già presente
-                              next = prev.includes(c.code) ? prev : [...prev, c.code];
-                            } else {
-                              // Rimuovi il corso
-                              next = prev.filter((x) => x !== c.code);
-                            }
-                            
-                            set('corsi', next);
-                          }}
-                        />
-                        <span className={styles.courseTitle}>{c.title}</span>
-                      </label>
-                    );
-                  })}
-                </div>
-
-                {Array.isArray(form.corsi) && form.corsi.length > 0 && (
-                  <div className={styles.selectedWrap} aria-live="polite">
-                    <div className={styles.meta} style={{ marginBottom: 6 }}>
-                      Selezionati:
-                    </div>
-
-                    <div className={styles.chips}>
-                      {form.corsi.map((code) => {
-                        const title =
-                          (courses || []).find((x) => x.code === code)?.title ?? code;
-
-                        return (
-                          <div
-                            key={code}
-                            className={styles.chipReadonly}
-                          >
-                            {title}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </>
+                  return (
+                    <label key={c.code} className={styles.courseItem}>
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={(e) => {
+                          const prev = Array.isArray(form.corsi) ? [...form.corsi] : [];
+                          let next: string[];
+                          
+                          if (e.target.checked) {
+                            // Aggiungi il corso se non è già presente
+                            next = prev.includes(c.code) ? prev : [...prev, c.code];
+                          } else {
+                            // Rimuovi il corso
+                            next = prev.filter((x) => x !== c.code);
+                          }
+                          
+                          set('corsi', next);
+                        }}
+                      />
+                      <span className={styles.courseTitle}>{c.title}</span>
+                    </label>
+                  );
+                })}
+              </div>
             )}
           </label>
               <label className={styles.field}>

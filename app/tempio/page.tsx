@@ -48,8 +48,8 @@ export default function TempioPage() {
             buttonHref="/tempio/contatti"
           />
 
-          <AnimatedSection id="chi-siamo" className="tempio-section tempio-about">
-            <div className="tempio-section-inner tempio-about-inner">
+        <AnimatedSection id="chi-siamo" className="tempio-section tempio-about">
+          <div className="tempio-section-inner tempio-about-inner">
             <div className="tempio-about-text">
               <h2 className="tempio-section-title">CHI SIAMO</h2>
               <p className="tempio-section-text">
@@ -61,7 +61,7 @@ export default function TempioPage() {
             </div>
 
             <div className="tempio-about-btn-wrapper">
-              <NextLink href="/" className="hero-btn hero-btn--tempio">
+              <NextLink href="/" className="hero-btn">
                 <span className="hero-btn-icon">
                   <svg
                     width="22"
