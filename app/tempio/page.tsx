@@ -49,7 +49,7 @@ export default function TempioPage() {
           />
 
           <AnimatedSection id="chi-siamo" className="tempio-section tempio-about">
-            <div className="tempio-section-inner tempio-about-layout">
+            <div className="tempio-section-inner tempio-about-inner">
             <div className="tempio-about-text">
               <h2 className="tempio-section-title">CHI SIAMO</h2>
               <p className="tempio-section-text">

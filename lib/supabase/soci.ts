@@ -52,10 +52,18 @@ export async function fetchSoci(args: FetchSociArgs): Promise<{ list: SocioDb[];
     if (cert === 'PRESENTE') query = query.eq('certificato_valido', true);
     if (cert === 'MANCANTE') query = query.eq('certificato_valido', false);
     if (cert === 'IN SCADENZA') {
-      const d = new Date();
-      d.setDate(d.getDate() + 30);
-      const iso = d.toISOString().slice(0, 10);
-      query = query.eq('certificato_valido', true).lte('certificato_scadenza', iso);
+      const oggi = new Date();
+      const tra30giorni = new Date();
+      tra30giorni.setDate(tra30giorni.getDate() + 30);
+      
+      const oggiIso = oggi.toISOString().slice(0, 10);
+      const tra30giorniIso = tra30giorni.toISOString().slice(0, 10);
+      
+      // Filtra solo certificati che scadono NEI PROSSIMI 30 giorni (non quelli già scaduti)
+      query = query
+        .eq('certificato_valido', true)
+        .gte('certificato_scadenza', oggiIso)  // Scadenza >= oggi (non ancora scaduti)
+        .lte('certificato_scadenza', tra30giorniIso);  // Scadenza <= oggi + 30 giorni
     }
   }
 
@@ -253,10 +261,18 @@ export async function fetchSociKpis(args: FetchSociKpisArgs): Promise<SocioKpiDb
     if (cert === 'PRESENTE') query = query.eq('certificato_valido', true);
     if (cert === 'MANCANTE') query = query.eq('certificato_valido', false);
     if (cert === 'IN SCADENZA') {
-      const d = new Date();
-      d.setDate(d.getDate() + 30);
-      const iso = d.toISOString().slice(0, 10);
-      query = query.eq('certificato_valido', true).lte('certificato_scadenza', iso);
+      const oggi = new Date();
+      const tra30giorni = new Date();
+      tra30giorni.setDate(tra30giorni.getDate() + 30);
+      
+      const oggiIso = oggi.toISOString().slice(0, 10);
+      const tra30giorniIso = tra30giorni.toISOString().slice(0, 10);
+      
+      // Filtra solo certificati che scadono NEI PROSSIMI 30 giorni (non quelli già scaduti)
+      query = query
+        .eq('certificato_valido', true)
+        .gte('certificato_scadenza', oggiIso)  // Scadenza >= oggi (non ancora scaduti)
+        .lte('certificato_scadenza', tra30giorniIso);  // Scadenza <= oggi + 30 giorni
     }
   }
 

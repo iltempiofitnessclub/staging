@@ -151,6 +151,12 @@ export function buildKpis(
   let iscr_bad = 0;
 
   for (const s of listActive) {
+    // Se il socio non è attivo, l'iscrizione è considerata non valida
+    if (!s.status) {
+      iscr_bad++;
+      continue;
+    }
+    
     // Se iscrizione_attiva è esplicitamente false, conta come scaduta
     if (s.iscrizione_attiva === false) {
       iscr_bad++;

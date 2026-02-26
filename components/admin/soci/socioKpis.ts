@@ -51,6 +51,9 @@ function mensileKindForPeriod(s: SocioDb, month: string, year: string): StatusKi
 }
 
 function iscrizioneKind(s: SocioDb): StatusKind {
+  // Se il socio non è attivo, l'iscrizione è considerata non valida
+  if (!s.status) return 'bad';
+  
   // Se iscrizione_attiva è esplicitamente false, è scaduta
   if (s.iscrizione_attiva === false) return 'bad';
 

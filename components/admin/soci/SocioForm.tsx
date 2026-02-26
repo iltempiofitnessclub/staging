@@ -561,7 +561,8 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
               <>
                 <div className={styles.courseBox} role="group" aria-label="Selezione corsi">
                   {(courses || []).map((c) => {
-                    const checked = Array.isArray(form.corsi) && form.corsi.includes(c.code);
+                    const currentCorsi = Array.isArray(form.corsi) ? form.corsi : [];
+                    const checked = currentCorsi.includes(c.code);
 
                     return (
                       <label key={c.code} className={styles.courseItem}>
@@ -569,10 +570,17 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
                           type="checkbox"
                           checked={checked}
                           onChange={(e) => {
-                            const prev = Array.isArray(form.corsi) ? form.corsi : [];
-                            const next = e.target.checked
-                              ? Array.from(new Set([...prev, c.code]))
-                              : prev.filter((x) => x !== c.code);
+                            const prev = Array.isArray(form.corsi) ? [...form.corsi] : [];
+                            let next: string[];
+                            
+                            if (e.target.checked) {
+                              // Aggiungi il corso se non è già presente
+                              next = prev.includes(c.code) ? prev : [...prev, c.code];
+                            } else {
+                              // Rimuovi il corso
+                              next = prev.filter((x) => x !== c.code);
+                            }
+                            
                             set('corsi', next);
                           }}
                         />
@@ -594,16 +602,12 @@ export default function SocioForm({ mode, initialData, onSubmit, backHref = '/ad
                           (courses || []).find((x) => x.code === code)?.title ?? code;
 
                         return (
-                          <button
+                          <div
                             key={code}
-                            type="button"
-                            className={styles.chipBtn}
-                            onClick={() => set('corsi', form.corsi.filter((x) => x !== code))}
-                            aria-label={`Rimuovi ${title}`}
-                            title="Clicca per rimuovere"
+                            className={styles.chipReadonly}
                           >
-                            {title} <span className={styles.chipX}>×</span>
-                          </button>
+                            {title}
+                          </div>
                         );
                       })}
                     </div>

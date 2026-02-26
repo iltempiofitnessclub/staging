@@ -169,6 +169,7 @@ useEffect(() => {
     
     // Salva la posizione di scroll prima del caricamento
     const scrollY = window.scrollY;
+    const scrollX = window.scrollX;
 
     (async () => {
       setLoading(true);
@@ -210,9 +211,10 @@ useEffect(() => {
         if (!cancelled) {
           setLoading(false);
           // Ripristina la posizione di scroll dopo il caricamento
-          requestAnimationFrame(() => {
-            window.scrollTo(0, scrollY);
-          });
+          // Usa setTimeout per assicurarsi che il DOM sia completamente aggiornato
+          setTimeout(() => {
+            window.scrollTo(scrollX, scrollY);
+          }, 0);
         }
       }
     })();
