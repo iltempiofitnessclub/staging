@@ -42,8 +42,8 @@ export default function TempioPage() {
         <main className="tempio-main">
           <Hero
             className="tempio-hero"
-            titleLine1="BUILD STRENGTH"
-            titleLine2="TRAIN HARD"
+            titleLine1="SUPERA I"
+            titleLine2="TUOI LIMITI"
             buttonLabel="RICHIEDI UNA PROVA GRATUITA"
             buttonHref="/tempio/contatti"
           />
@@ -129,8 +129,7 @@ const CLASSES: ClassItem[] = [
     description:
       "Allenati con il Krav Maga: la disciplina di difesa personale pratica ed efficace, adatta a tutti. Migliora sicurezza , forza e prontezza in ogni situazione.",
     schedule: [
-      { days: "Lunedì e Mercoledì", time: "20:00" },
-      { days: "Martedì e Giovedì", time: "20:30" },
+      { days: "Martedì e Giovedì", time: "18:00 - 19:00" },
     ],
     info: [
       "Livello: Principiante – Intermedio – Avanzato",
@@ -146,7 +145,10 @@ const CLASSES: ClassItem[] = [
     description:
       "Il Fit Postural è un corso che unisce esercizi di tonificazione, allungamento e respirazione con l'obbiettivo di migliorare la postura, aumentare la mobilità articolare e ridurre tensioni muscolari . Ideale per chi vuole ritrovare equilibrio , benessere e una corretta consapevolezza del proprio corpo ,",
     schedule: [
-      { days: "Martedì e Giovedì", time: "10:30 – 19:30" },
+      { days: "Martedì e Giovedì", time: "10:15 – 11:15" },
+      { days: "Martedì e Giovedì", time: "16:30 – 17:30" },
+      { days: "Martedì e Giovedì", time: "17:35 – 18:35" },
+      { days: "Martedì e Giovedì", time: "18:40 – 19:40" },
     ],
     info: [
       "Livello: Tutti",
@@ -161,7 +163,7 @@ const CLASSES: ClassItem[] = [
     imageSrc: "/budo.jpg",
     description:
       "Il Budo è l’insieme delle arti marziali tradizionali giapponesi, nate come disciplina dei samurai. Oltre alla pratica tecnica di combattimento, il Budo pone al centro valori come rispetto, autocontrollo, armonia tra corpo e mente e crescita personale. Non è solo difesa o attacco, ma un vero percorso di formazione fisica, mentale e spirituale.",
-    schedule: [{ days: "Martedì e Giovedì", time: "20:30 – 21:30" }],
+    schedule: [{ days: "Martedì e Giovedì", time: "20:00 – 21:30" }],
     info: [
       "Livello: Principiante – Intermedio – Avanzato",
       "Tecniche tradizionali + lavoro su equilibrio e coordinazione",
@@ -176,7 +178,8 @@ const CLASSES: ClassItem[] = [
     description:
       "Music Fit Energy – Un allenamento dinamico che unisce aerobica e total body, per bruciare calorie, tonificare tutto il corpo e divertirti al ritmo della musica.",
     schedule: [
-      { days: "Lunedì e Mercoledì", time: "19:00 – 20:00" },
+      { days: "Martedì e Venerdì", time: "09:00 – 10:00" },
+      { days: "Martedì e Giovedì", time: "19:00 – 20:00" },
     ],
     info: [
       "Livello: Tutti",
@@ -191,7 +194,9 @@ const CLASSES: ClassItem[] = [
     imageSrc: "/moutai.jpg",
     description:
       "Allenamenti dinamici e coinvolgenti per migliorare forza, resistenza e coordinazione. Il corso di Muay Thai è adatto a tutti i livelli e combina tecnica, disciplina e allenamento funzionale, aiutando a sviluppare sicurezza, controllo del corpo e benessere fisico in un ambiente motivante e professionale.",
-    schedule: [{ days: "Mercoledì", time: "21:00 – 22:00" }],
+    schedule: [
+      { days: "Lunedì e Mercoledì", time: "20:00 – 21:00" },
+      { days: "Martedì e Giovedì", time: "20:30 – 21:30" }],
     info: [
       "Livello: Intermedio – Avanzato",
       "Forza, resistenza e coordinazione",
@@ -206,7 +211,7 @@ const CLASSES: ClassItem[] = [
     description:
       "Funny Fit è un corso dinamico e coinvolgente che unisce cardio e tonificazione in un allenamento divertente e completo. Attraverso l’utilizzo di piccoli attrezzi come step, fitball, trampolino e pesetti, migliora resistenza, coordinazione e forza muscolare, rendendo ogni lezione varia, efficace e stimolante. Perfetto per chi vuole allenarsi con energia e buonumore!",
     schedule: [
-      { days: "Martedì", time: "19:30 – 20:30" },
+      { days: "Lunedì, Mercoledì e Venerdì", time: "19:00 – 20:00" },
     ],
     info: [
       "Livello: Tutti",
@@ -248,7 +253,8 @@ const CLASSES: ClassItem[] = [
     description:
       "Il Circuit Training (allenamento a circuito) è una metodologia che prevede l'esecuzione di esercizi consecutivi senza pause, o con recuperi minimi. Il corso alterna stazioni cardio a esercizi di potenziamento muscolare utilizzando piccoli attrezzi e il peso corporeo.",
     schedule: [
-      { days: "Lunedì, Mercoledì e Venerdì", time: "18:00 - 19:00 / 19:00 - 20:00" },
+      { days: "Lunedì, Mercoledì e Venerdì", time: "18:00 - 19:00" },
+      { days: "Lunedì, Mercoledì e Venerdì", time: "19:00 - 20:00" },
     ],
     info: [
       "Benefici: Miglioramento della capacità cardiovascolare e della definizione muscolare.",
@@ -262,7 +268,8 @@ const CLASSES: ClassItem[] = [
     description:
       "Functional Training: Allena il tuo corpo a 360° Dimentica le solite macchine isotoniche: nel Functional Training il protagonista sei tu. Attraverso movimenti naturali come spingere, tirare, sollevare e saltare, allenerai il corpo nel suo insieme, migliorando forza, coordinazione e agilità. Grazie all'uso di kettlebell, palle mediche e corpo libero, ogni lezione è una sfida diversa che ti permetterà di bruciare grassi e definire i muscoli in modo armonico. Preparati a diventare più forte, più veloce e più resistente!",
     schedule: [
-      { days: "Lunedì, Mercoledì e Venerdì", time: "9:15 - 10:15 / 20:30 - 21:30" },
+      { days: "Lunedì, Mercoledì e Venerdì", time: "9:15 - 10:15" },
+      { days: "Lunedì, Mercoledì e Venerdì", time: "20:30 - 21:30" },
     ],
     info: [
       "Livello: Tutti"
@@ -288,38 +295,12 @@ const CLASSES: ClassItem[] = [
     description:
       "Piloga unisce i benefici del Pilates e dello Yoga in un allenamento equilibrato e completo. Migliora postura, flessibilità e forza profonda, aiutando a ridurre stress e tensioni. Ideale per ritrovare benessere fisico e mentale in modo dolce ma efficace.",
     schedule: [
-      { days: "Lunedì, Mercoledì e Venerdì", time: "10:00 - 11:00" },
+      { days: "Lunedì, Mercoledì e Venerdì", time: "10:15 - 11:15" },
     ],
     info: [
       "Livello: Tutti"
     ],
-  },
-  {
-    id: 13,
-    title: "BALLI DI GRUPPO",
-    imageSrc: "/",
-    description:
-      "Un corso divertente e dinamico che combina musica e movimento. Aiuta a migliorare coordinazione, resistenza e ritmo, allenandosi senza accorgersene. Perfetto per socializzare e tenersi in forma con il sorriso.",
-    schedule: [
-      { days: "Martedì e Giovedì", time: "16:30 - 17:30" },
-    ],
-    info: [
-      "Livello: Tutti"
-    ],
-  },
-  {
-    id: 14,
-    title: "SUPER JUMP",
-    imageSrc: "/",
-    description:
-      "Allenamento ad alta intensità su mini trampolino, energico e coinvolgente. Stimola il metabolismo, migliora resistenza cardiovascolare e tonifica tutto il corpo. Ideale per chi vuole bruciare calorie divertendosi.",
-    schedule: [
-      { days: "Martedì e Giovedì", time: "19:15 - 20:15" },
-    ],
-    info: [
-      "Livello: Tutti"
-    ],
-  },
+  }
 ];
 
 function ClassesSection() {

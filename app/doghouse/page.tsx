@@ -98,7 +98,7 @@ export default function DoghousePage() {
         phone="353.450.3806"
         addressLines={[
           "Bari – Palese – 70128",
-          "Via V. Maiorano Capitano, 24",
+          "Via V. Maiorano Capitano, 27",
         ]}
         socialItems={[
           { href: "#", icon: <FaYoutube />, label: "YouTube" },
@@ -562,7 +562,7 @@ function ContactStrip() {
         <div className="doghouse-contact-strip-info">
           <h2 className="doghouse-contact-strip-title">CONTATTI</h2>
           <p className="doghouse-contact-strip-text">
-            DogHouse è in Via V. Maiorano Capitano, 24 - 70128 Bari - Palese (BA)
+            DogHouse è in Via V. Maiorano Capitano, 27 - 70128 Bari - Palese (BA)
           </p>
         </div>
 
@@ -645,14 +645,14 @@ export function EventsAndMapSection() {
           <div className="doghouse-map-wrapper">
             <iframe
               title="DogHouse Boxing - Palese Bari"
-              src="https://maps.google.com/maps?q=Via+V.+Maiorano+Capitano,+24,+70128+Bari+BA&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              src="https://maps.google.com/maps?q=Via+V.+Maiorano+Capitano,+27,+70128+Bari+BA&t=&z=16&ie=UTF8&iwloc=&output=embed"
               loading="lazy"
             ></iframe>
           </div>
 
           <div className="doghouse-map-button-wrapper">
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Via+V.+Maiorano+Capitano,+24,+70128+Bari+BA"
+              href="https://www.google.com/maps/search/?api=1&query=Via+V.+Maiorano+Capitano,+27,+70128+Bari+BA"
               target="_blank"
               rel="noopener noreferrer"
               className="doghouse-map-button"
