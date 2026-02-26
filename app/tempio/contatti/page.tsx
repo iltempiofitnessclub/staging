@@ -46,6 +46,7 @@ function TempioContactPageInner() {
   const [emailError, setEmailError] = useState("");
   const [telefonoError, setTelefonoError] = useState("");
   const [contactError, setContactError] = useState("");
+  const [corsiError, setCorsiError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -67,6 +68,10 @@ function TempioContactPageInner() {
         ? prev.filter((id) => id !== classId)
         : [...prev, classId]
     );
+    // Rimuovi l'errore quando l'utente seleziona un corso
+    if (corsiError) {
+      setCorsiError("");
+    }
   };
 
   const validateEmail = (value: string): boolean => {
@@ -133,11 +138,13 @@ function TempioContactPageInner() {
 
     // Validazione corsi
     if (selectedClassIds.length === 0) {
+      setCorsiError("Seleziona almeno un corso");
       return;
     }
 
     setIsSubmitting(true);
     setSubmitError("");
+    setSubmitSuccess(false);
 
     try {
       // Netlify Forms submission
@@ -159,6 +166,13 @@ function TempioContactPageInner() {
       setEmail("");
       setTelefono("");
       setSelectedClassIds([]);
+      setEmailError("");
+      setTelefonoError("");
+      setContactError("");
+      setCorsiError("");
+      
+      // Scroll to top per mostrare il messaggio di successo
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error("Errore:", error);
       setSubmitError(
@@ -319,9 +333,9 @@ function TempioContactPageInner() {
                     ))}
                   </div>
 
-                  {selectedClassIds.length === 0 && (
+                  {corsiError && (
                     <div className="tempio-form-error">
-                      Seleziona almeno un corso
+                      {corsiError}
                     </div>
                   )}
 

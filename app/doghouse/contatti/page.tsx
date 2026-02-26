@@ -35,6 +35,7 @@ function DoghouseContactPageInner() {
   const [emailError, setEmailError] = useState("");
   const [telefonoError, setTelefonoError] = useState("");
   const [contactError, setContactError] = useState("");
+  const [corsiError, setCorsiError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -56,6 +57,10 @@ function DoghouseContactPageInner() {
         ? prev.filter((id) => id !== courseId)
         : [...prev, courseId]
     );
+    // Rimuovi l'errore quando l'utente seleziona un corso
+    if (corsiError) {
+      setCorsiError("");
+    }
   };
 
   const validateEmail = (value: string): boolean => {
@@ -122,11 +127,13 @@ function DoghouseContactPageInner() {
 
     // Validazione corsi
     if (selectedCourseIds.length === 0) {
+      setCorsiError("Seleziona almeno un corso");
       return;
     }
 
     setIsSubmitting(true);
     setSubmitError("");
+    setSubmitSuccess(false);
 
     try {
       // Netlify Forms submission
@@ -148,6 +155,13 @@ function DoghouseContactPageInner() {
       setEmail("");
       setTelefono("");
       setSelectedCourseIds([]);
+      setEmailError("");
+      setTelefonoError("");
+      setContactError("");
+      setCorsiError("");
+      
+      // Scroll to top per mostrare il messaggio di successo
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error("Errore:", error);
       setSubmitError(
@@ -310,9 +324,9 @@ function DoghouseContactPageInner() {
                       ))}
                     </div>
 
-                    {selectedCourseIds.length === 0 && (
+                    {corsiError && (
                       <div className="doghouse-form-error">
-                        Seleziona almeno un corso
+                        {corsiError}
                       </div>
                     )}
 
