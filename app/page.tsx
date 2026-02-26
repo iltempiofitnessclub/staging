@@ -147,7 +147,7 @@ export default function Home() {
           tabIndex={0}
         >
           <div className="landing-overlay" />
-          <h2>TEMPIO</h2>
+          <h2>IL TEMPIO FITNESS CLUB</h2>
 
           <p className="landing-description">
             Fitness, benessere e trasformazione personale.
