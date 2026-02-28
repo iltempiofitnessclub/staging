@@ -129,14 +129,7 @@ export default function DoghousePage() {
     </div>
     </PageLoader>
   );
-}type Course = {
-  id: number;
-  title: string;
-  imageSrc: string;
-  description: string;
-  schedule: { days: string; time: string }[];
-  info: string[];
-};
+}
 
 const COURSES: Course[] = [
   {
