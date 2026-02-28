@@ -24,6 +24,8 @@ import {
 } from "react-icons/fa";
 
 export default function TempioPage() {
+  const [selectedClass, setSelectedClass] = useState<ClassItem | null>(null);
+
   return (
     <PageLoader>
       <div className="tempio-page">
@@ -83,7 +85,7 @@ export default function TempioPage() {
           </div>
         </section>
 
-        <ClassesSection />
+        <ClassesSection selectedClass={selectedClass} setSelectedClass={setSelectedClass} />
         <ContactStrip />
         <EventsAndMapSection />
         <ReviewsSection />
@@ -107,6 +109,8 @@ export default function TempioPage() {
         message="Ciao! Vorrei informazioni sui corsi Il Tempio."
         className="floating-whatsapp-btn-tempio"
       />
+
+      {selectedClass && <ClassModal selectedClass={selectedClass} onClose={() => setSelectedClass(null)} />}
     </div>
     </PageLoader>
   );
@@ -294,12 +298,10 @@ const CLASSES: ClassItem[] = [
   }
 ];
 
-function ClassesSection() {
+function ClassesSection({ selectedClass, setSelectedClass }: { selectedClass: ClassItem | null; setSelectedClass: (cls: ClassItem | null) => void }) {
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
-
-  const [selectedClass, setSelectedClass] = useState<ClassItem | null>(null);
 
   useEffect(() => {
     const updateVisibleCount = () => {
@@ -312,26 +314,6 @@ function ClassesSection() {
     window.addEventListener("resize", updateVisibleCount);
     return () => window.removeEventListener("resize", updateVisibleCount);
   }, []);
-
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedClass(null);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (selectedClass) {
-      root.classList.add("tempio-modal-open");
-    } else {
-      root.classList.remove("tempio-modal-open");
-    }
-    return () => {
-      root.classList.remove("tempio-modal-open");
-    };
-  }, [selectedClass]);
 
   const prev = () => {
     setStartIndex((prev) => (prev - 1 + CLASSES.length) % CLASSES.length);
@@ -435,76 +417,102 @@ function ClassesSection() {
           ))}
         </div>
       </div>
+    </AnimatedSection>
+  );
+}
 
-      {selectedClass && (
-        <div
-          className="tempio-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={(e) => {
-            if (e.target === e.currentTarget) setSelectedClass(null);
-          }}
+function ClassModal({ selectedClass, onClose }: { selectedClass: ClassItem; onClose: () => void }) {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const whatsappBtn = document.querySelector('.floating-whatsapp-btn-tempio');
+    
+    root.classList.add("tempio-modal-open");
+    if (whatsappBtn) {
+      (whatsappBtn as HTMLElement).style.display = 'none';
+    }
+    
+    return () => {
+      root.classList.remove("tempio-modal-open");
+      if (whatsappBtn) {
+        (whatsappBtn as HTMLElement).style.display = '';
+      }
+    };
+  }, []);
+
+  return (
+    <div
+      className="tempio-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="tempio-modal">
+        <button
+          type="button"
+          className="tempio-modal-close"
+          onClick={onClose}
+          aria-label="Chiudi"
         >
-          <div className="tempio-modal">
-            <button
-              type="button"
-              className="tempio-modal-close"
-              onClick={() => setSelectedClass(null)}
-              aria-label="Chiudi"
-            >
-              ✕
-            </button>
+          ✕
+        </button>
 
-            <h3 className="tempio-modal-title">{selectedClass.title}</h3>
+        <h3 className="tempio-modal-title">{selectedClass.title}</h3>
 
-            <div className="tempio-modal-body">
-              <p className="tempio-modal-desc">{selectedClass.description}</p>
+        <div className="tempio-modal-body">
+          <p className="tempio-modal-desc">{selectedClass.description}</p>
 
-              <div className="tempio-modal-divider" />
+          <div className="tempio-modal-divider" />
 
-              <div className="tempio-modal-section">
-                <h4 className="tempio-modal-subtitle">Orari</h4>
+          <div className="tempio-modal-section">
+            <h4 className="tempio-modal-subtitle">Orari</h4>
 
-                <ul className="tempio-modal-schedule">
-                  {selectedClass.schedule.map((row, idx) => (
-                    <li key={idx} className="tempio-modal-schedule-row">
-                      <span>{row.days}</span>
-                      <span>{row.time}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <ul className="tempio-modal-schedule">
+              {selectedClass.schedule.map((row, idx) => (
+                <li key={idx} className="tempio-modal-schedule-row">
+                  <span>{row.days}</span>
+                  <span>{row.time}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              <div className="tempio-modal-divider" />
+          <div className="tempio-modal-divider" />
 
-              <div className="tempio-modal-section">
-                <h4 className="tempio-modal-subtitle">Info</h4>
+          <div className="tempio-modal-section">
+            <h4 className="tempio-modal-subtitle">Info</h4>
 
-                <ul className="tempio-modal-list">
-                  {selectedClass.info.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-            <div className="tempio-modal-actions">
-              <NextLink
-                href={{
-                  pathname: "/tempio/contatti",
-                  query: { course: String(selectedClass.id) },
-                }}
-                className="tempio-modal-cta"
-                onClick={() => setSelectedClass(null)}
-              >
-                CHIEDI INFORMAZIONI
-              </NextLink>
-            </div>
-
-            </div>
+            <ul className="tempio-modal-list">
+              {selectedClass.info.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
           </div>
         </div>
-      )}
-    </AnimatedSection>
+
+        <div className="tempio-modal-actions">
+          <NextLink
+            href={{
+              pathname: "/tempio/contatti",
+              query: { course: String(selectedClass.id) },
+            }}
+            className="tempio-modal-cta"
+            onClick={onClose}
+          >
+            CHIEDI INFORMAZIONI
+          </NextLink>
+        </div>
+      </div>
+    </div>
   );
 }
 

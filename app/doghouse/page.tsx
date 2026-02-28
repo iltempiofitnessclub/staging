@@ -24,7 +24,18 @@ import {
   FaFacebookF,
 } from "react-icons/fa";
 
+type Course = {
+  id: number;
+  title: string;
+  imageSrc: string;
+  description: string;
+  schedule: { days: string; time: string }[];
+  info: string[];
+};
+
 export default function DoghousePage() {
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+
   return (
     <PageLoader>
       <div className="doghouse-page">
@@ -85,7 +96,7 @@ export default function DoghousePage() {
           </div>
         </AnimatedSection>
 
-        <CoursesSection />
+        <CoursesSection selectedCourse={selectedCourse} setSelectedCourse={setSelectedCourse} />
         <ContactStrip />
         <EventsAndMapSection />
         <ReviewsSection />
@@ -113,12 +124,12 @@ export default function DoghousePage() {
         message="Ciao! Vorrei informazioni sui corsi DogHouse."
         className="floating-whatsapp-btn-doghouse"
       />
+
+      {selectedCourse && <CourseModal selectedCourse={selectedCourse} onClose={() => setSelectedCourse(null)} />}
     </div>
     </PageLoader>
   );
-}
-
-type Course = {
+}type Course = {
   id: number;
   title: string;
   imageSrc: string;
@@ -347,11 +358,10 @@ function AnimatedSection({
   );
 }
 
-function CoursesSection() {
+function CoursesSection({ selectedCourse, setSelectedCourse }: { selectedCourse: Course | null; setSelectedCourse: (course: Course | null) => void }) {
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   useEffect(() => {
     const updateVisibleCount = () => {
@@ -364,26 +374,6 @@ function CoursesSection() {
     window.addEventListener("resize", updateVisibleCount);
     return () => window.removeEventListener("resize", updateVisibleCount);
   }, []);
-
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedCourse(null);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (selectedCourse) {
-      root.classList.add("doghouse-modal-open");
-    } else {
-      root.classList.remove("doghouse-modal-open");
-    }
-    return () => {
-      root.classList.remove("doghouse-modal-open");
-    };
-  }, [selectedCourse]);
 
   const prev = () => {
     setStartIndex((prevIndex) => (prevIndex - 1 + COURSES.length) % COURSES.length);
@@ -490,68 +480,102 @@ function CoursesSection() {
           ))}
         </div>
       </div>
+    </AnimatedSection>
+  );
+}
 
-      {selectedCourse && (
-        <div
-          className="doghouse-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onMouseDown={(e) => {
-            if (e.target === e.currentTarget) setSelectedCourse(null);
-          }}
+function CourseModal({ selectedCourse, onClose }: { selectedCourse: Course; onClose: () => void }) {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const whatsappBtn = document.querySelector('.floating-whatsapp-btn-doghouse');
+    
+    root.classList.add("doghouse-modal-open");
+    if (whatsappBtn) {
+      (whatsappBtn as HTMLElement).style.display = 'none';
+    }
+    
+    return () => {
+      root.classList.remove("doghouse-modal-open");
+      if (whatsappBtn) {
+        (whatsappBtn as HTMLElement).style.display = '';
+      }
+    };
+  }, []);
+
+  return (
+    <div
+      className="doghouse-modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="doghouse-modal">
+        <button
+          type="button"
+          className="doghouse-modal-close"
+          onClick={onClose}
+          aria-label="Chiudi"
         >
-          <div className="doghouse-modal">
-            <button
-              type="button"
-              className="doghouse-modal-close"
-              onClick={() => setSelectedCourse(null)}
-              aria-label="Chiudi"
-            >
-              ✕
-            </button>
+          ✕
+        </button>
 
-            <h3 className="doghouse-modal-title">{selectedCourse.title}</h3>
+        <h3 className="doghouse-modal-title">{selectedCourse.title}</h3>
 
-            <div className="doghouse-modal-body">
-              <p className="doghouse-modal-desc">{selectedCourse.description}</p>
+        <div className="doghouse-modal-body">
+          <p className="doghouse-modal-desc">{selectedCourse.description}</p>
 
-              <div className="doghouse-modal-section">
-                <h4 className="doghouse-modal-subtitle">Orari</h4>
+          <div className="doghouse-modal-divider" />
 
-                <ul className="doghouse-modal-schedule">
-                  {selectedCourse.schedule.map((row, idx) => (
-                    <li key={idx} className="doghouse-modal-schedule-row">
-                      <span>{row.days}</span>
-                      <span>{row.time}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className="doghouse-modal-section">
+            <h4 className="doghouse-modal-subtitle">Orari</h4>
 
-              <div className="doghouse-modal-section">
-                <h4 className="doghouse-modal-subtitle">Info</h4>
+            <ul className="doghouse-modal-schedule">
+              {selectedCourse.schedule.map((row, idx) => (
+                <li key={idx} className="doghouse-modal-schedule-row">
+                  <span>{row.days}</span>
+                  <span>{row.time}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-                <ul className="doghouse-modal-list">
-                  {selectedCourse.info.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-              </div>
+          <div className="doghouse-modal-divider" />
 
-              <div className="doghouse-modal-actions">
-                <NextLink
-                  href={`/doghouse/contatti?course=${selectedCourse.id}`}
-                  className="doghouse-modal-cta"
-                  onClick={() => setSelectedCourse(null)}
-                >
-                  CHIEDI INFORMAZIONI
-                </NextLink>
-              </div>
-            </div>
+          <div className="doghouse-modal-section">
+            <h4 className="doghouse-modal-subtitle">Info</h4>
+
+            <ul className="doghouse-modal-list">
+              {selectedCourse.info.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
           </div>
         </div>
-      )}
-    </AnimatedSection>
+
+        <div className="doghouse-modal-actions">
+          <NextLink
+            href={{
+              pathname: "/doghouse/contatti",
+              query: { course: String(selectedCourse.id) },
+            }}
+            className="doghouse-modal-cta"
+            onClick={onClose}
+          >
+            CHIEDI INFORMAZIONI
+          </NextLink>
+        </div>
+      </div>
+    </div>
   );
 }
 
