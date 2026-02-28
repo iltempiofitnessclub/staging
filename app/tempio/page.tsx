@@ -53,10 +53,10 @@ export default function TempioPage() {
             <div className="tempio-about-text">
               <h2 className="tempio-section-title">CHI SIAMO</h2>
               <p className="tempio-section-text">
-                Il Tempio Fitness Club è un centro dedicato all&apos;allenamento
-                di qualità: sala pesi, functional, corsi di gruppo e programmi
-                personalizzati per ogni livello, dal principiante
-                all&apos;atleta avanzato.
+                Molto di più di un allenamento. Uno stile di vita. Entra nel Tempio
+                Fitness Club e unisciti a una community che vive per il benessere.
+                Dai primi passi nel mondo del fitness alle sfide per gli atleti avanzati, offriamo
+                un'esperienza completa tra functional e corsi collettivi. Trova il tuo ritmo, raggiungi i tuoi traguardi.
               </p>
             </div>
 
@@ -135,7 +135,6 @@ const CLASSES: ClassItem[] = [
       "Livello: Principiante – Intermedio – Avanzato",
       "Tecniche di difesa personale e condizionamento",
       "Durata lezione: 60 minuti",
-      "Allenamento intenso e funzionale",
     ],
   },
   {
@@ -143,7 +142,7 @@ const CLASSES: ClassItem[] = [
     title: "FIT POSTURAL",
     imageSrc: "/fitpostural.jpg",
     description:
-      "Il Fit Postural è un corso che unisce esercizi di tonificazione, allungamento e respirazione con l'obbiettivo di migliorare la postura, aumentare la mobilità articolare e ridurre tensioni muscolari . Ideale per chi vuole ritrovare equilibrio , benessere e una corretta consapevolezza del proprio corpo ,",
+      "Il Fit Postural è un corso che unisce esercizi di tonificazione, allungamento e respirazione con l'obbiettivo di migliorare la postura, aumentare la mobilità articolare e ridurre tensioni muscolari.",
     schedule: [
       { days: "Martedì e Giovedì", time: "10:15 – 11:15" },
       { days: "Martedì e Giovedì", time: "16:30 – 17:30" },
@@ -151,10 +150,7 @@ const CLASSES: ClassItem[] = [
       { days: "Martedì e Giovedì", time: "18:40 – 19:40" },
     ],
     info: [
-      "Livello: Tutti",
-      "Mobilità, postura, core e respirazione",
       "Durata lezione: 60 minuti",
-      "Ottimo anche come prevenzione infortuni",
     ],
   },
   {
@@ -162,13 +158,12 @@ const CLASSES: ClassItem[] = [
     title: "BUDO TAIJUTSU",
     imageSrc: "/budo.jpg",
     description:
-      "Il Budo è l’insieme delle arti marziali tradizionali giapponesi, nate come disciplina dei samurai. Oltre alla pratica tecnica di combattimento, il Budo pone al centro valori come rispetto, autocontrollo, armonia tra corpo e mente e crescita personale. Non è solo difesa o attacco, ma un vero percorso di formazione fisica, mentale e spirituale.",
+      "Il Budo è l’insieme delle arti marziali tradizionali giapponesi, nate come disciplina dei samurai. Non è solo difesa o attacco, ma un vero percorso di formazione fisica, mentale e spirituale.",
     schedule: [{ days: "Martedì e Giovedì", time: "20:00 – 21:30" }],
     info: [
       "Livello: Principiante – Intermedio – Avanzato",
       "Tecniche tradizionali + lavoro su equilibrio e coordinazione",
       "Durata lezione: 60 minuti",
-      "Approccio tecnico e progressivo",
     ],
   },
   {
@@ -185,7 +180,6 @@ const CLASSES: ClassItem[] = [
       "Livello: Tutti",
       "Cardio + tonificazione",
       "Durata lezione: 60 minuti",
-      "Alta energia e zero noia",
     ],
   },
   {
@@ -193,7 +187,7 @@ const CLASSES: ClassItem[] = [
     title: "MUAY THAY",
     imageSrc: "/moutai.jpg",
     description:
-      "Allenamenti dinamici e coinvolgenti per migliorare forza, resistenza e coordinazione. Il corso di Muay Thai è adatto a tutti i livelli e combina tecnica, disciplina e allenamento funzionale, aiutando a sviluppare sicurezza, controllo del corpo e benessere fisico in un ambiente motivante e professionale.",
+      "Il corso di Muay Thai è adatto a tutti i livelli e combina tecnica, disciplina e allenamento funzionale, aiutando a sviluppare sicurezza, controllo del corpo e benessere fisico in un ambiente motivante e professionale.",
     schedule: [
       { days: "Lunedì e Mercoledì", time: "20:00 – 21:00" },
       { days: "Martedì e Giovedì", time: "20:30 – 21:30" }],
@@ -201,7 +195,6 @@ const CLASSES: ClassItem[] = [
       "Livello: Intermedio – Avanzato",
       "Forza, resistenza e coordinazione",
       "Durata lezione: 60 minuti",
-      "Allenamento ad alta intensità",
     ],
   },
   {
@@ -209,7 +202,7 @@ const CLASSES: ClassItem[] = [
     title: "FUNNY FIT",
     imageSrc: "/funnyfit.jpg",
     description:
-      "Funny Fit è un corso dinamico e coinvolgente che unisce cardio e tonificazione in un allenamento divertente e completo. Attraverso l’utilizzo di piccoli attrezzi come step, fitball, trampolino e pesetti, migliora resistenza, coordinazione e forza muscolare, rendendo ogni lezione varia, efficace e stimolante. Perfetto per chi vuole allenarsi con energia e buonumore!",
+      "Attraverso l’utilizzo di piccoli attrezzi come step, fitball, trampolino e pesetti, migliora resistenza, coordinazione e forza muscolare, rendendo ogni lezione varia, efficace e stimolante. Perfetto per chi vuole allenarsi con energia e buonumore!",
     schedule: [
       { days: "Lunedì, Mercoledì e Venerdì", time: "19:00 – 20:00" },
     ],
@@ -217,7 +210,6 @@ const CLASSES: ClassItem[] = [
       "Livello: Tutti",
       "Functional + circuito",
       "Durata lezione: 60 minuti",
-      "Perfetto per ripartire e divertirsi",
     ],
   },
   {
@@ -225,7 +217,7 @@ const CLASSES: ClassItem[] = [
     title: "CORSO PERSONAL",
     imageSrc: "/personal.png",
     description:
-      "Personal Interval Training (P.I.T.) È un allenamento ad alta intensità che combina esercizi funzionali, forza e cardio. Alternando fasi di lavoro intenso a momenti di recupero attivo, migliora resistenza, tono muscolare e capacità cardiovascolare. Dinamico, coinvolgente e personalizzabile, il P.I.T. è ideale per chi vuole risultati concreti in tempi ridotti, aumentando energia, forza e concentrazione seguito da un personal trainer su prenotazione",
+      "Personal Interval Training (P.I.T.) È un allenamento ad alta intensità che combina esercizi funzionali, forza e cardio. Dinamico, coinvolgente e personalizzabile, il P.I.T. è ideale per chi vuole risultati concreti in tempi ridotti, aumentando energia, forza e concentrazione seguito da un personal trainer su prenotazione",
     schedule: [
       { days: "Lunedì e Venerdì", time: "Orario Variabile" },
     ],
@@ -251,13 +243,12 @@ const CLASSES: ClassItem[] = [
     title: "CIRCUIT TRAINING",
     imageSrc: "/",
     description:
-      "Il Circuit Training (allenamento a circuito) è una metodologia che prevede l'esecuzione di esercizi consecutivi senza pause, o con recuperi minimi. Il corso alterna stazioni cardio a esercizi di potenziamento muscolare utilizzando piccoli attrezzi e il peso corporeo.",
+      "Il Circuit Training è una metodologia che prevede l'esecuzione di esercizi consecutivi senza pause, o con recuperi minimi. Il corso alterna stazioni cardio a esercizi di potenziamento muscolare utilizzando piccoli attrezzi e il peso corporeo.",
     schedule: [
       { days: "Lunedì, Mercoledì e Venerdì", time: "18:00 - 19:00" },
       { days: "Lunedì, Mercoledì e Venerdì", time: "19:00 - 20:00" },
     ],
     info: [
-      "Benefici: Miglioramento della capacità cardiovascolare e della definizione muscolare.",
       "Livello: Adatto a tutti i livelli di fitness, grazie alla possibilità di scalare l'intensità degli esercizi."
     ],
   },
@@ -266,7 +257,7 @@ const CLASSES: ClassItem[] = [
     title: "FUNCTIONAL TRAINING",
     imageSrc: "/",
     description:
-      "Functional Training: Allena il tuo corpo a 360° Dimentica le solite macchine isotoniche: nel Functional Training il protagonista sei tu. Attraverso movimenti naturali come spingere, tirare, sollevare e saltare, allenerai il corpo nel suo insieme, migliorando forza, coordinazione e agilità. Grazie all'uso di kettlebell, palle mediche e corpo libero, ogni lezione è una sfida diversa che ti permetterà di bruciare grassi e definire i muscoli in modo armonico. Preparati a diventare più forte, più veloce e più resistente!",
+      "Grazie all'uso di kettlebell, palle mediche e corpo libero, ogni lezione è una sfida diversa che ti permetterà di bruciare grassi e definire i muscoli in modo armonico. Preparati a diventare più forte, più veloce e più resistente!",
     schedule: [
       { days: "Lunedì, Mercoledì e Venerdì", time: "9:15 - 10:15" },
       { days: "Lunedì, Mercoledì e Venerdì", time: "20:30 - 21:30" },
@@ -280,7 +271,7 @@ const CLASSES: ClassItem[] = [
     title: "RISVEGLIO METABOLICO",
     imageSrc: "/",
     description:
-      "Il corso Risveglio Metabolico è pensato per riattivare il corpo in modo progressivo ed efficace, stimolando il metabolismo e migliorando il benessere generale. Attraverso esercizi funzionali a corpo libero, mobilità articolare e lavoro cardiovascolare a bassa–media intensità, aiuta a bruciare calorie, aumentare l’energia e migliorare la postura. È ideale per chi vuole rimettersi in movimento, combattere la sedentarietà e iniziare la giornata (o l’allenamento) con più vitalità, senza stressare articolazioni e muscoli. Un allenamento completo, accessibile a tutti, che rimette in moto corpo e mente.",
+      "Il corso Risveglio Metabolico è pensato per riattivare il corpo in modo progressivo ed efficace, stimolando il metabolismo e migliorando il benessere generale. Attraverso esercizi funzionali a corpo libero, mobilità articolare e lavoro cardiovascolare a bassa–media intensità, aiuta a bruciare calorie, aumentare l’energia e migliorare la postura.",
     schedule: [
       { days: "Martedì e Giovedì", time: "9:00 - 10:00" },
     ],
