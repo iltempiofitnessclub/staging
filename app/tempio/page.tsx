@@ -434,6 +434,10 @@ function ClassModal({ selectedClass, onClose }: { selectedClass: ClassItem; onCl
     const root = document.documentElement;
     const whatsappBtn = document.querySelector('.floating-whatsapp-btn-tempio');
     
+    // Calcola la larghezza della scrollbar
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    root.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+    
     root.classList.add("tempio-modal-open");
     if (whatsappBtn) {
       (whatsappBtn as HTMLElement).style.display = 'none';
@@ -441,6 +445,7 @@ function ClassModal({ selectedClass, onClose }: { selectedClass: ClassItem; onCl
     
     return () => {
       root.classList.remove("tempio-modal-open");
+      root.style.removeProperty('--scrollbar-width');
       if (whatsappBtn) {
         (whatsappBtn as HTMLElement).style.display = '';
       }
@@ -653,19 +658,19 @@ export function EventsAndMapSection() {
   const events = [
     {
       id: 1,
+      title: "Siamo online!",
+      description:
+        "Il nostro sito web ufficiale è finalmente online",
+      date: "1 Marzo 2026",
+      label: "Evento",
+      imageSrc: "/hero-tempio_old.jpg",
+    },
+    {
+      id: 2,
       title: "Open Day Il Tempio",
       date: "15 Marzo 2026",
       label: "Evento",
       imageSrc: "/event-1.jpg",
-    },
-    {
-      id: 2,
-      title: "Siamo online!",
-       description:
-        "Il nostro sito web ufficiale è finalmente online",
-      date: "15 Marzo 2026",
-      label: "Evento",
-      imageSrc: "/hero-tempio_old.jpg",
     },
   ];
 

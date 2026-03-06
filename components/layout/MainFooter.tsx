@@ -94,6 +94,21 @@ export function MainFooter({
           </div>
         </div>
       </div>
+
+      <div className="main-footer-bottom">
+        <p className="main-footer-credit">
+          Sito realizzato da{" "}
+          <a
+            href="https://webteamsolutions.it"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="main-footer-credit-link"
+          >
+            WebTeam Solutions
+          </a>
+          {" "}- <a href="mailto:webteamsolutionswork@gmail.com" className="main-footer-credit-link">webteamsolutionswork@gmail.com</a>
+        </p>
+      </div>
     </footer>
   );
 }

@@ -96,3 +96,25 @@
 .main-footer-legal-list a:hover {
   color: #ffd52e; 
 }
+
+.main-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 24px;
+  text-align: center;
+}
+
+.main-footer-credit {
+  font-size: 0.85rem;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.main-footer-credit-link {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.main-footer-credit-link:hover {
+  opacity: 0.8;
+}

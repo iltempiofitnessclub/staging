@@ -1126,7 +1126,11 @@
 .doghouse-card-clickable { cursor: pointer; }
 .doghouse-card-clickable:active { transform: translateY(1px); }
 
-html.doghouse-modal-open,
+html.doghouse-modal-open {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width, 0);
+}
+
 html.doghouse-modal-open body {
   overflow: hidden;
 }

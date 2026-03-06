@@ -1207,7 +1207,11 @@
   }
 }
 
-html.tempio-modal-open,
+html.tempio-modal-open {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width, 0);
+}
+
 html.tempio-modal-open body {
   overflow: hidden;
 }

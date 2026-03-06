@@ -490,6 +490,10 @@ function CourseModal({ selectedCourse, onClose }: { selectedCourse: Course; onCl
     const root = document.documentElement;
     const whatsappBtn = document.querySelector('.floating-whatsapp-btn-doghouse');
     
+    // Calcola la larghezza della scrollbar
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    root.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+    
     root.classList.add("doghouse-modal-open");
     if (whatsappBtn) {
       (whatsappBtn as HTMLElement).style.display = 'none';
@@ -497,6 +501,7 @@ function CourseModal({ selectedCourse, onClose }: { selectedCourse: Course; onCl
     
     return () => {
       root.classList.remove("doghouse-modal-open");
+      root.style.removeProperty('--scrollbar-width');
       if (whatsappBtn) {
         (whatsappBtn as HTMLElement).style.display = '';
       }
