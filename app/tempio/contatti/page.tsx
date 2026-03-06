@@ -27,7 +27,7 @@ const CLASSES: ClassItem[] = [
   { id: 2, title: "Fit postural" },
   { id: 3, title: "Budo Taijutsu" },
   { id: 4, title: "Music fit" },
-  { id: 5, title: "Moutai" },
+  { id: 5, title: "Muay Thai" },
   { id: 6, title: "Funny fit" },
 ];
 
