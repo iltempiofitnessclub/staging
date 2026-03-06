@@ -112,7 +112,7 @@ export default function Home() {
           tabIndex={0}
         >
           <div className="landing-overlay" />
-          <h2>DOG HOUSE</h2>
+          <h2>DOGHOUSE BOXING</h2>
 
           <p className="landing-description">
             Con la giusta disciplina, la boxe diventa per tutti. 

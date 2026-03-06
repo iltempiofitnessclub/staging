@@ -188,7 +188,7 @@ const CLASSES: ClassItem[] = [
   },
   {
     id: 5,
-    title: "MUAY THAY",
+    title: "MUAY THAI",
     imageSrc: "/moutai.jpg",
     description:
       "Il corso di Muay Thai è adatto a tutti i livelli e combina tecnica, disciplina e allenamento funzionale, aiutando a sviluppare sicurezza, controllo del corpo e benessere fisico in un ambiente motivante e professionale.",
@@ -245,7 +245,7 @@ const CLASSES: ClassItem[] = [
   {
     id: 9,
     title: "CIRCUIT TRAINING",
-    imageSrc: "/",
+    imageSrc: "/circuit.jpg",
     description:
       "Il Circuit Training è una metodologia che prevede l'esecuzione di esercizi consecutivi senza pause, o con recuperi minimi. Il corso alterna stazioni cardio a esercizi di potenziamento muscolare utilizzando piccoli attrezzi e il peso corporeo.",
     schedule: [
@@ -259,7 +259,7 @@ const CLASSES: ClassItem[] = [
   {
     id: 10,
     title: "FUNCTIONAL TRAINING",
-    imageSrc: "/",
+    imageSrc: "/functional.jpg",
     description:
       "Grazie all'uso di kettlebell, palle mediche e corpo libero, ogni lezione è una sfida diversa che ti permetterà di bruciare grassi e definire i muscoli in modo armonico. Preparati a diventare più forte, più veloce e più resistente!",
     schedule: [
@@ -273,7 +273,7 @@ const CLASSES: ClassItem[] = [
   {
     id: 11,
     title: "RISVEGLIO METABOLICO",
-    imageSrc: "/",
+    imageSrc: "/risveglio.jpg",
     description:
       "Il corso Risveglio Metabolico è pensato per riattivare il corpo in modo progressivo ed efficace, stimolando il metabolismo e migliorando il benessere generale. Attraverso esercizi funzionali a corpo libero, mobilità articolare e lavoro cardiovascolare a bassa–media intensità, aiuta a bruciare calorie, aumentare l’energia e migliorare la postura.",
     schedule: [
@@ -286,7 +286,7 @@ const CLASSES: ClassItem[] = [
   {
     id: 12,
     title: "PILOGA",
-    imageSrc: "/",
+    imageSrc: "/piloga.jpg",
     description:
       "Piloga unisce i benefici del Pilates e dello Yoga in un allenamento equilibrato e completo. Migliora postura, flessibilità e forza profonda, aiutando a ridurre stress e tensioni. Ideale per ritrovare benessere fisico e mentale in modo dolce ma efficace.",
     schedule: [
@@ -665,7 +665,7 @@ export function EventsAndMapSection() {
         "Il nostro sito web ufficiale è finalmente online",
       date: "15 Marzo 2026",
       label: "Evento",
-      imageSrc: "/event-1.jpg",
+      imageSrc: "/hero-tempio_old.jpg",
     },
   ];
 
