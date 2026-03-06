@@ -1,3 +1,59 @@
 [build]
   command = "npm run build"
   publish = "out"
+
+# Cache per asset statici (immagini, font, ecc.)
+[[headers]]
+  for = "/public/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache per immagini
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache per CSS e JS
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache per font
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML pages - cache breve per aggiornamenti rapidi
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+# Preload risorse critiche
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Link = '''
+      </doghouse-logo.png>; rel=preload; as=image,
+      </tempio-logo.png>; rel=preload; as=image,
+      </hero-doghouse.jpg>; rel=preload; as=image,
+      </hero-tempio.jpg>; rel=preload; as=image
+    '''
