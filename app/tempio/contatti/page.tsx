@@ -29,6 +29,12 @@ const CLASSES: ClassItem[] = [
   { id: 4, title: "Music fit" },
   { id: 5, title: "Muay Thai" },
   { id: 6, title: "Funny fit" },
+  { id: 7, title: "Corso Personal" },
+  { id: 8, title: "Corso Fit and Dance" },
+  { id: 9, title: "Circuit Training" },
+  { id: 10, title: "Functional Training" },
+  { id: 11, title: "Risveglio Metabolico" },
+  { id: 12, title: "Piloga" },
 ];
 
 function TempioContactPageInner() {
