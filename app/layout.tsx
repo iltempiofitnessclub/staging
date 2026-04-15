@@ -29,6 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <GoogleAnalytics />
+        <script type="text/javascript" src="https://embeds.iubenda.com/widgets/93e12e74-58b1-4f7c-9213-f6fd0db168f5.js"></script>
         {children}
       </body>
     </html>
