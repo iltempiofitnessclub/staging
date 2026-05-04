@@ -8,6 +8,20 @@ body {
   padding: 0;
 }
 
+.iubenda-tp-btn.iubenda-cs-preferences-link {
+  left: 45px !important;
+  right: auto !important;
+  bottom: 22px !important;
+}
+
+@media (max-width: 600px) {
+  .iubenda-tp-btn.iubenda-cs-preferences-link {
+    left: 16px !important;
+    right: auto !important;
+    bottom: 16px !important;
+  }
+}
+
 /* Fix per landing page - blocca scroll */
 html:has(.landing-home),
 body:has(.landing-home) {
